@@ -38,37 +38,32 @@ for i in range(len(dhi_features)):
     else:
         all_dbsi = np.concatenate((all_dbsi, temp), axis=1)
 
+## Cross validation
 
-## Support Vector Machine
-# Splitting Data
+from sklearn.model_selection import LeaveOneOut
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score
 
-from sklearn.model_selection import train_test_split
+X = all_dbsi
+y = all_ids
 
-X_train, X_test, y_train, y_test = train_test_split(all_dbsi, all_ids, test_size=0.3,random_state=100) # 70% training and 30% test
+cv = LeaveOneOut()
 
-# Cross Validation
+y_true, y_pred = list(), list()
+for train_ix, test_ix in cv.split(X):
+    # split data
+    X_train, X_test = X[train_ix, :], X[test_ix, :]
+    y_train, y_test = y[train_ix], y[test_ix]
+    # fit model
+    model = SVC(kernel="linear")
+    model.fit(X_train, y_train)
+    # evaluate model
+    yhat = model.predict(X_test)
+    # store
+    y_true.append(y_test[0])
+    y_pred.append(yhat[0])
 
-# Generating model
+# calculate accuracy
+acc = accuracy_score(y_true, y_pred)
+print('Accuracy: %.3f' % acc)
 
-from sklearn import svm
-
-kernel = "linear"
-clf = svm.SVC(kernel=kernel) # Linear Kernel
-
-#Train the model using the training sets
-clf.fit(X_train, y_train)
-
-#Predict the response for test dataset
-y_pred = clf.predict(X_test)
-
-#Import scikit-learn metrics module for accuracy calculation
-from sklearn import metrics
-
-# Model Accuracy: how often is the classifier correct?
-print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
-
-# Model Precision: what percentage of positive tuples are labeled as such?
-print("Precision:",metrics.precision_score(y_test, y_pred))
-
-# Model Recall: what percentage of positive tuples are labelled as such?
-print("Recall:",metrics.recall_score(y_test, y_pred))

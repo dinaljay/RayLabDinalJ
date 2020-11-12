@@ -3,7 +3,8 @@
 
 import numpy as np
 import os.path as path
-import matplotlib.pyplot as plti
+import sys
+import matplotlib.pyplot as plt
 
 dhi_features = ["b0_map","dti_adc_map","dti_axial_map","dti_fa_map","fiber1_axial_map","fiber1_fa_map",\
     "fiber1_radial_map","fiber_fraction_map","hindered_fraction_map","restricted_fraction_map","water_fraction_map"]
@@ -38,6 +39,8 @@ for i in range(len(dhi_features)):
     else:
         all_dbsi = np.concatenate((all_dbsi, temp), axis=1)
 
+
+sys.exit()
 ## Grid Search
 
 from sklearn.model_selection import train_test_split
