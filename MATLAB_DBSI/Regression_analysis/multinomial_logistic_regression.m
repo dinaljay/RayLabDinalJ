@@ -1,4 +1,4 @@
-% This script does a linear regression using each DBSI feature to predict
+% This script does a multinomial logistic regression using each DBSI feature to predict
 % for patient group
 
 close all;
@@ -22,8 +22,6 @@ slices = (1:1:4);
 
 dhi_features = ["b0_map";"dti_adc_map";"dti_axial_map";"dti_fa_map";"fiber1_axial_map";"fiber1_fa_map";...
     "fiber1_radial_map";"fiber_fraction_map";"hindered_fraction_map";"restricted_fraction_map";"water_fraction_map"];
-
-
 
 %% Create variable stores
 %B0 Map
@@ -82,24 +80,139 @@ load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Control/control
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/CSM/csm_water_fraction_map_data.mat');
 water_fraction = [cell2mat(data_control);cell2mat(data_csm)];
 
-%% Linear regression
+%Axon volume
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Control/control_axon_volume_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/CSM/csm_axon_volume_data.mat');
+axon_volumes = [cell2mat(control_axon_volume);cell2mat(csm_axon_volume)];
 
-control_group = zeros(numel(controls),1);
-csm_group = ones(numel(cm_subjects),1);
+%Inflammation volume
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Control/control_inflammation_volume_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/CSM/csm_inflammation_volume_data.mat');
+inflammation_volumes = [cell2mat(control_inflammation_volume);cell2mat(csm_inflammation_volume)];
+
+%% Logistic regression
+
+control_group = categorical(zeros(numel(controls),1));
+csm_group = categorical(ones(numel(cm_subjects),1));
 all_group_ids = [control_group;csm_group];
 
+% DTI_ADC Map
 for i = 1:numel(slices)
+    [B,dev,stats] = mnrfit(dti_adc(:,i),all_group_ids);
     
-    tbl=table(all_group_ids,dti_adc(:,i),dti_axial(:,i),dti_fa(:,i),fiber_axial(:,i),fiber_fa(:,i),fiber_radial(:,i),...
-        fiber_fraction(:,i),hindered_fraction(:,i),restricted_fraction(:,i),water_fraction(:,i),'VariableNames',{'Group','DTI_ADC','DTI_Axial',...
-        'DTI_FA','Fiber_Axial','Fiber_FA','Fiber_Radial','Fiber_Fraction','Hindered_Fraction','Restricted_Fraction','Water_Fraction'});
-    
-    X=fitlm(tbl,'Group~DTI_ADC+DTI_Axial+DTI_FA+Fiber_Axial+Fiber_FA+Fiber_Radial+Fiber_Fraction+Hindered_Fraction+Restricted_Fraction+Water_Fraction');
-
-    for j = 1:(size(X.Coefficients)-1)
-        csm_b_val(i,j) = X.Coefficients.Estimate(j+1);  % B Value
-        csm_p_val(i,j) = X.Coefficients.pValue(j+1);  % p Value
-        csm_se_val(i,j) = X.Coefficients.SE(j+1);  %S E Value
-    end
+    csm_tstat_val(i,1) = stats.t(2,1);  % tstat Value
+    csm_p_val(i,1) = stats.p(2,1);  % p Value
+    csm_se_val(i,1) = stats.se(2,1);  %S E Value
     
 end
+
+% DTI Axial Map
+for i = 1:numel(slices)
+    [B,dev,stats] = mnrfit(dti_axial(:,i),all_group_ids);
+    
+    csm_tstat_val(i,2) = stats.t(2,1);  % tstat Value
+    csm_p_val(i,2) = stats.p(2,1);  % p Value
+    csm_se_val(i,2) = stats.se(2,1);  %S E Value
+    
+end
+
+% DTI FA Map
+for i = 1:numel(slices)
+    [B,dev,stats] = mnrfit(dti_fa(:,i),all_group_ids);
+    
+    csm_tstat_val(i,3) = stats.t(2,1);  % tstat Value
+    csm_p_val(i,3) = stats.p(2,1);  % p Value
+    csm_se_val(i,3) = stats.se(2,1);  %S E Value
+    
+end
+
+% Fiber Axial Map
+for i = 1:numel(slices)
+    [B,dev,stats] = mnrfit(fiber_axial(:,i),all_group_ids);
+    
+    csm_tstat_val(i,4) = stats.t(2,1);  % tstat Value
+    csm_p_val(i,4) = stats.p(2,1);  % p Value
+    csm_se_val(i,4) = stats.se(2,1);  %S E Value
+    
+end
+
+% Fiber FA Map
+for i = 1:numel(slices)
+    [B,dev,stats] = mnrfit(fiber_fa(:,i),all_group_ids);
+    
+    csm_tstat_val(i,5) = stats.t(2,1);  % tstat Value
+    csm_p_val(i,5) = stats.p(2,1);  % p Value
+    csm_se_val(i,5) = stats.se(2,1);  %S E Value
+    
+end
+
+% Fiber Radial Map
+for i = 1:numel(slices)
+    [B,dev,stats] = mnrfit(fiber_radial(:,i),all_group_ids);
+    
+    csm_tstat_val(i,6) = stats.t(2,1);  % tstat Value
+    csm_p_val(i,6) = stats.p(2,1);  % p Value
+    csm_se_val(i,6) = stats.se(2,1);  %S E Value
+    
+end
+
+% Fiber Fraction Map
+for i = 1:numel(slices)
+    [B,dev,stats] = mnrfit(fiber_fraction(:,i),all_group_ids);
+    
+    csm_tstat_val(i,7) = stats.t(2,1);  % tstat Value
+    csm_p_val(i,7) = stats.p(2,1);  % p Value
+    csm_se_val(i,7) = stats.se(2,1);  %S E Value
+    
+end
+
+% Hindered Fraction Map
+for i = 1:numel(slices)
+    [B,dev,stats] = mnrfit(hindered_fraction(:,i),all_group_ids);
+    
+    csm_tstat_val(i,8) = stats.t(2,1);  % tstat Value
+    csm_p_val(i,8) = stats.p(2,1);  % p Value
+    csm_se_val(i,8) = stats.se(2,1);  %S E Value
+    
+end
+
+% Restricted Fraction Map
+for i = 1:numel(slices)
+    [B,dev,stats] = mnrfit(restricted_fraction(:,i),all_group_ids);
+    
+    csm_tstat_val(i,9) = stats.t(2,1);  % tstat Value
+    csm_p_val(i,9) = stats.p(2,1);  % p Value
+    csm_se_val(i,9) = stats.se(2,1);  %S E Value
+    
+end
+
+% Water Fraction Map
+for i = 1:numel(slices)
+    [B,dev,stats] = mnrfit(water_fraction(:,i),all_group_ids);
+    
+    csm_tstat_val(i,10) = stats.t(2,1);  % tstat Value
+    csm_p_val(i,10) = stats.p(2,1);  % p Value
+    csm_se_val(i,10) = stats.se(2,1);  %S E Value
+    
+end
+
+% Axon Volume
+for i = 1:numel(slices)
+    [B,dev,stats] = mnrfit(axon_volumes(:,i),all_group_ids);
+    
+    csm_tstat_val(i,11) = stats.t(2,1);  % tstat Value
+    csm_p_val(i,11) = stats.p(2,1);  % p Value
+    csm_se_val(i,11) = stats.se(2,1);  %S E Value
+    
+end
+
+% Inflammation volume
+for i = 1:numel(slices)
+    [B,dev,stats] = mnrfit(inflammation_volumes(:,i),all_group_ids);
+    
+    csm_tstat_val(i,12) = stats.t(2,1);  % tstat Value
+    csm_p_val(i,12) = stats.p(2,1);  % p Value
+    csm_se_val(i,12) = stats.se(2,1);  %S E Value
+    
+end
+

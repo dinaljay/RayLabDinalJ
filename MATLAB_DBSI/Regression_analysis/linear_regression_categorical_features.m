@@ -1,4 +1,4 @@
-% This script does a linear regression using each DBSI feature to predict
+% This script does a linear regression with a categorical features using each DBSI feature to predict
 % for patient group
 
 close all;
@@ -23,9 +23,12 @@ slices = (1:1:4);
 dhi_features = ["b0_map";"dti_adc_map";"dti_axial_map";"dti_fa_map";"fiber1_axial_map";"fiber1_fa_map";...
     "fiber1_radial_map";"fiber_fraction_map";"hindered_fraction_map";"restricted_fraction_map";"water_fraction_map"];
 
-
-
 %% Create variable stores
+%B0 Map
+
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Control/control_b0_map_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/CSM/csm_b0_map_data.mat');
+b0 = [cell2mat(data_control);cell2mat(data_csm)];
 
 % DTI_ADC Map
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Control/control_dti_adc_map_data.mat');
@@ -85,16 +88,13 @@ all_group_ids = [control_group;csm_group];
 
 for i = 1:numel(slices)
     
-    tbl=table(all_group_ids,dti_adc,dti_axial,dti_fa,fiber_axial,fiber_fa,fiber_radial,...
-        fiber_fraction,hindered_fraction,restricted_fraction,water_fraction,'VariableNames','VariableNames',{'Group','DTI_ADC','DTI_Axial',...
+    tbl=table(all_group_ids,dti_adc(:,i),dti_axial(:,i),dti_fa(:,i),fiber_axial(:,i),fiber_fa(:,i),fiber_radial(:,i),...
+        fiber_fraction(:,i),hindered_fraction(:,i),restricted_fraction(:,i),water_fraction(:,i),'VariableNames',{'Group','DTI_ADC','DTI_Axial',...
         'DTI_FA','Fiber_Axial','Fiber_FA','Fiber_Radial','Fiber_Fraction','Hindered_Fraction','Restricted_Fraction','Water_Fraction'});
     
-    X=fitlm(tbl,'Group~DTI_ADC+DTI_Axial+DTI_FA+Fiber_Axial+Fiber_FA+Fiber_Radial+Fiber_Fraction+Hindered_Fraction+Restricted_Fraction+Water_Fraction');
-
-    tbl=table(all_group_ids,dti_adc(:,i),'VariableNames',{'Group','DTI_ADC'});
+    tbl.Group = categorical(tbl.Group);
     
-    X=fitlm(tbl,'Group~DTI_ADC');
-
+    X=fitlm(tbl,'Group~DTI_ADC+DTI_Axial+DTI_FA+Fiber_Axial+Fiber_FA+Fiber_Radial+Fiber_Fraction+Hindered_Fraction+Restricted_Fraction+Water_Fraction');
 
     for j = 1:(size(X.Coefficients)-1)
         csm_b_val(i,j) = X.Coefficients.Estimate(j+1);  % B Value
