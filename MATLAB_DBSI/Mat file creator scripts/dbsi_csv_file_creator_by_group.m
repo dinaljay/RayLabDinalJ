@@ -1,5 +1,6 @@
 % This script loads the ROI files for each slice for each patient and then
-% extracts the relevant DBSI parameters and saves it as a mat file
+% extracts the relevant DBSI parameters and saves it as a csv file for each
+% patient group
 
 clear all;
 close all;
@@ -98,8 +99,8 @@ for i = 1:numel(dhi_features)
             disp(num2str(subjectID));
             
             param_file = strcat(dhi_features(i),'.nii');
-            mask_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3',param_file);
-            dwi_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3/roi.nii.gz');
+            mask_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3/roi.nii.gz');
+            dwi_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3',param_file);
             
             mask = niftiread(mask_file);
             dwi_data = niftiread(dwi_file);
@@ -142,8 +143,8 @@ for i = 1:numel(dhi_features)
             disp(num2str(slice_num));
             
             param_file = strcat(dhi_features(i),'.nii');
-            mask_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3',param_file);
-            dwi_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3/roi.nii.gz');
+            mask_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3/roi.nii.gz');
+            dwi_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3',param_file);
             
             mask = niftiread(mask_file);
             dwi_data = niftiread(dwi_file);
@@ -177,8 +178,8 @@ for i = 1:numel(dhi_features)
             disp(num2str(slice_num));
             
             param_file = strcat(dhi_features(i),'.nii');
-            mask_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3',param_file);
-            dwi_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3/roi.nii.gz');
+            mask_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3/roi.nii.gz');
+            dwi_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3',param_file);
             
             mask = niftiread(mask_file);
             dwi_data = niftiread(dwi_file);

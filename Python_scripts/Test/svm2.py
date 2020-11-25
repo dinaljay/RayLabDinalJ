@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import sys
 #%matplotlib inline
 
 url = "https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"
@@ -11,8 +12,17 @@ colnames = ['sepal-length', 'sepal-width', 'petal-length', 'petal-width', 'Class
 # Read dataset to pandas dataframe
 irisdata = pd.read_csv(url, names=colnames)
 
+#print(irisdata)
+
 X = irisdata.drop('Class', axis=1)
 y = irisdata['Class']
+
+
+#print(X)
+#print("target variable types is", type(y))
+print(y)
+
+sys.exit()
 
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20)

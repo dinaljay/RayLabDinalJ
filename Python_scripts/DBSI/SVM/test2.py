@@ -39,37 +39,30 @@ for i in range(len(dhi_features)):
     else:
         all_dbsi = np.concatenate((all_dbsi, temp), axis=1)
 
+## Recursive Feature Elimination
 
-## Support Vector Machine
-# Splitting Data
+from sklearn.feature_selection import RFECV
+from sklearn.svm import SVR
+from sklearn.svm import SVC
 
-from sklearn.model_selection import train_test_split
+X = all_dbsi
+y = all_ids
 
-X_train, X_test, y_train, y_test = train_test_split(all_dbsi, all_ids, test_size=0.3,random_state=100) # 70% training and 30% test
+#estimator = SVR(kernel="linear")
+svc = SVC(kernel="rbf",C=1,gamma="auto")
+selector = RFECV(estimator=svc, step=1, cv=4)
+#final = selector.fit(X, y)
 
-# Cross Validation
+#print("Optimal number of features : %d" % selector.n_features_)
 
-# Generating model
+# Plot number of features VS. cross-validation scores
+plt.figure()
+plt.xlabel("Number of features selected")
+plt.ylabel("Cross validation score (nb of correct classifications)")
+plt.plot(range(1, len(selector.grid_scores_) + 1), selector.grid_scores_)
+plt.show()
 
-from sklearn import svm
+#print(final.support_)
+#print("\n")
+#print(final.ranking_)
 
-kernel = "linear"
-clf = svm.SVC(kernel=kernel) # Linear Kernel
-
-#Train the model using the training sets
-clf.fit(X_train, y_train)
-
-#Predict the response for test dataset
-y_pred = clf.predict(X_test)
-
-#Import scikit-learn metrics module for accuracy calculation
-from sklearn import metrics
-
-# Model Accuracy: how often is the classifier correct?
-print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
-
-# Model Precision: what percentage of positive tuples are labeled as such?
-print("Precision:",metrics.precision_score(y_test, y_pred))
-
-# Model Recall: what percentage of positive tuples are labelled as such?
-print("Recall:",metrics.recall_score(y_test, y_pred))

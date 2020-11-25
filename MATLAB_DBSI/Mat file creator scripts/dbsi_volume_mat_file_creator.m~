@@ -59,19 +59,19 @@ csm_volumes = cell2mat(csm_volumes);
 
 % Fiber Fraction Map
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Control/control_fiber_fraction_map_data.mat');
-control_fiber_fraction = cell2mat(data_control);
+control_fiber_fraction = cell2mat(data_control(2:end,:));
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/CSM/csm_fiber_fraction_map_data.mat');
 csm_fiber_fraction = cell2mat(data_csm);
 
 % Hindered Fraction Map
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Control/control_hindered_fraction_map_data.mat');
-control_hindered = cell2mat(data_control);
+control_hindered = cell2mat(data_control(2:end,:));
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/CSM/csm_hindered_fraction_map_data.mat');
 csm_hindered = cell2mat(data_csm);
 
 % Restricted Fraction Map
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Control/control_restricted_fraction_map_data.mat');
-control_restricted = cell2mat(data_control);
+control_restricted = cell2mat(data_control(2:end,:));
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/CSM/csm_restricted_fraction_map_data.mat');
 csm_restricted = cell2mat(data_csm);
 
@@ -84,8 +84,15 @@ csm_inflammation = csm_hindered + csm_restricted;
 
 for i = 1:numel(controls)
     for j = 1:numel(slices)
-        control_inflammation_volume(i,j) = control_volumes(i,j)*control_inflammation(i,j);
-        control_axon_volume(i,j) = control_volumes(i,j)*control_fiber_fraction(i,j);
+        
+        slice_num = strcat('slice_',num2str(slices(j)));
+        feature = strcat('inflammation_volume_',slice_num);
+        control_inflammation_volume{1,j} = feature;
+        feature = strcat('axon_volume_',slice_num);
+        control_inflammation_volume{1,j} = feature;
+        
+        control_inflammation_volume{i+1,j} = control_volumes(i,j)*control_inflammation(i,j);
+        control_axon_volume{i+1,j} = control_volumes(i,j)*control_fiber_fraction(i,j);
     end
 end
 
@@ -98,10 +105,10 @@ save(fullfile(out_dir_control,terminal),'controls','control_axon_volume');
 
 %CSM volume calculations
 
-for i = 1:numel(cm_sibjects)
+for i = 1:numel(cm_subjects)
     for j = 1:numel(slices)
-        csm_inflammation_volume(i,j) = csm_volumes(i,j)*csm_inflammation(i,j);
-        csm_axon_volume(i,j) = csm_volumes(i,j)*csm_fiber_fraction(i,j);
+        csm_inflammation_volume{i,j} = csm_volumes(i,j)*csm_inflammation(i,j);
+        csm_axon_volume{i,j} = csm_volumes(i,j)*csm_fiber_fraction(i,j);
     end
 end
 
@@ -134,11 +141,34 @@ writetable(table_out,fullfile(out_dir_control_csv,terminal2))
 %All Cervical Myelopathy Patients
 
 terminal2 = strcat('csm_inflammation_volume','_data.csv');
-table_out=cell2table(data_csm);
+table_out=cell2table(csm_inflammation_volume);
 table_out.Properties.VariableNames{1} = 'Slice_1';
 table_out.Properties.VariableNames{2} = 'Slice_2';
 table_out.Properties.VariableNames{3} = 'Slice_3';
 table_out.Properties.VariableNames{4} = 'Slice_4';
-
 writetable(table_out,fullfile(out_dir_csm_csv,terminal2));
 
+terminal2 = strcat('csm_axon_volume','_data.csv');
+table_out=cell2table(csm_axon_volume);
+table_out.Properties.VariableNames{1} = 'Slice_1';
+table_out.Properties.VariableNames{2} = 'Slice_2';
+table_out.Properties.VariableNames{3} = 'Slice_3';
+table_out.Properties.VariableNames{4} = 'Slice_4';
+writetable(table_out,fullfile(out_dir_csm_csv,terminal2));
+
+%% All patients
+out_dir_all = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/DBSI_CSV_Data/All_patients';
+
+group_id = cellstr(categorical(['Group';repmat({'Control'},numel(controls),1);repmat({'CSM'},numel(cm_subjects),1)]));
+
+all_data = [control_inflammation_volume;csm_inflammation_volume];
+terminal2 = strcat('all_inflammation_volume','_data.csv');
+table_out=cell2table((group_id,all_data));
+table_out.Properties.VariableNames{1} = 'Group';
+writetable(table_out,fullfile(out_dir_all,terminal2));
+
+all_data = [control_axon_volume;csm_axon_volume];
+terminal2 = strcat('all_axon_volume','_data.csv');
+table_out=cell2table((group_id,all_data));
+table_out.Properties.VariableNames{1} = 'Group';
+writetable(table_out,fullfile(out_dir_all,terminal2));

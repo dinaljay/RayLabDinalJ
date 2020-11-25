@@ -2,8 +2,9 @@ import os.path
 import pandas as pd
 import numpy as np
 
-dhi_features = ["b0_map","dti_adc_map","dti_axial_map","dti_fa_map","fiber1_axial_map","fiber1_fa_map",\
-    "fiber1_radial_map","fiber_fraction_map","hindered_fraction_map","restricted_fraction_map","water_fraction_map"]
+dhi_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "fiber1_axial_map", "fiber1_fa_map",
+    "fiber1_radial_map", "fiber_fraction_map", "hindered_fraction_map", "restricted_fraction_map",
+                "water_fraction_map", "axon_volume", "inflammation_volume"]
 
 file1 = "/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/Rachel/CM/csm_dti_adc_map_data.csv"
 csm_dti_adc = np.genfromtxt(file1,delimiter=",",skip_header=1)

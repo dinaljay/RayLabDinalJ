@@ -79,16 +79,16 @@ for j = 1:numel(slices)
         disp(num2str(subjectID));
         
         param_file =('dti_adc_map.nii');
-        mask_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3',param_file);
-        dwi_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3/roi.nii.gz');
+        mask_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3/roi.nii.gz');
+        dwi_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3',param_file);
         
         mask = niftiread(mask_file);
         dwi_data = niftiread(dwi_file);
         
         expert_rois = double(mask);
         dwi_data = double(dwi_data);
-        
-        data_csm{k,j} = length(dwi_data(expert_rois>0));
+        data = dwi_data(expert_rois>0);
+        data_csm{k,j} = length(data);
     end
     fprintf('\n')
 end
@@ -101,7 +101,7 @@ for i = 1:length(data_control)
         control_surface_area{i,j} = data_control{i,j}*voxel_surface_area;
     end
 end
-        
+
 terminal = strcat('control_volume','_data.mat');
 save(fullfile(out_dir_control,terminal),'controls','control_volumes');
 

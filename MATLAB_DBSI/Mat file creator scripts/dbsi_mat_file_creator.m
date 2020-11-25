@@ -13,9 +13,8 @@ csm_path = '/media/functionalspinelab/RAID/Data/Dinal/DBSI_Data/CSM_New/Patient'
 out_dir_control = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Control';
 out_dir_csm = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/CSM';
 
-out_dir_mild_csm = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Mild_CSM';
-out_dir_moderate_csm = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Moderate_CSM';
-
+% out_dir_mild_csm = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Mild_CSM';
+% out_dir_moderate_csm = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Moderate_CSM';
 
 %% Declare necessary variables
 
@@ -92,16 +91,16 @@ for i = 1:numel(dhi_features)
             disp(num2str(subjectID));
             
             param_file = strcat(dhi_features(i),'.nii');
-            mask_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3',param_file);
-            dwi_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3/roi.nii.gz');
+            mask_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3/roi.nii.gz');
+            dwi_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3',param_file);
             
             mask = niftiread(mask_file);
             dwi_data = niftiread(dwi_file);
             
             expert_rois = double(mask);
             dwi_data = double(dwi_data);
-            
-            data_csm{k,j} = mean(dwi_data(expert_rois>0));
+            data = dwi_data(expert_rois>0);
+            data_csm{k,j} = mean(data);
         end
         fprintf('\n')
     end
@@ -129,8 +128,8 @@ for i = 1:numel(dhi_features)
             disp(num2str(slice_num));
             
             param_file = strcat(dhi_features(i),'.nii');
-            mask_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3',param_file);
-            dwi_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3/roi.nii.gz');
+            mask_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3/roi.nii.gz');
+            dwi_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3',param_file);
             
             mask = niftiread(mask_file);
             dwi_data = niftiread(dwi_file);
@@ -164,8 +163,8 @@ for i = 1:numel(dhi_features)
             disp(num2str(slice_num));
             
             param_file = strcat(dhi_features(i),'.nii');
-            mask_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3',param_file);
-            dwi_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3/roi.nii.gz');
+            mask_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3/roi.nii.gz');
+            dwi_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3',param_file);
             
             mask = niftiread(mask_file);
             dwi_data = niftiread(dwi_file);

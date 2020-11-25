@@ -1,7 +1,8 @@
 import numpy as np
 
-dhi_features = ["b0_map","dti_adc_map","dti_axial_map","dti_fa_map","fiber1_axial_map","fiber1_fa_map",\
-    "fiber1_radial_map","fiber_fraction_map","hindered_fraction_map","restricted_fraction_map","water_fraction_map"]
+dhi_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "fiber1_axial_map", "fiber1_fa_map",
+    "fiber1_radial_map", "fiber_fraction_map", "hindered_fraction_map", "restricted_fraction_map",
+                "water_fraction_map", "axon_volume", "inflammation_volume"]
 
 controls = np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20])
 mild_cm_subjects = np.array([1,2,3,4,10,15,16,18,19,21,23,24,26,28,29,31,32,33,36,38,40,42,43,44,45,46])

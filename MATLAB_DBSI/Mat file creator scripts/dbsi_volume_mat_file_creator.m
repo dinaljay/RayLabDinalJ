@@ -148,3 +148,36 @@ table_out.Properties.VariableNames{2} = 'Slice_2';
 table_out.Properties.VariableNames{3} = 'Slice_3';
 table_out.Properties.VariableNames{4} = 'Slice_4';
 writetable(table_out,fullfile(out_dir_csm_csv,terminal2));
+
+%% All patients
+out_dir_all = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/DBSI_CSV_Data/All_patients';
+
+group_id = categorical([repmat({'Control'},numel(controls),1);repmat({'CSM'},numel(cm_subjects),1)]);
+
+all_data = cell2mat([control_inflammation_volume;csm_inflammation_volume]);
+all_data_1 = all_data(:,1);
+all_data_2 = all_data(:,2);
+all_data_3 = all_data(:,3);
+all_data_4 = all_data(:,4);
+terminal2 = strcat('all_inflammation_volume','_data.csv');
+table_out=table(group_id,all_data_1,all_data_2,all_data_3,all_data_4);
+table_out.Properties.VariableNames{1} = 'Group';
+table_out.Properties.VariableNames{2} = 'Slice_1';
+table_out.Properties.VariableNames{3} = 'Slice_2';
+table_out.Properties.VariableNames{4} = 'Slice_3';
+table_out.Properties.VariableNames{5} = 'Slice_4';
+writetable(table_out,fullfile(out_dir_all,terminal2));
+
+all_data = cell2mat([control_axon_volume;csm_axon_volume]);
+all_data_1 = all_data(:,1);
+all_data_2 = all_data(:,2);
+all_data_3 = all_data(:,3);
+all_data_4 = all_data(:,4);
+terminal2 = strcat('all_axon_volume','_data.csv');
+table_out=table(group_id,all_data_1,all_data_2,all_data_3,all_data_4);
+table_out.Properties.VariableNames{1} = 'Group';
+table_out.Properties.VariableNames{2} = 'Slice_1';
+table_out.Properties.VariableNames{3} = 'Slice_2';
+table_out.Properties.VariableNames{4} = 'Slice_3';
+table_out.Properties.VariableNames{5} = 'Slice_4';
+writetable(table_out,fullfile(out_dir_all,terminal2));

@@ -1,7 +1,9 @@
-
+## This script runs a support vector machine to determine the accuracy of age in predicting patient group
 import numpy as np
 import os.path as path
 import matplotlib.pyplot as plt
+import sys
+import pandas as pd
 
 ## Initialize features
 
@@ -13,39 +15,21 @@ controls = np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20])
 mild_cm_subjects = np.array([1,2,3,4,10,15,16,18,19,21,23,24,26,28,29,31,32,33,36,38,40,42,43,44,45,46])
 moderate_cm_subjects = np.array([5,6,9,12,13,14,20,22,25,27,30,34,35,37,39,41,47])
 
-all_cm = np.concatenate((mild_cm_subjects,moderate_cm_subjects),axis=0)
-
-control_ids = np.array([0]*len(controls))
-csm_ids = np.array([1]*len(all_cm))
-
-all_ids = np.concatenate((control_ids,csm_ids),axis=0)
-
 ## Load Data
 
-for i in range(len(dhi_features)):
-    feature = dhi_features[i]
-    file_in = "csm_"+feature+"_data.csv"
-    file1 = path.join("/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/DBSI_CSV_Data/CSM",file_in)
-    csm_dbsi = np.genfromtxt(file1,delimiter=",",skip_header=1)
+data = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/DBSI_CSV_Data/All_patients/all_axon_volume_data.csv'
 
-    file_in = "control_"+feature+"_data.csv"
-    file2 = path.join("/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/DBSI_CSV_Data/Control",file_in)
-    control_dbsi = np.genfromtxt(file2,delimiter=",",skip_header=1)
+all_age_data = pd.read_csv(data, header=0)
 
-    temp = np.concatenate((control_dbsi,csm_dbsi),axis=0)
-
-    if (i==0):
-        all_dbsi = temp
-    else:
-        all_dbsi = np.concatenate((all_dbsi, temp), axis=1)
-
+X = all_age_data.drop('Group', axis=1)
+y = all_age_data['Group']
 
 ## Support Vector Machine
 # Splitting Data
 
 from sklearn.model_selection import train_test_split
 
-X_train, X_test, y_train, y_test = train_test_split(all_dbsi, all_ids, test_size=0.3,random_state=100) # 70% training and 30% test
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3,random_state=100) # 70% training and 30% test
 
 # Cross Validation
 
@@ -53,7 +37,7 @@ X_train, X_test, y_train, y_test = train_test_split(all_dbsi, all_ids, test_size
 
 from sklearn import svm
 
-kernel = "linear"
+kernel = "rbf"
 clf = svm.SVC(kernel=kernel) # Linear Kernel
 
 #Train the model using the training sets
@@ -61,6 +45,12 @@ clf.fit(X_train, y_train)
 
 #Predict the response for test dataset
 y_pred = clf.predict(X_test)
+
+from sklearn.metrics import classification_report, confusion_matrix
+print(confusion_matrix(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+
+sys.exit()
 
 #Import scikit-learn metrics module for accuracy calculation
 from sklearn import metrics

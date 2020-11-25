@@ -36,26 +36,19 @@ y = all_data['Group']
 from sklearn.model_selection import LeaveOneOut
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
+from sklearn.model_selection import cross_val_score
+from numpy import mean
+from numpy import std
 
 cv = LeaveOneOut()
 
 print(type(cv.split(X)))
-sys.exit()
-y_true, y_pred = list(), list()
-for train_ix, test_ix in cv.split(X):
+#sys.exit()
     # split data
-    X_train, X_test = X[train_ix], X[test_ix]
-    y_train, y_test = y[train_ix], y[test_ix]
+
     # fit model
-    model = SVC(C=3.0, kernel="linear", gamma=0.001)
-    model.fit(X_train, y_train)
-    # evaluate model
-    yhat = model.predict(X_test)
-    # store
-    y_true.append(y_test[0])
-    y_pred.append(yhat[0])
+model = SVC(C=3.0, kernel="rbf", gamma=0.001)
+scores = cross_val_score(model, X, y, scoring='accuracy', cv=cv, n_jobs=-1)
 
 # calculate accuracy
-acc = accuracy_score(y_true, y_pred)
-print('Accuracy: %.3f' % acc)
-
+print('Accuracy: %.3f (%.3f)' % (mean(scores), std(scores)))
