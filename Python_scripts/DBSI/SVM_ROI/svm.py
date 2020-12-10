@@ -23,20 +23,25 @@ all_ids = np.concatenate((control_ids,csm_ids),axis=0)
 
 ## Load Data
 
-url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_Voxel/DBSI_CSV_Data/all_patients_all_features_data.csv'
+url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_ROI/DBSI_CSV_Data/all_patients_all_features_data.csv'
 
 all_data = pd.read_csv(url, header=0)
 
-X = all_data.drop('Group', axis=1)
-y = all_data['Group']
+X = all_data.drop(['Patient_ID', 'Group', 'Group_ID'], axis=1)
+y = all_data['Group_ID']
 
+# Scale data
+
+from sklearn import preprocessing
+
+X_scaled = preprocessing.scale(X)
 
 ## Support Vector Machine
 # Splitting Data
 
 from sklearn.model_selection import train_test_split
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3,random_state=100) # 70% training and 30% test
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.3,random_state=100) # 70% training and 30% test
 
 # Cross Validation
 

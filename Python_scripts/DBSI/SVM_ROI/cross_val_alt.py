@@ -24,12 +24,18 @@ all_ids = np.concatenate((control_ids,csm_ids),axis=0)
 
 ## Load Data
 
-url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/DBSI_CSV_Data/all_patients_all_features_data.csv'
+url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_ROI/DBSI_CSV_Data/all_patients_all_features_data.csv'
 
 all_data = pd.read_csv(url, header=0)
 
-X = all_data.drop('Group', axis=1)
-y = all_data['Group']
+X = all_data.drop(['Patient_ID', 'Group', 'Group_ID'], axis=1)
+y = all_data['Group_ID']
+
+# Scale data
+
+from sklearn import preprocessing
+
+X_scaled = preprocessing.scale(X)
 
 ## Cross validation
 
@@ -47,8 +53,8 @@ print(type(cv.split(X)))
     # split data
 
     # fit model
-model = SVC(C=7.0, kernel="rbf", gamma=0.0001)
-scores = cross_val_score(model, X, y, scoring='accuracy', cv=cv, n_jobs=-1)
+model = SVC(C=1.0, kernel="linear")
+scores = cross_val_score(model, X_scaled, y, scoring='accuracy', cv=cv, n_jobs=-1)
 
 # calculate accuracy
 print('Accuracy: %.3f (%.3f)' % (mean(scores), std(scores)))
