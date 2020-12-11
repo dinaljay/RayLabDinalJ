@@ -1,0 +1,192 @@
+---
+title: ' Exploratory analysis:DBSI data '
+author: 'Bidhan Lamichhane '
+date: "Dec 09,2020"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r echo=FALSE, warning=FALSE,message=FALSE, include=FALSE}
+## loading libraries, reading clinical data and performing some data cleaning operations.
+library("tidyverse");
+library("readxl");
+library(tidyr)
+library(dplyr)
+library(psych)
+library(MASS)
+library(klaR)
+library(ROCR)
+library(randomForest)
+library(pROC)
+library(e1071)
+library(caret)
+
+```
+
+```{r echo=FALSE,include=FALSE}
+rm(list = ls())
+setwd("/net/zfs-nil03/NIL03/hawasli/BackPain/DBSI")
+outDir=("/net/zfs-nil03/NIL03/hawasli/BackPain/DBSI")
+```
+
+``` {r echo=FALSE,warning=FALSE,message=FALSE}
+# cortical thickness:
+data_CT <- read.csv('/net/zfs-nil03/NIL03/hawasli/BackPain/DBSI/all_patients_all_features_by_CSM_group_data.csv')
+data_CT <- subset(data_CT,select=-Group)
+data_FC=data_CT;  #=========================================changeing name for my simplecity 
+colnames(data_FC)[1]<-"SubjectID"
+colnames(data_FC)[2]<-"group"   # here 2 is Group_ID and changing to group
+  
+include <- c(0,1) # including only group-0 (CON),1=mild
+data_FC <- filter(data_FC, group %in% include); #rm(data1)
+rm(include)
+
+
+#changing group to yes or no type instead 0 1
+data_FC$group <-as.factor(data_FC$group);
+data_FC1 <- data_FC %>% mutate(group = factor(group,labels = make.names(levels(group))))
+data_FC1$group <-as.factor(data_FC1$group)
+# changing all X2 to X1 for my simplicity:
+#data_FC1$group <-str_replace_all(data_FC1$group,"X2","X1")
+
+
+ 
+```
+# train and test 
+# but using Leave one subejct out: 
+
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+set.seed(123)
+# to save data for further use
+predicted_Linear <- rep('NaN',nrow(data_FC1))
+NofCol <- rep('NaN',nrow(data_FC1)) # saving  survviving correlations
+Top_Variable_60 <-c();
+all_costs <-rep('NaN',nrow(data_FC1));
+all_prob <-c();  
+
+for (i in 1:nrow(data_FC1)) {
+rm(train); rm(test);
+train =data_FC1[-i,];
+test=data_FC1[i,]
+rm(kk);
+
+#======================================================================
+#-performing the  test between groups 
+#======================================================================
+rm(coln);
+coln <-vector();
+# saving no of coln
+NofCol[i] <- length(coln); #--------------------------------------------(1)
+
+#===========================================================
+# Now performing-rfe only surviving columns of train data:
+#======================================================
+coln=3:length(train)
+data_for_rfe <- train[,c(2,coln)] #  == here 2 is group, we need group information 
+
+#rm(train); # removing trian data to avoid confusion
+if (length(data_for_rfe)>46) { #81 because one colume on group 
+rm(coln);
+rm(x11); rm(x1); rm(y1);
+ x11 <-data_for_rfe[-1]; # removing group before scaling 
+ x1 <-scale(x11);
+ y1=as.factor(data_for_rfe$group);
+ caretFuncs$summary <- twoClassSummary
+ ctrl <-rfeControl(functions=caretFuncs,method="repeatedcv",number=4,repeats=10,verbose = FALSE,p=0.75);
+ trainctrl <- trainControl(classProbs= TRUE,
+                           summaryFunction = twoClassSummary)
+ rm(svmProfile);
+ subsets <-c(20,25,30,35,40,45) # subset size for fit model;
+# 
+svmProfile <- rfe(x=x1,y=y1,sizes=subsets,rfeControl = ctrl,method="svmLinear",metric = "Accuracy",trControl = trainctrl);
+
+#now slecting the greateds AUC sample size:
+ rm(indMaxAUC); rm(no_of_Var);
+ no_of_Var <-c();
+ indMaxAUC <- which.max(svmProfile$results[[2]])
+ if (svmProfile$results[[1]][indMaxAUC]> 45){
+    no_of_Var=45} else {no_of_Var=svmProfile$results[[1]][indMaxAUC]}
+
+#---------selection-------------------
+#length_Vimp=length(svmProfile$optVariables);
+rm(slect_col_rfe);
+rm(data_FC_rfe);
+#if (length_Vimp >=100) {
+slect_col_rfe <-svmProfile$optVariables[1:no_of_Var]
+data_FC_rfe <-data_for_rfe[c("group",slect_col_rfe)] 
+} else {
+data_FC_rfe =data_for_rfe
+}
+#=================================================================
+ #combining top varaibels for furrther analysis:
+rm(Top_Variable); rm(VarImp)
+VarImp <- rep('NaN',60); #-----------------------max 60 variables:
+VarImp[1:length(colnames(data_FC_rfe))-1] <-colnames(data_FC_rfe[-1]);
+Top_Variable=c(i,VarImp); # iteration no at the top
+Top_Variable_60=cbind(Top_Variable_60,Top_Variable); #----------------------(2)
+ 
+#===========================================================
+ # Grid search for cost function:
+#===========================================================
+rm(tuned_parameters);rm(gamma);rm(cost)
+svmGrid <-expand.grid(C= c(1:10));
+control <-trainControl(method="repeatedcv",number=4,repeats=1);
+tuned_parameters <- train(group~., data=data_FC_rfe, method="svmLinear", metric="Accuracy", tuneGrid=svmGrid, trControl=control)
+cost <- tuned_parameters$bestTune[[1]];
+# saving cost----------------------------------
+all_costs[i] <-cost; #--------------------------------------------------------(3)
+
+# =======now training and testing ================================================;
+rm(modelsvm); rm(svmpred); rm(Imp_svm)
+trctrl <-trainControl(method="cv",number=4,classProbs = TRUE,summaryFunction = twoClassSummary,savePredictions = T);
+grid <- expand.grid(C = cost) 
+modelsvm <- train(group~.,data=data_FC_rfe,method='svmLinear',trControl=trctrl, metric="Accuracy", preProcess = c("center", "scale"),tuneGrid=grid)
+rm(grid);
+# now colleecting only matching colums from test:
+col_on_data_FC_rfe <- colnames(data_FC_rfe);
+new_test <-test[c(col_on_data_FC_rfe)] 
+#rm(test); 
+rm(col_on_data_FC_rfe);
+##======================Test=========================================================
+predicted_Linear[i]<- predict(modelsvm, new_test[-1])
+#AUC:
+#rm(probs);rm(myroc)
+probs <-predict(modelsvm, new_test[-1],type="prob")
+all_prob <-rbind(all_prob,probs)  #-----------------------------------------(4)
+# to plot roc: plot.roc(modelsvm$pred$obs,modelsvm$pred$X0), obs-true group,pred$X0 is the prob)
+}
+
+#============================================================
+all_data <- data.frame(data_FC1$SubjectID,data_FC1$group,predicted_Linear)
+write.table(all_data,file="CT_LOOCV_HC_Mild_Open.csv",row.names=FALSE, na="",col.names=FALSE, sep=",")
+
+
+# data for plot:  
+class_class_prob <-cbind(data_FC1$group,all_prob)
+write.table(class_class_prob,file="CT_LOOCV_HC_Mild_Open_class_class_prob.csv",row.names=FALSE, na="",col.names=FALSE, sep=",")
+# cost, lets just print cost:
+all_costs
+# saving top-variabels:
+write.table(Top_Variable_60,file="CT_LOOCV_HC_mild_Open_Top_Variable_60.csv",row.names=FALSE, na="",col.names=FALSE, sep=",")
+
+#computing AUC:
+#myroc <- roc(data_FC1$group,as.numeric(predicted_Linear),levels=rev(levels(data_FC1$group)))
+#print("Auc");myroc$auc
+
+# i may need this for plot:
+#print("Sen")
+#Sen<- myroc$sensitivities
+#Sen 
+#print("Spe")
+#Spe<-myroc$specificities
+#Spe
+
+# saving spec and sen:
+#Sen_Spe <- cbind(Sen,Spe);
+#write.table(Sen_Spe,file="Corr_FCL_LOOCV_05_60_FisherZ_Sen_Spe.csv",row.names=FALSE, #na="",col.names=FALSE, sep=",")
+
+NofCol
+Top_Variable_60
+
+```
