@@ -30,8 +30,6 @@ all_data = pd.read_csv(url, header=0)
 
 X = all_data.drop(['Patient_ID', 'Group', 'Group_ID'], axis=1)
 y = all_data['Group_ID']
-#zprint(X.head())
-#sys.exit()
 
 # Scale data
 
@@ -39,74 +37,79 @@ from sklearn import preprocessing
 
 X_scaled = preprocessing.scale(X)
 
-# Logistic regression
+#Implement leave one out cross validation
+y_pred = []
 
-from sklearn.model_selection import LeaveOneOut
-from sklearn.model_selection import train_test_split
+for i in range(len(X_scaled)):
 
-#because CSM patients are over sampled, we use SMOTE to balance out the classes
+    # Splitting Data for model
+    X_train = np.delete(X_scaled, [i], axis=0)
+    y_train = y.drop([i], axis=0)
 
-#from imblearn.over_sampling import SMOTE
+    X_test = X_scaled[i]
+    X_test = X_test.reshape(1, -1)
+    y_test = y[i]
 
-#os = SMOTE(random_state=0)
+    # Generating SVM model
+    from sklearn.linear_model import LogisticRegression
+    logref = LogisticRegression(random_state=0)
+
+    #Train the model using the training sets
+    clf = logref.fit(X_train, y_train)
+
+    #Predict the response for test dataset
+    y_pred.append(logref.predict(X_test))
 
 
-#X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
-#columns_x = X_train.columns
-#columns_y = y_train.columns
-#os_data_X,os_data_y=os.fit_sample(X_train, y_train)
-#os_data_X = pd.DataFrame(data=os_data_X,columns=columns_x )
-#os_data_y= pd.DataFrame(data=os_data_y,columns=columns_y)
+#Import scikit-learn metrics module for accuracy calculation
+from sklearn import metrics
 
-# Logistic Regression
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import cross_val_score
-loocv = LeaveOneOut()
+# Model Accuracy: how often is the classifier correct?
+print("Accuracy:", metrics.accuracy_score(y, np.asarray(y_pred)))
 
-#X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
-logreg = LogisticRegression(random_state=0)
+# Model Precision
+print("Precision:", metrics.precision_score(y, np.asarray(y_pred)))
 
-clf = logreg.fit(X_scaled, y)
+# Model Recall
+print("Recall:", metrics.recall_score(y, np.asarray(y_pred)))
 
-results = cross_val_score(logreg, X_scaled, y, cv=loocv)
-print("Accuracy: %.3f%%" % (results.mean()*100))
+from sklearn.metrics import classification_report, confusion_matrix
+cm1 = confusion_matrix(y, np.asarray(y_pred))
 
-sys.exit()
+print("Confusion matrix: \n", cm1)
+#print(classification_report(y, np.asarray(y_pred)))
 
-#Confusion matrix
+## Caclulate number of true positives, true negatives, false negatives and false positives
+total1=sum(sum(cm1))
 
-from sklearn.metrics import confusion_matrix
+# Accuracy
+accuracy1=(cm1[0,0]+cm1[1,1])/total1
+print('Accuracy:', accuracy1)
 
-#cf_matrix = confusion_matrix(y_test,y_pred)
-#print("Confusion matrix:", cf_matrix)
+#Sensitivity or true positive rate
+sensitivity1 = cm1[0,0]/(cm1[0,0]+cm1[0,1])
+print('Sensitivity:', sensitivity1)
 
-#sys.exit()
-#Classification report
+#Specificity or true negative rate
+specificity1 = cm1[1,1]/(cm1[1,0]+cm1[1,1])
+print('Specificity:', specificity1)
 
-from sklearn.metrics import classification_report
-print("Classification report:", classification_report(y_test, y_pred))
+#Calculate AUC
+fpr, tpr, threshold = metrics.roc_curve(y, np.asarray(y_pred))
+roc_auc = metrics.auc(fpr, tpr)
+print("AUC:", roc_auc)
 
-# ROC Curve
-
-from sklearn.metrics import roc_auc_score
-from sklearn.metrics import roc_curve
-import matplotlib.pyplot as plt
-
-logit_roc_auc = roc_auc_score(y_test, logreg.predict(X_test))
-fpr, tpr, thresholds = roc_curve(y_test, logreg.predict_proba(X_test)[:,1])
-plt.figure()
-plt.plot(fpr, tpr, label='Logistic Regression (area = %0.2f)' % logit_roc_auc)
-plt.plot([0, 1], [0, 1],'r--')
-plt.xlim([0.0, 1.0])
-plt.ylim([0.0, 1.05])
-plt.xlabel('False Positive Rate')
+#Plot ROC curve
+lw=2
+plt.title('Receiver Operating Characteristic')
+plt.plot(fpr, tpr, 'darkorange', lw=lw, label = 'ROC curve (area = %0.2f)' %roc_auc)
+plt.legend(loc='lower right')
+plt.plot([0, 1], [0, 1],color='navy', lw=lw, linestyle='--')
+plt.xlim([0, 1])
+plt.ylim([0, 1.05])
 plt.ylabel('True Positive Rate')
-plt.title('Receiver operating characteristic')
-plt.legend(loc="lower right")
-plt.savefig('Log_ROC')
+plt.xlabel('False Positive Rate')
 plt.show()
-
-
 
 
 
