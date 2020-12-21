@@ -185,7 +185,7 @@ table_out.Properties.VariableNames{3} = 'Group_ID';
 
 writetable(table_out,fullfile(out_dir,terminal2));
 
-%Controls vs all Mild CSM
+%Controls vs Mild CSM
 
 terminal2 = strcat('all_patients_all_features_mild_CSM','_data.csv');
 table_mild = table_out;
@@ -193,7 +193,7 @@ table_mild((numel(controls)+numel(mild_cm_subjects)+1:end),:)=[];
 
 writetable(table_mild,fullfile(out_dir,terminal2));
 
-%Controls vs all moderate CSM 
+%Controls vs moderate CSM 
 
 group_id = categorical([repmat({'0'},numel(controls),1);repmat({'1'},numel(moderate_cm_subjects),1)]);
 terminal2 = strcat('all_patients_all_features_moderate_CSM','_data.csv');
@@ -203,3 +203,14 @@ table_moderate(:,3) = table(group_id);
 table_moderate.Properties.VariableNames{3} = 'Group_ID';
 
 writetable(table_moderate,fullfile(out_dir,terminal2));
+
+%Mild vs moderate CSM 
+
+group_id = categorical([repmat({'0'},numel(mild_cm_subjects),1);repmat({'1'},numel(moderate_cm_subjects),1)]);
+terminal2 = strcat('all_patients_all_features_only_CSM','_data.csv');
+table_csm = table_out;
+table_csm((1:numel(controls)),:)=[];
+table_csm(:,3) = table(group_id);
+table_csm.Properties.VariableNames{3} = 'Group_ID';
+
+writetable(table_csm,fullfile(out_dir,terminal2));

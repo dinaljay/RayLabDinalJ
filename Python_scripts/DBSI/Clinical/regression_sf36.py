@@ -24,7 +24,7 @@ all_ids = np.concatenate((control_ids,csm_ids),axis=0)
 
 ## Load Data
 
-url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_ROI/DBSI_CSV_Data/all_patients_all_features_by_CSM_group_data.csv'
+url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_ROI/DBSI_CSV_Data/all_patients_all_features_mild_CSM_data.csv'
 
 all_data = pd.read_csv(url, header=0)
 
@@ -69,10 +69,10 @@ from sklearn import metrics
 print("Accuracy:", metrics.accuracy_score(y, np.asarray(y_pred)))
 
 # Model Precision
-print("Precision:", metrics.precision_score(y, np.asarray(y_pred), average='micro'))
+print("Precision:", metrics.precision_score(y, np.asarray(y_pred)))
 
 # Model Recall
-print("Recall:", metrics.recall_score(y, np.asarray(y_pred), average='micro'))
+print("Recall:", metrics.recall_score(y, np.asarray(y_pred)))
 
 from sklearn.metrics import classification_report, confusion_matrix
 cm1 = confusion_matrix(y, np.asarray(y_pred))
@@ -84,9 +84,9 @@ print("Confusion matrix: \n", cm1)
 total1=sum(sum(cm1))
 
 # Accuracy
-accuracy1=(cm1[0,0]+cm1[1,1]+cm1[2,2])/total1
+accuracy1=(cm1[0,0]+cm1[1,1])/total1
 print('Accuracy:', accuracy1)
-sys.exit()
+
 #Sensitivity or true positive rate
 sensitivity1 = cm1[0,0]/(cm1[0,0]+cm1[0,1])
 print('Sensitivity:', sensitivity1)
@@ -95,7 +95,6 @@ print('Sensitivity:', sensitivity1)
 specificity1 = cm1[1,1]/(cm1[1,0]+cm1[1,1])
 print('Specificity:', specificity1)
 
-sys.exit()
 #Calculate AUC
 fpr, tpr, threshold = metrics.roc_curve(y, np.asarray(y_pred))
 roc_auc = metrics.auc(fpr, tpr)

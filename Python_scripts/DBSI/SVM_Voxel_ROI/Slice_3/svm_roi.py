@@ -3,6 +3,7 @@ import numpy as np
 import os.path as path
 import matplotlib.pyplot as plt
 import pandas as pd
+import sys
 
 ## Initialize features
 
@@ -23,7 +24,7 @@ all_ids = np.concatenate((control_ids,csm_ids),axis=0)
 
 ## Load Data
 
-url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_ROI/DBSI_CSV_Data/all_patients_all_features_by_CSM_group_data.csv'
+url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_ROI/DBSI_CSV_Data/all_patients_all_features_mild_CSM_data.csv'
 
 all_data = pd.read_csv(url, header=0)
 
