@@ -11,9 +11,9 @@ addpath (genpath('/home/functionalspinelab/Desktop/Dinal/Scripts/MATLAB_DBSI'));
 
 control_path = '/media/functionalspinelab/RAID/Data/Dinal/DBSI_Data/CSM_New/Control';
 csm_path = '/media/functionalspinelab/RAID/Data/Dinal/DBSI_Data/CSM_New/Patient';
-out_dir_control = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI_Voxel/Control';
-out_dir_mild_csm = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI_Voxel/Mild_CSM';
-out_dir_mod_csm = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI_Voxel/Moderate_CSM';
+out_dir_control = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI_Voxel/All_slices/Control';
+out_dir_mild_csm = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI_Voxel/All_slices/Mild_CSM';
+out_dir_mod_csm = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI_Voxel/All_slices/Moderate_CSM';
 
 %% Declare necessary variables
 
@@ -39,7 +39,7 @@ dhi_features = ["b0_map";"dti_adc_map";"dti_axial_map";"dti_fa_map";"fiber1_axia
 for i = 1:numel(dhi_features)
     data_control = {};
     disp(dhi_features(i))
-    
+    new_temp = [];
     for j = 1:numel(slices)
         temp = [];
         slice_num = strcat('slice_',num2str(slices(j)));
@@ -63,14 +63,13 @@ for i = 1:numel(dhi_features)
             data = dwi_data(expert_rois>0.7);
             temp = [temp;data];
         end
-        data_control(:,j) = num2cell(temp);
+        new_temp = [new_temp;temp];
         fprintf('\n')
     end
     
-%     data_control = num2cell(data_control);
+    data_control = num2cell(new_temp);
     terminal = strcat('control_',dhi_features(i),'_data.mat');
     save(fullfile(out_dir_control,terminal),'controls','data_control');
-    fprintf('\n')
     
 end
 
@@ -80,10 +79,12 @@ fprintf('Mild Cervical Myelopathy Patients \n')
 
 for i = 1:numel(dhi_features)
     data_mild_csm = {};
+    new_temp = [];
     
     for j = 1:numel(slices)
         slice_num = strcat('slice_',num2str(slices(j)));
         disp(num2str(slice_num));
+        temp = [];
         
         for k = 1:numel(mild_cm_subjects)
             
@@ -100,13 +101,14 @@ for i = 1:numel(dhi_features)
             expert_rois = double(mask);
             dwi_data = double(dwi_data);
             data = dwi_data(expert_rois>0.7);
-            data_mild_csm{:,j} = [data_mild_csm(:,j);data];
+            temp = [temp;data];
         end
+        new_temp = [new_temp;temp];
         fprintf('\n')
     end
+    data_mild_csm = num2cell(new_temp);
     terminal = strcat('mild_csm_',dhi_features(i),'_data.mat');
     save(fullfile(out_dir_mild_csm,terminal),'cm_subjects','mild_cm_subjects','data_mild_csm');
-    fprintf('\n')
     
 end
 
@@ -116,10 +118,12 @@ fprintf('Moderate Cervical Myelopathy Patients \n')
 
 for i = 1:numel(dhi_features)
     data_mod_csm = {};
+    new_temp = [];
     
     for j = 1:numel(slices)
         slice_num = strcat('slice_',num2str(slices(j)));
         disp(num2str(slice_num));
+        temp = [];
         
         for k = 1:numel(moderate_cm_subjects)
             
@@ -136,13 +140,14 @@ for i = 1:numel(dhi_features)
             expert_rois = double(mask);
             dwi_data = double(dwi_data);
             data = dwi_data(expert_rois>0.7);
-            data_mod_csm{:,j} = [data_mod_csm(:,j);data];
+            temp = [temp;data];
         end
+        new_temp = [new_temp;temp];
         fprintf('\n')
     end
+    data_mod_csm = num2cell(new_temp);
     terminal = strcat('mod_csm_',dhi_features(i),'_data.mat');
     save(fullfile(out_dir_mod_csm,terminal),'cm_subjects','moderate_cm_subjects','data_mod_csm');
-    fprintf('\n')
     
 end
 
