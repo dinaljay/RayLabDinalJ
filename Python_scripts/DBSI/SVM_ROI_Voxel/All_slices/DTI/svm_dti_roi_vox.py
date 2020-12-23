@@ -4,6 +4,7 @@ import os.path as path
 import matplotlib.pyplot as plt
 import pandas as pd
 import sys
+from statistics import mean
 
 ## Initialize features
 
@@ -28,7 +29,7 @@ url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_ROI_Voxel/all_pati
 
 all_data = pd.read_csv(url, header=0)
 
-X = all_data[['dti_adc', 'dti_axial', 'dti_fa']]
+X = all_data[['dti_adc', 'dti_axial', 'dti_fa', 'dti_radial']]
 y = all_data['Group_ID']
 
 # Scale data

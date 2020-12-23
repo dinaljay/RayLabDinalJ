@@ -4,6 +4,7 @@ import os.path as path
 import matplotlib.pyplot as plt
 import pandas as pd
 import sys
+from statistics import mean
 
 ## Initialize features
 
@@ -28,7 +29,7 @@ url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_ROI_Voxel/all_pati
 
 all_data = pd.read_csv(url, header=0)
 
-X = all_data.drop(['Group', 'Group_ID', 'dti_adc', 'dti_axial', 'dti_fa'], axis=1)
+X = all_data.drop(['Group', 'Group_ID', 'dti_adc', 'dti_axial', 'dti_fa', 'dti_radial'], axis=1)
 
 y = all_data['Group_ID']
 
@@ -42,7 +43,7 @@ X_scaled = preprocessing.scale(X)
 from sklearn.model_selection import KFold
 from sklearn import metrics
 
-cv = KFold(n_splits=2, shuffle=True, random_state=1)
+cv = KFold(n_splits=5, shuffle=True, random_state=42)
 
 y_accuracy = []
 y_precision = []

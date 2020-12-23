@@ -23,7 +23,7 @@ cm_subjects = sort(cm_subjects,2);
 
 slices = (1:1:4);
 
-dhi_features = ["b0_map";"dti_adc_map";"dti_axial_map";"dti_fa_map";"fiber1_axial_map";"fiber1_fa_map";...
+dhi_features = ["b0_map";"dti_adc_map";"dti_axial_map";"dti_fa_map";"dti_radial_map";"fiber1_axial_map";"fiber1_fa_map";...
     "fiber1_radial_map";"fiber_fraction_map";"hindered_fraction_map";"restricted_fraction_map";"water_fraction_map";...
     "axon_volume";"inflammation_volume"];
 
@@ -64,6 +64,15 @@ dti_fa_1 = dti_fa(:,1);
 dti_fa_2 = dti_fa(:,2);
 dti_fa_3 = dti_fa(:,3);
 dti_fa_4 = dti_fa(:,4);
+
+% DTI Radial Map
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/Control/control_dti_radial_map_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/CSM/csm_dti_radial_map_data.mat');
+dti_radial = [cell2mat(data_control);cell2mat(data_csm)];
+dti_radial_1 = dti_radial(:,1);
+dti_radial_2 = dti_radial(:,2);
+dti_radial_3 = dti_radial(:,3);
+dti_radial_4 = dti_radial(:,4);
 
 % Fiber Axial Map
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/Control/control_fiber1_axial_map_data.mat');
@@ -173,7 +182,7 @@ group_id = categorical([repmat({'0'},numel(controls),1);repmat({'1'},numel(cm_su
 
 terminal2 = strcat('all_patients_all_features','_data.csv');
 table_out=table(patientID,group,group_id,dti_adc_1,dti_adc_2,dti_adc_3,dti_adc_4,...
-    dti_axial_1,dti_axial_2,dti_axial_3,dti_axial_4,dti_fa_1,dti_fa_2,dti_fa_3,dti_fa_4,...
+    dti_axial_1,dti_axial_2,dti_axial_3,dti_axial_4,dti_fa_1,dti_fa_2,dti_fa_3,dti_fa_4,dti_radial_1,dti_radial_2,dti_radial_3,dti_radial_4,...
     fiber_axial_1,fiber_axial_2,fiber_axial_3,fiber_axial_4,fiber_fa_1,fiber_fa_2,fiber_fa_3,fiber_fa_4,...
     fiber_radial_1,fiber_radial_2,fiber_radial_3,fiber_radial_4,fiber_fraction_1,fiber_fraction_2,fiber_fraction_3,fiber_fraction_4,...
     hindered_fraction_1,hindered_fraction_2,hindered_fraction_3,hindered_fraction_4,restricted_fraction_1,restricted_fraction_2,restricted_fraction_3,restricted_fraction_4,...
@@ -185,4 +194,3 @@ table_out.Properties.VariableNames{2} = 'Group';
 table_out.Properties.VariableNames{3} = 'Group_ID';
 
 writetable(table_out,fullfile(out_dir,terminal2));
-fprintf('\n')
