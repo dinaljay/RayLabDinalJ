@@ -24,12 +24,12 @@ all_ids = np.concatenate((control_ids,csm_ids),axis=0)
 
 ## Load Data
 
-url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_ROI/DBSI_CSV_Data/all_patients_all_features_data.csv'
+url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_ROI/DBSI_CSV_Data/all_patients_all_features_moderate_CSM_data.csv'
 
 all_data = pd.read_csv(url, header=0)
 
-X = all_data[['dti_adc_1', 'dti_adc_2', 'dti_adc_3', 'dti_adc_4', 'dti_axial_1', 'dti_axial_2', 'dti_axial_3',
-             'dti_axial_4', 'dti_fa_1', 'dti_fa_2', 'dti_fa_3', 'dti_fa_4', 'dti_radial_1', 'dti_radial_2', 'dti_radial_3', 'dti_radial_4']]
+X = all_data.drop(['Patient_ID', 'Group', 'Group_ID','dti_adc_1', 'dti_adc_2', 'dti_adc_3', 'dti_adc_4', 'dti_axial_1',
+                   'dti_axial_2', 'dti_axial_3', 'dti_axial_4', 'dti_fa_1', 'dti_fa_2', 'dti_fa_3', 'dti_fa_4', 'dti_radial_1', 'dti_radial_2', 'dti_radial_3', 'dti_radial_4'], axis=1)
 
 y = all_data['Group_ID']
 
@@ -44,24 +44,6 @@ y_pred = []
 
 for i in range(len(X_scaled)):
 
-    # Splitting Data for tuning hyerparameters
-    X_train = np.delete(X_scaled, [i], axis=0)
-    y_train = y.drop([i], axis=0)
-
-    X_test = X_scaled[i]
-    X_test = X_test.reshape(1, -1)
-    y_test = y[i]
-
-    # Tuning hyperparameters
-    from sklearn.model_selection import GridSearchCV
-    from sklearn.svm import SVC
-
-    tuned_parameters = [{'kernel': ['linear'], 'C': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}]
-    clf = GridSearchCV(SVC(), tuned_parameters, scoring='accuracy')
-    clf.fit(X_train, y_train)
-    params = clf.best_params_
-    cost = params['C']
-
     # Splitting Data for model
     X_train = np.delete(X_scaled, [i], axis=0)
     y_train = y.drop([i], axis=0)
@@ -70,15 +52,15 @@ for i in range(len(X_scaled)):
     X_test = X_test.reshape(1, -1)
     y_test = y[i]
 
-    # Generating SVM model
-    clf = SVC(C=cost, kernel="linear")
+    # Generating Regression model
+    from sklearn.linear_model import LogisticRegression
+    logref = LogisticRegression(random_state=0)
 
     #Train the model using the training sets
-    clf.fit(X_train, y_train)
+    clf = logref.fit(X_train, y_train)
 
     #Predict the response for test dataset
-    y_pred.append(clf.predict(X_test))
-
+    y_pred.append(logref.predict(X_test))
 
 #Import scikit-learn metrics module for accuracy calculation
 from sklearn import metrics
@@ -129,3 +111,9 @@ plt.ylim([0, 1.05])
 plt.ylabel('True Positive Rate')
 plt.xlabel('False Positive Rate')
 plt.show()
+
+
+
+
+
+

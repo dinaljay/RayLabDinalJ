@@ -4,6 +4,7 @@ import os.path as path
 import matplotlib.pyplot as plt
 import pandas as pd
 import sys
+from statistics import mean
 
 ## Initialize features
 
@@ -24,13 +25,11 @@ all_ids = np.concatenate((control_ids,csm_ids),axis=0)
 
 ## Load Data
 
-url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_ROI/DBSI_CSV_Data/all_patients_all_features_data.csv'
+url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_ROI_Voxel/all_patients_all_features_data.csv'
 
 all_data = pd.read_csv(url, header=0)
 
-X = all_data[['dti_adc_1', 'dti_adc_2', 'dti_adc_3', 'dti_adc_4', 'dti_axial_1', 'dti_axial_2', 'dti_axial_3',
-             'dti_axial_4', 'dti_fa_1', 'dti_fa_2', 'dti_fa_3', 'dti_fa_4', 'dti_radial_1', 'dti_radial_2', 'dti_radial_3', 'dti_radial_4']]
-
+X = all_data[['dti_adc', 'dti_axial', 'dti_fa', 'dti_radial']]
 y = all_data['Group_ID']
 
 # Scale data
@@ -39,18 +38,24 @@ from sklearn import preprocessing
 
 X_scaled = preprocessing.scale(X)
 
-#Implement leave one out cross validation
-y_pred = []
+#Implement K-fold cross validation
+from sklearn.model_selection import KFold
+from sklearn import metrics
 
-for i in range(len(X_scaled)):
+cv = KFold(n_splits=5, shuffle=True, random_state=42)
 
-    # Splitting Data for tuning hyerparameters
-    X_train = np.delete(X_scaled, [i], axis=0)
-    y_train = y.drop([i], axis=0)
+y_accuracy = []
+y_precision = []
+y_recall = []
+accuracy1 = []
+sensitivity1 = []
+specificity1 = []
+roc_auc = []
+fpr_fin = []
+tpr_fin = []
 
-    X_test = X_scaled[i]
-    X_test = X_test.reshape(1, -1)
-    y_test = y[i]
+for train_index, test_index in cv.split(X_scaled):
+    X_train, X_test, y_train, y_test = X_scaled[train_index], X_scaled[test_index], y[train_index], y[test_index]
 
     # Tuning hyperparameters
     from sklearn.model_selection import GridSearchCV
@@ -62,14 +67,6 @@ for i in range(len(X_scaled)):
     params = clf.best_params_
     cost = params['C']
 
-    # Splitting Data for model
-    X_train = np.delete(X_scaled, [i], axis=0)
-    y_train = y.drop([i], axis=0)
-
-    X_test = X_scaled[i]
-    X_test = X_test.reshape(1, -1)
-    y_test = y[i]
-
     # Generating SVM model
     clf = SVC(C=cost, kernel="linear")
 
@@ -77,48 +74,59 @@ for i in range(len(X_scaled)):
     clf.fit(X_train, y_train)
 
     #Predict the response for test dataset
-    y_pred.append(clf.predict(X_test))
+    y_pred = (clf.predict(X_test))
 
+    y_accuracy.append(metrics.accuracy_score(y_test, y_pred))
+    y_precision.append(metrics.precision_score(y_test, y_pred))
+    y_recall.append(metrics.recall_score(y_test, y_pred))
 
-#Import scikit-learn metrics module for accuracy calculation
-from sklearn import metrics
+    from sklearn.metrics import classification_report, confusion_matrix
+    cm1 = confusion_matrix(y_test, np.asarray(y_pred))
 
-# Model Accuracy: how often is the classifier correct?
-print("Accuracy:", metrics.accuracy_score(y, np.asarray(y_pred)))
+    ## Caclulate number of true positives, true negatives, false negatives and false positives
+    total1=sum(sum(cm1))
+
+    # Accuracy
+    accuracy1.append((cm1[0,0]+cm1[1,1])/total1)
+
+    #Sensitivity or true positive rate
+    sensitivity1.append(cm1[0,0]/(cm1[0,0]+cm1[0,1]))
+
+    #Specificity or true negative rate
+    specificity1.append(cm1[1,1]/(cm1[1,0]+cm1[1,1]))
+
+    #Calculate AUC
+    fpr, tpr, threshold = metrics.roc_curve(y_test, np.asarray(y_pred))
+    roc_auc.append(metrics.auc(fpr, tpr))
+    fpr_fin.append(fpr)
+    tpr_fin.append(tpr)
+
+# Average model accuracy
+print("Accuracy:", mean(y_accuracy), "\n")
 
 # Model Precision
-print("Precision:", metrics.precision_score(y, np.asarray(y_pred)))
+print("Precision:", mean(y_precision), "\n")
 
 # Model Recall
-print("Recall:", metrics.recall_score(y, np.asarray(y_pred)))
-
-from sklearn.metrics import classification_report, confusion_matrix
-cm1 = confusion_matrix(y, np.asarray(y_pred))
-
-print("Confusion matrix: \n", cm1)
-#print(classification_report(y, np.asarray(y_pred)))
-
-## Caclulate number of true positives, true negatives, false negatives and false positives
-total1=sum(sum(cm1))
+print("Recall:", mean(y_recall), "\n")
 
 # Accuracy
-accuracy1=(cm1[0,0]+cm1[1,1])/total1
-print('Accuracy:', accuracy1)
+print('Accuracy:', mean(accuracy1), "\n")
 
 #Sensitivity or true positive rate
-sensitivity1 = cm1[0,0]/(cm1[0,0]+cm1[0,1])
-print('Sensitivity:', sensitivity1)
+print('Sensitivity:', mean(sensitivity1), "\n")
 
 #Specificity or true negative rate
-specificity1 = cm1[1,1]/(cm1[1,0]+cm1[1,1])
-print('Specificity:', specificity1)
+print('Specificity:', mean(specificity1), "\n")
 
 #Calculate AUC
-fpr, tpr, threshold = metrics.roc_curve(y, np.asarray(y_pred))
-roc_auc = metrics.auc(fpr, tpr)
-print("AUC:", roc_auc)
+print("AUC:", mean(roc_auc), "\n")
+
 
 #Plot ROC curve
+fpr_avg = np.mean(fpr_fin, axis=0)
+tpr_avg = np.mean(tpr_fin, axis=0)
+
 lw=2
 plt.title('Receiver Operating Characteristic')
 plt.plot(fpr, tpr, 'darkorange', lw=lw, label = 'ROC curve (area = %0.2f)' %roc_auc)

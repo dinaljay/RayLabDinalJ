@@ -170,7 +170,7 @@ group_id = categorical([repmat({'0'},length(data_mild_csm),1);repmat({'1'},lengt
 terminal2 = strcat('all_patients_all_features_only_CSM','_data.csv');
 table_csm = table_out;
 table_csm((1:length(data_control)),:)=[];
-table_csm(:,3) = table(group_id);
+table_csm(:,2) = table(group_id);
 table_csm.Properties.VariableNames{2} = 'Group_ID';
 
 writetable(table_csm,fullfile(out_dir,terminal2));

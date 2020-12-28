@@ -138,9 +138,10 @@ mod_csm{11,1} = data_mod_csm;
 % mod_csm{13,1} = data_mod_csm;
 
 %% Plots
+colors = [1, 0, 0; 0, 1, 0; 0, 0, 1];
 
 for i = 1:numel(dhi_features)
-    figure
+    %     figure
     
     x1 = cell2mat(all_control{i,1});
     x2 = cell2mat(mild_csm{i,1});
@@ -152,9 +153,15 @@ for i = 1:numel(dhi_features)
     g3 = repmat({'Mod'},length(x3),1);
     g = [g1; g2; g3];
     
+    subplot(6,2,i);
     boxplot(x,g,'Notch', 'on','Labels',{'Controls','Mild CSM', 'Moderate CSM'},'Whisker',0.5)
-    temp = strcat(dhi_features(i)," Dist.");
-    title(sprintf('%s',temp))  
+    temp = strcat(dhi_features(i),"");
+    title(sprintf('%s',temp))
+    
+    h = findobj(gca,'Tag','Box');
+    for j=1:length(h)
+        patch(get(h(j),'XData'),get(h(j),'YData'),colors(j,:),'FaceAlpha',.5);
+    end
     
 end
 

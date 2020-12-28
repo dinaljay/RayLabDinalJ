@@ -23,7 +23,7 @@ cm_subjects = [mild_cm_subjects,moderate_cm_subjects];
 cm_subjects = sort(cm_subjects,2);
 
 dhi_features = ["DTI ADC";"DTI Axial";"DTI FA";"DTI Radial";"Fiber Axial";"Fiber FA ";...
-    "Fiber Radial";"Fiber Fraction";"Hindered Fraction";"Restricted Fraction";"Water Fraction";"Axon Volume";"Inflammation Volume"];
+    "Fiber Radial";"Fiber Fraction";"Hindered Fraction";"Restricted Fraction";"Water Fraction"];
 
 %% Create variable stores
 % %B0 Map
@@ -138,13 +138,14 @@ mod_csm{11,1} = data_mod_csm;
 % mod_csm{13,1} = data_mod_csm;
 
 %% Plots
+colors = [0    0.4510,0.7412;];
 
 for i = 1:numel(dhi_features)
-    figure
+    %     figure
     
-    x1 = [all_control{i,1}];
-    x2 = [mild_csm{i,1}];
-    x3 = [mod_csm{i,1}];
+    x1 = cell2mat(all_control{i,1});
+    x2 = cell2mat(mild_csm{i,1});
+    x3 = cell2mat(mod_csm{i,1});
     x = [x1; x2; x3];
     
     g1 = repmat({'Control'},length(x1),1);
@@ -152,9 +153,15 @@ for i = 1:numel(dhi_features)
     g3 = repmat({'Mod'},length(x3),1);
     g = [g1; g2; g3];
     
-    boxplot(x,g,'Notch','on','Labels',{'Controls','Mild CSM', 'Moderate CSM'},'Whisker',1)
-    temp = strcat(dhi_features(i)," Dist.");
-    title(sprintf('%s',temp))  
+    subplot(6,2,i);
+    boxplot(x,g,'Notch', 'on','Labels',{'Controls','Mild CSM', 'Moderate CSM'},'Whisker',0.5)
+    temp = strcat(dhi_features(i),"");
+    title(sprintf('%s',temp))
+    
+    h = findobj(gca,'Tag','Box');
+    for j=1:length(h)
+        patch(get(h(j),'XData'),get(h(j),'YData'),colors(j,:),'FaceAlpha',.5);
+    end
     
 end
 
