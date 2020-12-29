@@ -54,10 +54,19 @@ params = clf.best_params_
 cost = params['C']
 
 # Generating SVM model
-clf = SVC(C=cost, kernel="linear")
+clf = SVC(C=cost, kernel="linear", probability=True)
 
 #Train the model using the training sets
 clf.fit(X_train, y_train)
+
+# predict probabilities
+lr_probs = clf.predict_proba(X_test)
+
+# keep probabilities for the positive outcome only
+lr_probs = lr_probs[:, 1]
+
+# calculate scores
+lr_auc = metrics.roc_auc_score(y_test, lr_probs)
 
 #Predict the response for test dataset
 y_pred = (clf.predict(X_test))
@@ -90,14 +99,17 @@ specificity1 = cm1[1,1]/(cm1[1,0]+cm1[1,1])
 print('Specificity:', specificity1, "\n")
 
 #Calculate AUC
-fpr, tpr, threshold = metrics.roc_curve(y_test, np.asarray(y_pred))
-roc_auc = metrics.auc(fpr, tpr)
-print("AUC:", roc_auc, "\n")
+print("AUC:", lr_auc, "\n")
 
 #Plot ROC curve
+
+fpr, tpr, _ = metrics.roc_curve(y_test, lr_probs)
+
+print(lr_probs)
+
 lw=2
 plt.title('Receiver Operating Characteristic')
-plt.plot(fpr, tpr, 'darkorange', lw=lw, label = 'ROC curve (area = %0.2f)' %roc_auc)
+plt.plot(fpr, tpr, 'darkorange', lw=lw, label = 'ROC curve (area = %0.2f)' %lr_auc)
 plt.legend(loc='lower right')
 plt.plot([0, 1], [0, 1],color='navy', lw=lw, linestyle='--')
 plt.xlim([0, 1])

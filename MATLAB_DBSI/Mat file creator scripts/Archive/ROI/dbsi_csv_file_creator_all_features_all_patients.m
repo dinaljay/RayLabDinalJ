@@ -33,73 +33,131 @@ dhi_features = ["b0_map";"dti_adc_map";"dti_axial_map";"dti_fa_map";"dti_radial_
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/Control/control_b0_map_data.mat');
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/CSM/csm_b0_map_data.mat');
 b0 = [cell2mat(data_control);cell2mat(data_csm)];
+b0_1 = b0(:,1);
+b0_2 = b0(:,2);
+b0_3 = b0(:,3);
+b0_4 = b0(:,4);
 
 % DTI_ADC Map
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/Control/control_dti_adc_map_data.mat');
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/CSM/csm_dti_adc_map_data.mat');
 dti_adc = [cell2mat(data_control);cell2mat(data_csm)];
+dti_adc_1 = dti_adc(:,1);
+dti_adc_2 = dti_adc(:,2);
+dti_adc_3 = dti_adc(:,3);
+dti_adc_4 = dti_adc(:,4);
 
 % DTI Axial Map
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/Control/control_dti_axial_map_data.mat');
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/CSM/csm_dti_axial_map_data.mat');
 dti_axial = [cell2mat(data_control);cell2mat(data_csm)];
+dti_axial_1 = dti_axial(:,1);
+dti_axial_2 = dti_axial(:,2);
+dti_axial_3 = dti_axial(:,3);
+dti_axial_4 = dti_axial(:,4);
 
 % DTI FA Map
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/Control/control_dti_fa_map_data.mat');
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/CSM/csm_dti_fa_map_data.mat');
 dti_fa = [cell2mat(data_control);cell2mat(data_csm)];
+dti_fa_1 = dti_fa(:,1);
+dti_fa_2 = dti_fa(:,2);
+dti_fa_3 = dti_fa(:,3);
+dti_fa_4 = dti_fa(:,4);
 
 % DTI Radial Map
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/Control/control_dti_radial_map_data.mat');
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/CSM/csm_dti_radial_map_data.mat');
 dti_radial = [cell2mat(data_control);cell2mat(data_csm)];
+dti_radial_1 = dti_radial(:,1);
+dti_radial_2 = dti_radial(:,2);
+dti_radial_3 = dti_radial(:,3);
+dti_radial_4 = dti_radial(:,4);
 
 % Fiber Axial Map
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/Control/control_fiber1_axial_map_data.mat');
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/CSM/csm_fiber1_axial_map_data.mat');
 fiber_axial = [cell2mat(data_control);cell2mat(data_csm)];
+fiber_axial_1 = fiber_axial(:,1);
+fiber_axial_2 = fiber_axial(:,2);
+fiber_axial_3 = fiber_axial(:,3);
+fiber_axial_4 = fiber_axial(:,4);
 
 % Fiber FA Map
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/Control/control_fiber1_fa_map_data.mat');
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/CSM/csm_fiber1_fa_map_data.mat');
 fiber_fa = [cell2mat(data_control);cell2mat(data_csm)];
+fiber_fa_1 = fiber_fa(:,1);
+fiber_fa_2 = fiber_fa(:,2);
+fiber_fa_3 = fiber_fa(:,3);
+fiber_fa_4 = fiber_fa(:,4);
 
 % Fiber Radial Map
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/Control/control_fiber1_radial_map_data.mat');
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/CSM/csm_fiber1_radial_map_data.mat');
 fiber_radial = [cell2mat(data_control);cell2mat(data_csm)];
+fiber_radial_1 = fiber_radial(:,1);
+fiber_radial_2 = fiber_radial(:,2);
+fiber_radial_3 = fiber_radial(:,3);
+fiber_radial_4 = fiber_radial(:,4);
+
 
 % Fiber Fraction Map
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/Control/control_fiber_fraction_map_data.mat');
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/CSM/csm_fiber_fraction_map_data.mat');
 fiber_fraction = [cell2mat(data_control);cell2mat(data_csm)];
+fiber_fraction_1 = fiber_fraction(:,1);
+fiber_fraction_2 = fiber_fraction(:,2);
+fiber_fraction_3 = fiber_fraction(:,3);
+fiber_fraction_4 = fiber_fraction(:,4);
+
 
 % Hindered Fraction Map
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/Control/control_hindered_fraction_map_data.mat');
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/CSM/csm_hindered_fraction_map_data.mat');
 hindered_fraction = [cell2mat(data_control);cell2mat(data_csm)];
+hindered_fraction_1 = hindered_fraction(:,1);
+hindered_fraction_2 = hindered_fraction(:,2);
+hindered_fraction_3 = hindered_fraction(:,3);
+hindered_fraction_4 = hindered_fraction(:,4);
 
 % Restricted Fraction Map
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/Control/control_restricted_fraction_map_data.mat');
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/CSM/csm_restricted_fraction_map_data.mat');
 restricted_fraction = [cell2mat(data_control);cell2mat(data_csm)];
+restricted_fraction_1 = restricted_fraction(:,1);
+restricted_fraction_2 = restricted_fraction(:,2);
+restricted_fraction_3 = restricted_fraction(:,3);
+restricted_fraction_4 = restricted_fraction(:,4);
 
 % Water Fraction Map
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/Control/control_water_fraction_map_data.mat');
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/CSM/csm_water_fraction_map_data.mat');
 water_fraction = [cell2mat(data_control);cell2mat(data_csm)];
+water_fraction_1 = water_fraction(:,1);
+water_fraction_2 = water_fraction(:,2);
+water_fraction_3 = water_fraction(:,3);
+water_fraction_4 = water_fraction(:,4);
 
 %Axon volume
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/Control/control_axon_volume_data.mat');
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/CSM/csm_axon_volume_data.mat');
 axon_volume = [cell2mat(control_axon_volume);cell2mat(csm_axon_volume)];
+axon_volume_1 = axon_volume(:,1);
+axon_volume_2 = axon_volume(:,2);
+axon_volume_3 = axon_volume(:,3);
+axon_volume_4 = axon_volume(:,4);
 
 %Inflammation volume
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/Control/control_inflammation_volume_data.mat');
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/CSM/csm_inflammation_volume_data.mat');
 inflammation_volume = [cell2mat(control_inflammation_volume);cell2mat(csm_inflammation_volume)];
+inflammation_volume_1 = inflammation_volume(:,1);
+inflammation_volume_2 = inflammation_volume(:,2);
+inflammation_volume_3 = inflammation_volume(:,3);
+inflammation_volume_4 = inflammation_volume(:,4);
 
-%% Create patient IDs
+%% Creat patient IDs
 x=1;
 for k = 1:numel(controls)
     
@@ -123,8 +181,13 @@ group_id = categorical([repmat({'0'},numel(controls),1);repmat({'1'},numel(cm_su
 
 
 terminal2 = strcat('all_patients_all_features','_data.csv');
-table_out=table(patientID, group,group_id,dti_adc,dti_axial,dti_fa,dti_radial,fiber_axial,fiber_fa,...
-    fiber_radial,fiber_fraction,hindered_fraction,restricted_fraction,water_fraction,axon_volume,inflammation_volume);
+table_out=table(patientID,group,group_id,dti_adc_1,dti_adc_2,dti_adc_3,dti_adc_4,...
+    dti_axial_1,dti_axial_2,dti_axial_3,dti_axial_4,dti_fa_1,dti_fa_2,dti_fa_3,dti_fa_4,dti_radial_1,dti_radial_2,dti_radial_3,dti_radial_4,...
+    fiber_axial_1,fiber_axial_2,fiber_axial_3,fiber_axial_4,fiber_fa_1,fiber_fa_2,fiber_fa_3,fiber_fa_4,...
+    fiber_radial_1,fiber_radial_2,fiber_radial_3,fiber_radial_4,fiber_fraction_1,fiber_fraction_2,fiber_fraction_3,fiber_fraction_4,...
+    hindered_fraction_1,hindered_fraction_2,hindered_fraction_3,hindered_fraction_4,restricted_fraction_1,restricted_fraction_2,restricted_fraction_3,restricted_fraction_4,...
+    water_fraction_1,water_fraction_2,water_fraction_2,water_fraction_4,axon_volume_1,axon_volume_2,axon_volume_3,axon_volume_4,...
+    inflammation_volume_1,inflammation_volume_2,inflammation_volume_3,inflammation_volume_4);
 
 table_out.Properties.VariableNames{1} = 'Patient_ID';
 table_out.Properties.VariableNames{2} = 'Group';

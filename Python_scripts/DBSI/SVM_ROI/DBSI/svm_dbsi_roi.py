@@ -28,9 +28,7 @@ url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_ROI/DBSI_CSV_Data/
 
 all_data = pd.read_csv(url, header=0)
 
-X = all_data.drop(['Patient_ID', 'Group', 'Group_ID','dti_adc_1', 'dti_adc_2', 'dti_adc_3', 'dti_adc_4', 'dti_axial_1',
-                   'dti_axial_2', 'dti_axial_3', 'dti_axial_4', 'dti_fa_1', 'dti_fa_2', 'dti_fa_3', 'dti_fa_4', 'dti_radial_1', 'dti_radial_2', 'dti_radial_3', 'dti_radial_4'], axis=1)
-
+X = all_data.drop(['Group', 'Group_ID', 'dti_adc', 'dti_axial', 'dti_fa', 'dti_radial'], axis=1)
 y = all_data['Group_ID']
 
 # Scale data
@@ -82,6 +80,7 @@ for i in range(len(X_scaled)):
 
 #Import scikit-learn metrics module for accuracy calculation
 from sklearn import metrics
+from statistics import mean
 
 # Model Accuracy: how often is the classifier correct?
 print("Accuracy:", metrics.accuracy_score(y, np.asarray(y_pred)))

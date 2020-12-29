@@ -39,17 +39,16 @@ dhi_features = ["b0_map";"dti_adc_map";"dti_axial_map";"dti_fa_map";"dti_radial_
 fprintf('All Cervical Myelopathy Patients \n')
 
 for i = 1:numel(dhi_features)
-    data_csm = cell(numel(cm_subjects),1);
+    data_csm = cell(numel(cm_subjects),numel(slices));
     
-    for k = 1:numel(cm_subjects)
+    for j = 1:numel(slices)
+        slice_num = strcat('slice_',num2str(slices(j)));
+        disp(num2str(slice_num));
         
-        subjectID = strcat('CSM_P0',num2str(cm_subjects(k)));
-        disp(num2str(subjectID));
-        temp=[];
-        
-        for j = 1:numel(slices)
-            slice_num = strcat('slice_',num2str(slices(j)));
-            disp(num2str(slice_num));
+        for k = 1:numel(cm_subjects)
+            
+            subjectID = strcat('CSM_P0',num2str(cm_subjects(k)));
+            disp(num2str(subjectID));
             
             param_file = strcat(dhi_features(i),'.nii');
             mask_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/label/template/PAM50_wm.nii.gz');
@@ -61,9 +60,9 @@ for i = 1:numel(dhi_features)
             expert_rois = double(mask);
             dwi_data = double(dwi_data);
             data = dwi_data(expert_rois>0.7);
-            temp=[temp;data];
+            data_csm{k,j} = mean(data);
         end
-        data_csm{k,1} = mean(temp);
+        fprintf('\n')
     end
     terminal = strcat('csm_',dhi_features(i),'_data.mat');
     save(fullfile(out_dir_csm,terminal),'cm_subjects','mild_cm_subjects','moderate_cm_subjects','data_csm');

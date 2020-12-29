@@ -38,20 +38,17 @@ voxel_surface_area = 0.35*0.35;
 
 fprintf('Control Patients \n')
 
-data_control = cell(numel(controls),1);
+data_control = cell(numel(controls),numel(slices));
 
-
-
-for k = 1:numel(controls)
+for j = 1:numel(slices)
     
-    subjectID = strcat('CSM_C0',num2str(controls(k)));
-    disp(num2str(subjectID));
-    temp = [];
+    slice_num = strcat('slice_',num2str(slices(j)));
+    disp(num2str(slice_num));
     
-    for j = 1:numel(slices)
+    for k = 1:numel(controls)
         
-        slice_num = strcat('slice_',num2str(slices(j)));
-        disp(num2str(slice_num));
+        subjectID = strcat('CSM_C0',num2str(controls(k)));
+        disp(num2str(subjectID));
         
         param_file =('dti_fa_map.nii');
         mask_file = fullfile(control_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/label/template/PAM50_wm.nii.gz');
@@ -64,25 +61,24 @@ for k = 1:numel(controls)
         dwi_data = double(dwi_data);
         
         data = dwi_data(expert_rois>0.7);
-        temp = [temp;data];
+        data_control{k,j} = length(data);
     end
-    data_control{k,1} = length(temp);
+    fprintf('\n')
 end
 
 fprintf('\n')
 fprintf('All Cervical Myelopathy Patients \n')
 
-data_csm = cell(numel(cm_subjects),1);
+data_csm = cell(numel(cm_subjects),numel(slices));
 
-for k = 1:numel(cm_subjects)
+for j = 1:numel(slices)
+    slice_num = strcat('slice_',num2str(slices(j)));
+    disp(num2str(slice_num));
     
-    subjectID = strcat('CSM_P0',num2str(cm_subjects(k)));
-    disp(num2str(subjectID));
-    temp = [];
-    
-    for j = 1:numel(slices)
-        slice_num = strcat('slice_',num2str(slices(j)));
-        disp(num2str(slice_num));
+    for k = 1:numel(cm_subjects)
+        
+        subjectID = strcat('CSM_P0',num2str(cm_subjects(k)));
+        disp(num2str(subjectID));
         
         param_file =('dti_fa_map.nii');
         mask_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/label/template/PAM50_wm.nii.gz');
@@ -94,16 +90,18 @@ for k = 1:numel(cm_subjects)
         expert_rois = double(mask);
         dwi_data = double(dwi_data);
         data = dwi_data(expert_rois>0.7);
-        temp = [temp;data];
+        data_csm{k,j} = length(data);
     end
-    data_csm{k,1} = length(temp);
+    fprintf('\n')
 end
 
 %% Caculate volume and surface area
 
 for i = 1:length(data_control)
-    control_volumes{i,1} = data_control{i,1}*voxel_volume;
-    control_surface_area{i,1} = data_control{i,1}*voxel_surface_area;
+    for j = 1:numel(slices)
+        control_volumes{i,j} = data_control{i,j}*voxel_volume;
+        control_surface_area{i,j} = data_control{i,j}*voxel_surface_area;
+    end
 end
 
 terminal = strcat('control_volume','_data.mat');
@@ -113,8 +111,10 @@ terminal = strcat('control_surface_area','_data.mat');
 save(fullfile(out_dir_control,terminal),'controls','control_surface_area');
 
 for i = 1:length(data_csm)
-    csm_volumes{i,1} = data_csm{i,1}*voxel_volume;
-    csm_surface_area{i,1} = data_csm{i,1}*voxel_surface_area;
+    for j = 1:numel(slices)
+        csm_volumes{i,j} = data_csm{i,j}*voxel_volume;
+        csm_surface_area{i,j} = data_csm{i,j}*voxel_surface_area;
+    end
 end
 
 terminal = strcat('csm_volume','_data.mat');

@@ -141,7 +141,7 @@ mod_csm{11,1} = data_mod_csm;
 colors = [1, 0, 0; 0, 1, 0; 0, 0, 1];
 
 for i = 1:numel(dhi_features)
-    %     figure
+    figure
     
     x1 = cell2mat(all_control{i,1});
     x2 = cell2mat(mild_csm{i,1});
@@ -153,7 +153,7 @@ for i = 1:numel(dhi_features)
     g3 = repmat({'Mod'},length(x3),1);
     g = [g1; g2; g3];
     
-    subplot(6,2,i);
+    %subplot(6,2,i);
     boxplot(x,g,'Notch', 'on','Labels',{'Controls','Mild CSM', 'Moderate CSM'},'Whisker',0.5)
     temp = strcat(dhi_features(i),"");
     title(sprintf('%s',temp))

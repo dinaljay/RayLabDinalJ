@@ -85,10 +85,8 @@ csm_inflammation = csm_hindered + csm_restricted;
 %Control volume calculations
 
 for i = 1:numel(controls)
-    for j = 1:numel(slices)
-        control_inflammation_volume{i,j} = control_volumes(i,j)*control_inflammation(i,j);
-        control_axon_volume{i,j} = control_volumes(i,j)*control_fiber_fraction(i,j);
-    end
+    control_inflammation_volume{i,1} = control_volumes(i,1)*control_inflammation(i,1);
+    control_axon_volume{i,1} = control_volumes(i,1)*control_fiber_fraction(i,1);
 end
 
 terminal = strcat('control_inflammation_volume','_data.mat');
@@ -101,10 +99,8 @@ save(fullfile(out_dir_control,terminal),'controls','control_axon_volume');
 %CSM volume calculations
 
 for i = 1:numel(cm_subjects)
-    for j = 1:numel(slices)
-        csm_inflammation_volume{i,j} = csm_volumes(i,j)*csm_inflammation(i,j);
-        csm_axon_volume{i,j} = csm_volumes(i,j)*csm_fiber_fraction(i,j);
-    end
+    csm_inflammation_volume{i,1} = csm_volumes(i,1)*csm_inflammation(i,1);
+    csm_axon_volume{i,1} = csm_volumes(i,1)*csm_fiber_fraction(i,1);
 end
 
 terminal = strcat('csm_inflammation_volume','_data.mat');
@@ -119,36 +115,20 @@ save(fullfile(out_dir_csm,terminal),'cm_subjects','csm_axon_volume');
 
 terminal2 = strcat('control_inflammation_volume','_data.csv');
 table_out=cell2table(control_inflammation_volume);
-table_out.Properties.VariableNames{1} = 'Slice_1';
-table_out.Properties.VariableNames{2} = 'Slice_2';
-table_out.Properties.VariableNames{3} = 'Slice_3';
-table_out.Properties.VariableNames{4} = 'Slice_4';
 writetable(table_out,fullfile(out_dir_control_csv,terminal2))
 
 terminal2 = strcat('control_axon_volume','_data.csv');
 table_out=cell2table(control_axon_volume);
-table_out.Properties.VariableNames{1} = 'Slice_1';
-table_out.Properties.VariableNames{2} = 'Slice_2';
-table_out.Properties.VariableNames{3} = 'Slice_3';
-table_out.Properties.VariableNames{4} = 'Slice_4';
 writetable(table_out,fullfile(out_dir_control_csv,terminal2))
 
 %All Cervical Myelopathy Patients
 
 terminal2 = strcat('csm_inflammation_volume','_data.csv');
 table_out=cell2table(csm_inflammation_volume);
-table_out.Properties.VariableNames{1} = 'Slice_1';
-table_out.Properties.VariableNames{2} = 'Slice_2';
-table_out.Properties.VariableNames{3} = 'Slice_3';
-table_out.Properties.VariableNames{4} = 'Slice_4';
 writetable(table_out,fullfile(out_dir_csm_csv,terminal2));
 
 terminal2 = strcat('csm_axon_volume','_data.csv');
 table_out=cell2table(csm_axon_volume);
-table_out.Properties.VariableNames{1} = 'Slice_1';
-table_out.Properties.VariableNames{2} = 'Slice_2';
-table_out.Properties.VariableNames{3} = 'Slice_3';
-table_out.Properties.VariableNames{4} = 'Slice_4';
 writetable(table_out,fullfile(out_dir_csm_csv,terminal2));
 
 %% All patients
@@ -157,29 +137,13 @@ out_dir_all = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_ROI/DBSI_C
 group_id = categorical([repmat({'Control'},numel(controls),1);repmat({'CSM'},numel(cm_subjects),1)]);
 
 all_data = cell2mat([control_inflammation_volume;csm_inflammation_volume]);
-all_data_1 = all_data(:,1);
-all_data_2 = all_data(:,2);
-all_data_3 = all_data(:,3);
-all_data_4 = all_data(:,4);
 terminal2 = strcat('all_inflammation_volume','_data.csv');
-table_out=table(group_id,all_data_1,all_data_2,all_data_3,all_data_4);
+table_out=table(group_id,all_data);
 table_out.Properties.VariableNames{1} = 'Group';
-table_out.Properties.VariableNames{2} = 'Slice_1';
-table_out.Properties.VariableNames{3} = 'Slice_2';
-table_out.Properties.VariableNames{4} = 'Slice_3';
-table_out.Properties.VariableNames{5} = 'Slice_4';
 writetable(table_out,fullfile(out_dir_all,terminal2));
 
 all_data = cell2mat([control_axon_volume;csm_axon_volume]);
-all_data_1 = all_data(:,1);
-all_data_2 = all_data(:,2);
-all_data_3 = all_data(:,3);
-all_data_4 = all_data(:,4);
 terminal2 = strcat('all_axon_volume','_data.csv');
-table_out=table(group_id,all_data_1,all_data_2,all_data_3,all_data_4);
+table_out=table(group_id,all_data);
 table_out.Properties.VariableNames{1} = 'Group';
-table_out.Properties.VariableNames{2} = 'Slice_1';
-table_out.Properties.VariableNames{3} = 'Slice_2';
-table_out.Properties.VariableNames{4} = 'Slice_3';
-table_out.Properties.VariableNames{5} = 'Slice_4';
 writetable(table_out,fullfile(out_dir_all,terminal2));
