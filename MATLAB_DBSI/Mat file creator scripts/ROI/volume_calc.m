@@ -40,8 +40,6 @@ fprintf('Control Patients \n')
 
 data_control = cell(numel(controls),1);
 
-
-
 for k = 1:numel(controls)
     
     subjectID = strcat('CSM_C0',num2str(controls(k)));

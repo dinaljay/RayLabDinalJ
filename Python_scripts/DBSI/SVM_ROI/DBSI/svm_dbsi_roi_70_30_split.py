@@ -28,7 +28,7 @@ url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_ROI/DBSI_CSV_Data/
 
 all_data = pd.read_csv(url, header=0)
 
-X = all_data.drop(['Group', 'Group_ID', 'dti_adc', 'dti_axial', 'dti_fa', 'dti_radial'], axis=1)
+X = all_data.drop(['Patient_ID', 'Group', 'Group_ID', 'dti_adc', 'dti_axial', 'dti_fa', 'dti_radial'], axis=1)
 y = all_data['Group_ID']
 
 # Scale data

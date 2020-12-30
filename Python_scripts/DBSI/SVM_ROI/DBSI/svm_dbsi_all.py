@@ -28,7 +28,7 @@ url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_ROI/DBSI_CSV_Data/
 
 all_data = pd.read_csv(url, header=0)
 
-X = all_data.drop(['Group', 'Group_ID', 'dti_adc', 'dti_axial', 'dti_fa', 'dti_radial'], axis=1)
+X = all_data.drop(['Patient_ID', 'Group', 'Group_ID', 'dti_adc', 'dti_axial', 'dti_fa', 'dti_radial'], axis=1)
 y = all_data['Group_ID']
 
 # Scale data
@@ -85,10 +85,15 @@ from sklearn import metrics
 print("Accuracy:", metrics.accuracy_score(y, np.asarray(y_pred)))
 
 # Model Precision
-print("Precision:", metrics.precision_score(y, np.asarray(y_pred), average='micro'))
+print("Precision:", metrics.precision_score(y, np.asarray(y_pred), average='weighted'))
 
 # Model Recall
-print("Recall:", metrics.recall_score(y, np.asarray(y_pred), average='micro'))
+print("Recall:", metrics.recall_score(y, np.asarray(y_pred), average='weighted'))
+
+#Model F-1 score
+print("F1 score:", metrics.f1_score(y, np.asarray(y_pred), average='weighted'))
+
+sys.exit()
 
 from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score
 cm1 = confusion_matrix(y, np.asarray(y_pred))
@@ -119,10 +124,6 @@ y_prob = clf.predict_proba(X_test)
 macro_roc_auc_ovo = roc_auc_score(y_test, y_prob, multi_class="ovo",
                                   average="macro")
 weighted_roc_auc_ovo = roc_auc_score(y_test, y_prob, multi_class="ovo",
-                                     average="weighted")
-macro_roc_auc_ovr = roc_auc_score(y_test, y_prob, multi_class="ovr",
-                                  average="macro")
-weighted_roc_auc_ovr = roc_auc_score(y_test, y_prob, multi_class="ovr",
                                      average="weighted")
 
 print("AUC:", macro_roc_auc_ovo)

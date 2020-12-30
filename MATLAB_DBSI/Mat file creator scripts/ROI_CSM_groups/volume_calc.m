@@ -47,8 +47,6 @@ for k = 1:numel(cm_subjects)
         slice_num = strcat('slice_',num2str(slices(j)));
         disp(num2str(slice_num));
         
-        
-        
         param_file =('dti_fa_map.nii');
         mask_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/label/template/PAM50_wm.nii.gz');
         dwi_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3',param_file);

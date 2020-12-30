@@ -90,6 +90,11 @@ print("Precision:", metrics.precision_score(y, np.asarray(y_pred), average='micr
 # Model Recall
 print("Recall:", metrics.recall_score(y, np.asarray(y_pred), average='micro'))
 
+#Model F-1 score
+print("F1 score:", metrics.f1_score(y, np.asarray(y_pred), average='weighted'))
+
+sys.exit()
+
 from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score
 cm1 = confusion_matrix(y, np.asarray(y_pred))
 

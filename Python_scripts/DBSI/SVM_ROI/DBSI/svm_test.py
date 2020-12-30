@@ -29,7 +29,7 @@ url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_ROI/DBSI_CSV_Data/
 
 all_data = pd.read_csv(url, header=0)
 
-X = all_data.drop(['Group', 'Group_ID', 'dti_adc', 'dti_axial', 'dti_fa', 'dti_radial'], axis=1)
+X = all_data.drop(['Patient_ID', 'Group', 'Group_ID', 'dti_adc', 'dti_axial', 'dti_fa', 'dti_radial'], axis=1)
 y = all_data['Group_ID']
 
 # Scale data
@@ -40,9 +40,8 @@ X_scaled = preprocessing.scale(X)
 
 #Implement leave one out cross validation
 y_pred = []
-auc = []
-fpr = []
-tpr = []
+y_conf = []
+
 for i in range(len(X_scaled)):
 
     # Splitting Data for tuning hyerparameters
@@ -72,45 +71,38 @@ for i in range(len(X_scaled)):
     y_test = y[i]
 
     # Generating SVM model
-    clf = SVC(C=cost, kernel="linear", probability=True)
+    clf = SVC(C=cost, kernel="linear")
 
     #Train the model using the training sets
     clf.fit(X_train, y_train)
 
-    # predict probabilities
-    lr_probs = clf.predict_proba(X_test)
-
-    # keep probabilities for the positive outcome only
-    lr_probs = lr_probs[:, 1]
-
-    # calculate scores
-    auc.append(metrics.roc_auc_score(y_test, lr_probs))
-
-    #calculate fpr and tpr
-    fpr_val, tpr_val, _ = metrics.roc_curve(y_test, lr_probs)
-
-    fpr.append(fpr_val)
-    tpr.append(tpr_val)
-
     #Predict the response for test dataset
-    y_pred.append(clf.predict(X_test))
+    temp = clf.predict(X_test)
+    y_pred.append(temp[0])
 
+    #Get confidecne scores
+    temp = clf.decision_function(X_test)
+    y_conf.append(temp[0])
 
-#Import scikit-learn metrics module for accuracy calculation
-from sklearn import metrics
-from statistics import mean
+y = np.asarray(y)
+y_pred = np.asarray(y_pred)
+y_conf = np.asarray(y_conf)
 
 # Model Accuracy: how often is the classifier correct?
-print("Accuracy:", metrics.accuracy_score(y, np.asarray(y_pred)))
+print("Accuracy:", metrics.accuracy_score(y, y_pred))
 
 # Model Precision
-print("Precision:", metrics.precision_score(y, np.asarray(y_pred)))
+print("Precision:", metrics.precision_score(y, y_pred))
 
 # Model Recall
-print("Recall:", metrics.recall_score(y, np.asarray(y_pred)))
+print("Recall:", metrics.recall_score(y, y_pred))
+
+#Model F1 score
+f1 = metrics.f1_score(y, y_pred)
+print("F1 Score:", f1)
 
 from sklearn.metrics import classification_report, confusion_matrix
-cm1 = confusion_matrix(y, np.asarray(y_pred))
+cm1 = confusion_matrix(y, y_pred)
 
 print("Confusion matrix: \n", cm1)
 #print(classification_report(y, np.asarray(y_pred)))
@@ -131,23 +123,38 @@ specificity1 = cm1[1,1]/(cm1[1,0]+cm1[1,1])
 print('Specificity:', specificity1)
 
 #Calculate AUC
-#fpr, tpr, threshold = metrics.roc_curve(y, np.asarray(y_pred))
+fpr, tpr, threshold = metrics.roc_curve(y, y_conf)
 #roc_auc = metrics.auc(fpr, tpr)
-roc_auc = mean(auc)
+roc_auc = metrics.roc_auc_score(y, y_conf)
 print("AUC:", roc_auc)
 
 #Plot ROC curve
 
-fpr = np.asarray(fpr)
-tpr = np.asarray(tpr)
-
 lw=2
 plt.title('Receiver Operating Characteristic')
-plt.plot(fpr, tpr, 'darkorange', lw=lw, label = 'ROC curve (area = %0.2f)' %roc_auc)
+plt.plot(fpr, tpr, color='darkorange', lw=lw, label='SVM (area = %0.2f)' %roc_auc)
+plt.plot([0, 1], [0, 1],color='navy', lw=lw, linestyle='--', label='No Skill')
 plt.legend(loc='lower right')
-plt.plot([0, 1], [0, 1],color='navy', lw=lw, linestyle='--')
 plt.xlim([0, 1])
 plt.ylim([0, 1.05])
 plt.ylabel('True Positive Rate')
 plt.xlabel('False Positive Rate')
+#plt.show()
+
+#sys.exit()
+
+# Plot precision recall curve
+
+lr_precision, lr_recall, _ = metrics.precision_recall_curve(y, y_conf)
+
+plt.figure()
+plt.title('Precision-Recall Curve')
+plt.plot([0, 1], [0, 0], color='navy', lw=lw, linestyle='--', label='No Skill')
+plt.plot(lr_recall, lr_precision, color='darkorange', label='SVM')
+plt.legend(loc='lower right')
+plt.xlim([0, 1])
+plt.ylim([-0.1, 1.05])
+plt.xlabel('Recall')
+plt.ylabel('Precision')
+
 plt.show()
