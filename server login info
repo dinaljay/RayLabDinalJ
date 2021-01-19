@@ -1,0 +1,37 @@
+
+# server: bmrp096.rad.wustl.edu
+# username: wilsonray
+# IP address: 10.39.42.196
+# Password: In4DwR@SG
+# Port: 4525
+
+ssh wilsonray@10.39.42.196 -p 4525
+
+#Example of scp command
+
+scp -P 4525 wilsonray@10.39.42.196:/home/wilsonray/CSM_New/Median.csv /home/functionalspinelab/Desktop/Meridian.csv
+
+scp -rp -P 4525 wilsonray@10.39.42.196:/home/wilsonray/CSM_New /media/functionalspinelab/RAID/Data/Dinal/DBSI_Data_Server
+
+# Rsync example
+
+rsync -ave "ssh -p 4525" wilsonray@10.39.42.196:/home/wilsonray/CSM_New /media/functionalspinelab/RAID/Data/Dinal/DBSI_Data_Server
+
+rsync -ave "ssh -p 4525" wilsonray@10.39.42.196:/home/wilsonray/CSM_New/Control/CSM_C001 /media/functionalspinelab/RAID/Data/Dinal/DBSI_Data_Server/CSM_New
+
+# rsync dry run
+
+rsync --dry-run --ignore-existing -avezh "ssh -p 4525" wilsonray@10.39.42.196:/home/wilsonray/CSM_New /media/functionalspinelab/RAID/Data/Dinal/DBSI_Data/CSM_New.tar
+
+
+ssh wilsonray@10.39.42.196 -p 4525 "tar czpf - /home/wilsonray/CSM_New" | tar xzpf - -C /media/functionalspinelab/RAID/Data/Dinal/DBSI_Data
+
+
+ssh wilsonray@10.39.42.196 -p 4525 tar czf - /home/wilsonray/CSM_New > /media/functionalspinelab/RAID/Data/Dinal/DBSI_Data/csm_new.tgz
+
+
+# transport folder structure only
+
+rsync -av -f"+ */" -f"- *" -e "ssh -p 4525" wilsonray@10.39.42.196:/home/wilsonray/CSM_New /media/functionalspinelab/RAID/Data/Dinal/DBSI_Data_Server
+
+rsync --ignore-existing -ave "ssh -p 4525" wilsonray@10.39.42.196:/home/wilsonray/CSM_New /media/functionalspinelab/RAID/Data/Dinal/DBSI_Data_Server/CSM_New

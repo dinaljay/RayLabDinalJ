@@ -39,6 +39,7 @@ X_scaled = preprocessing.scale(X)
 
 #Implement leave one out cross validation
 y_pred = []
+y_conf = []
 
 for i in range(len(X_scaled)):
 
@@ -75,7 +76,16 @@ for i in range(len(X_scaled)):
     clf.fit(X_train, y_train)
 
     #Predict the response for test dataset
-    y_pred.append(clf.predict(X_test))
+    temp = clf.predict(X_test)
+    y_pred.append(temp[0])
+
+    #Get confidecne scores
+    temp = clf.decision_function(X_test)
+    y_conf.append(temp[0])
+
+y = np.asarray(y)
+y_pred = np.asarray(y_pred)
+y_conf = np.asarray(y_conf)
 
 
 #Import scikit-learn metrics module for accuracy calculation
@@ -90,13 +100,14 @@ print("Precision:", metrics.precision_score(y, np.asarray(y_pred), average='weig
 # Model Recall
 print("Recall:", metrics.recall_score(y, np.asarray(y_pred), average='weighted'))
 
-#Model F-1 score
-print("F1 score:", metrics.f1_score(y, np.asarray(y_pred), average='weighted'))
+#Model F1 score
+f1 = metrics.f1_score(y, y_pred, average='weighted')
+print("F1 Score:", f1)
 
 sys.exit()
 
 from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score
-cm1 = confusion_matrix(y, np.asarray(y_pred))
+cm1 = confusion_matrix(y, y_pred)
 
 print("Confusion matrix: \n", cm1)
 #print(classification_report(y, np.asarray(y_pred)))
@@ -121,7 +132,7 @@ from sklearn.metrics import roc_auc_score
 
 y_prob = clf.predict_proba(X_test)
 
-macro_roc_auc_ovo = roc_auc_score(y_test, y_prob, multi_class="ovo",
+macro_roc_auc_ovo = roc_auc_score(y_test, y_conf, multi_class="ovo",
                                   average="macro")
 weighted_roc_auc_ovo = roc_auc_score(y_test, y_prob, multi_class="ovo",
                                      average="weighted")

@@ -71,7 +71,7 @@ for i in range(len(X_scaled)):
     y_test = y[i]
 
     # Generating SVM model
-    clf = SVC(C=cost, kernel="linear")
+    clf = SVC(C=cost, kernel="linear", probability=True)
 
     #Train the model using the training sets
     clf.fit(X_train, y_train)
@@ -80,8 +80,9 @@ for i in range(len(X_scaled)):
     temp = clf.predict(X_test)
     y_pred.append(temp[0])
 
-    #Get confidecne scores
-    temp = clf.decision_function(X_test)
+    #Get probability scores
+    temp1 = clf.predict_proba(X_test)
+    temp = temp1[:, 1]
     y_conf.append(temp[0])
 
 y = np.asarray(y)

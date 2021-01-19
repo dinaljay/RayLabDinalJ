@@ -63,7 +63,7 @@ for i = 1:numel(dhi_features)
             data = dwi_data(expert_rois>0.7);
             temp=[temp;data];
         end
-        data_csm{k,1} = mean(temp);
+        data_csm{k,1} = median(temp);
     end
     terminal = strcat('csm_',dhi_features(i),'_data.mat');
     save(fullfile(out_dir_csm,terminal),'cm_subjects','mild_cm_subjects','moderate_cm_subjects','data_csm');
