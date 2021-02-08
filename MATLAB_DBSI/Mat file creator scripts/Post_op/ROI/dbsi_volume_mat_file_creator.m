@@ -17,8 +17,7 @@ out_dir_mod_csm = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Po
 
 %% Declare necessary variables
 
-% controls = [4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20];
-controls = [4];
+controls = [4,5,8,9,10,11,15,16,17,18];
 
 mild_cm_subjects = [2,3,5,15,16,18,19,23,28,29,36,40];
 

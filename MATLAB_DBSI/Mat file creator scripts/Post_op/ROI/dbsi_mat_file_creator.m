@@ -18,8 +18,7 @@ out_dir_mod_csm = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Po
 
 %% Declare necessary variables
 
-% controls = [4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20];
-controls = [4];
+controls = [4,5,8,9,10,11,15,16,17,18];
 
 mild_cm_subjects = [2,3,5,15,16,18,19,23,28,29,36,40];
 
@@ -52,8 +51,8 @@ for i = 1:numel(dhi_features)
             disp(num2str(slice_num));
             
             param_file = strcat(dhi_features(i),'.nii');
-            mask_file = fullfile(control_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/label/template/PAM50_wm.nii.gz');
-            dwi_file = fullfile(control_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3',param_file);
+            mask_file = fullfile(control_path,subjectID,'/scan_2/dMRI_ZOOMit/',slice_num,'/all_volumes/label/template/PAM50_wm.nii.gz');
+            dwi_file = fullfile(control_path,subjectID,'/scan_2/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3',param_file);
             
             mask = niftiread(mask_file);
             dwi_data = niftiread(dwi_file);
