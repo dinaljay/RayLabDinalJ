@@ -68,6 +68,7 @@ for i = 1:numel(dhi_features)
     data_control = num2cell(new_temp);
     terminal = strcat('control_',dhi_features(i),'_data.mat');
     save(fullfile(out_dir_control,terminal),'controls','data_control');
+    clear data_control;
     
 end
 
@@ -107,6 +108,7 @@ for i = 1:numel(dhi_features)
     data_mild_csm = num2cell(new_temp);
     terminal = strcat('mild_csm_',dhi_features(i),'_data.mat');
     save(fullfile(out_dir_mild_csm,terminal),'cm_subjects','mild_cm_subjects','data_mild_csm');
+    clear data_mild_csm;
     
 end
 
@@ -146,8 +148,8 @@ for i = 1:numel(dhi_features)
     data_mod_csm = num2cell(new_temp);
     terminal = strcat('mod_csm_',dhi_features(i),'_data.mat');
     save(fullfile(out_dir_mod_csm,terminal),'cm_subjects','moderate_cm_subjects','data_mod_csm');
+    clear data_mod_csm;
     
 end
 
-return;
 

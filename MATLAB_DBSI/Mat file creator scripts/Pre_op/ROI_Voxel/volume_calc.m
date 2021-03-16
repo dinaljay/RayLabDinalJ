@@ -9,7 +9,7 @@ addpath (genpath('/home/functionalspinelab/Desktop/Dinal/Scripts/MATLAB_DBSI'));
 
 control_path = '/media/functionalspinelab/RAID/Data/Dinal/DBSI_Data/CSM_New/Control';
 csm_path = '/media/functionalspinelab/RAID/Data/Dinal/DBSI_Data/CSM_New/Patient';
-out_dir_csm = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/Pre_op/DBSI/ROI/CSM_grouped';
+out_dir_csm = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI/CSM_grouped';
 
 %% Declare necessary variables
 

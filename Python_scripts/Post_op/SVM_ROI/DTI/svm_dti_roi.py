@@ -22,7 +22,7 @@ csm_ids = np.array([1]*len(all_cm))
 
 all_ids = np.concatenate((control_ids,csm_ids),axis=0)
 
-## Load Data
+## Load Pre-op Data
 
 url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_ROI/DBSI_CSV_Data/Pre_op/all_patients_all_features_data.csv'
 
@@ -37,50 +37,50 @@ from sklearn import preprocessing
 
 X_scaled = preprocessing.scale(X)
 
-#Implement leave one out cross validation
+# Tuning hyperparameters
+from sklearn.model_selection import GridSearchCV
+from sklearn.svm import SVC
+
+tuned_parameters = [{'kernel': ['linear'], 'C': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}]
+clf = GridSearchCV(SVC(), tuned_parameters, scoring='accuracy')
+clf.fit(X_scaled, y)
+params = clf.best_params_
+cost = params['C']
+
+# Generating SVM model
+clf = SVC(C=cost, kernel="linear")
+
+#Train the model using the training sets
+clf.fit(X_scaled, y)
+
+## Load Post-op Data
+
+url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_ROI/DBSI_CSV_Data/Post_op/all_patients_all_features_data.csv'
+
+all_data = pd.read_csv(url, header=0)
+
+X = all_data[['dti_adc', 'dti_axial', 'dti_fa', 'dti_radial']]
+y = all_data['Group_ID']
+
+# Scale data
+
+from sklearn import preprocessing
+
+X_scaled = preprocessing.scale(X)
+X_scaled = np.asarray(X_scaled)
 y_pred = []
 y_conf = []
 
 for i in range(len(X_scaled)):
 
-    # Splitting Data for tuning hyerparameters
-    X_train = np.delete(X_scaled, [i], axis=0)
-    y_train = y.drop([i], axis=0)
-
-    X_test = X_scaled[i]
-    X_test = X_test.reshape(1, -1)
-    y_test = y[i]
-
-    # Tuning hyperparameters
-    from sklearn.model_selection import GridSearchCV
-    from sklearn.svm import SVC
-
-    tuned_parameters = [{'kernel': ['linear'], 'C': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}]
-    clf = GridSearchCV(SVC(), tuned_parameters, scoring='accuracy')
-    clf.fit(X_train, y_train)
-    params = clf.best_params_
-    cost = params['C']
-
-    # Splitting Data for model
-    X_train = np.delete(X_scaled, [i], axis=0)
-    y_train = y.drop([i], axis=0)
-
-    X_test = X_scaled[i]
-    X_test = X_test.reshape(1, -1)
-    y_test = y[i]
-
-    # Generating SVM model
-    clf = SVC(C=cost, kernel="linear")
-
-    #Train the model using the training sets
-    clf.fit(X_train, y_train)
-
     #Predict the response for test dataset
-    temp = clf.predict(X_test)
+    hold = X_scaled[i]
+    hold = hold.reshape(1, -1)
+    temp = clf.predict(hold)
     y_pred.append(temp[0])
 
     #Get confidecne scores
-    temp = clf.decision_function(X_test)
+    temp = clf.decision_function(hold)
     y_conf.append(temp[0])
 
 y = np.asarray(y)

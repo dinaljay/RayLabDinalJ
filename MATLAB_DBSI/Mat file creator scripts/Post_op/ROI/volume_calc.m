@@ -17,7 +17,8 @@ out_dir_mod_csm = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Po
 
 controls = [4,5,8,9,10,11,15,16,17,18];
 
-mild_cm_subjects = [2,3,5,15,16,18,19,23,28,29,36,40];
+mild_cm_subjects = [2,3,5,15,18,19,23,28,29,36,40];
+% waiting on 16
 
 moderate_cm_subjects = [9,12,20,27];
 

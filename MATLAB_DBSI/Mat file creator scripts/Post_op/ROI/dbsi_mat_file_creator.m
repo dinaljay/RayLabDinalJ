@@ -20,7 +20,8 @@ out_dir_mod_csm = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Po
 
 controls = [4,5,8,9,10,11,15,16,17,18];
 
-mild_cm_subjects = [2,3,5,15,16,18,19,23,28,29,36,40];
+mild_cm_subjects = [2,3,5,15,18,19,23,28,29,36,40];
+% waiting on 16
 
 moderate_cm_subjects = [9,12,20,27];
 
@@ -68,6 +69,7 @@ for i = 1:numel(dhi_features)
     
     terminal = strcat('control_',dhi_features(i),'_data.mat');
     save(fullfile(out_dir_control,terminal),'controls','data_control');
+    clear data_control;
     fprintf('\n')
     
 end
@@ -106,6 +108,7 @@ for i = 1:numel(dhi_features)
     end
     terminal = strcat('mild_csm_',dhi_features(i),'_data.mat');
     save(fullfile(out_dir_mild_csm,terminal),'mild_cm_subjects','data_mild_csm');
+    clear data_mild_csm;
     fprintf('\n')
     
 end
@@ -144,6 +147,7 @@ for i = 1:numel(dhi_features)
     end
     terminal = strcat('mod_csm_',dhi_features(i),'_data.mat');
     save(fullfile(out_dir_mod_csm,terminal),'moderate_cm_subjects','data_mod_csm');
+    clear data_mod_csm;
     fprintf('\n')
     
 end

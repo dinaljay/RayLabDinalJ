@@ -19,7 +19,8 @@ out_dir_mod_csm = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Po
 
 controls = [4,5,8,9,10,11,15,16,17,18];
 
-mild_cm_subjects = [2,3,5,15,16,18,19,23,28,29,36,40];
+mild_cm_subjects = [2,3,5,15,18,19,23,28,29,36,40];
+% waiting on 16
 
 moderate_cm_subjects = [9,12,20,27];
 
@@ -58,6 +59,7 @@ load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI/Mil
 mild_csm_fiber_fraction = cell2mat(data_mild_csm);
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI/Moderate_CSM/mod_csm_fiber_fraction_map_data.mat');
 mod_csm_fiber_fraction = cell2mat(data_mod_csm);
+clear data_control; clear data_mild_csm; clear data_mod_csm;
 
 % Hindered Fraction Map
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI/Control/control_hindered_fraction_map_data.mat');
@@ -66,6 +68,7 @@ load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI/Mil
 mild_csm_hindered = cell2mat(data_mild_csm);
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI/Moderate_CSM/mod_csm_hindered_fraction_map_data.mat');
 mod_csm_hindered = cell2mat(data_mod_csm);
+clear data_control; clear data_mild_csm; clear data_mod_csm;
 
 % Restricted Fraction Map
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI/Control/control_restricted_fraction_map_data.mat');
@@ -74,6 +77,7 @@ load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI/Mil
 mild_csm_restricted = cell2mat(data_mild_csm);
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI/Moderate_CSM/mod_csm_restricted_fraction_map_data.mat');
 mod_csm_restricted = cell2mat(data_mod_csm);
+clear data_control; clear data_mild_csm; clear data_mod_csm;
 
 %% Volume Calculations
 

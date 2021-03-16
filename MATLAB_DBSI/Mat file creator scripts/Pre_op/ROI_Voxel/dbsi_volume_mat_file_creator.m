@@ -47,19 +47,19 @@ dhi_features = ["b0_map";"dti_adc_map";"dti_axial_map";"dti_fa_map";"fiber1_axia
 % fraction) and ROI volume
 
 %Volume files
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/CSM_grouped/csm_volume_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI/CSM_grouped/csm_volume_data.mat');
 csm_volumes = cell2mat(csm_volumes);
 
 % Fiber Fraction Map
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/CSM_grouped/csm_fiber_fraction_map_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI/CSM_grouped/csm_fiber_fraction_map_data.mat');
 csm_fiber_fraction = cell2mat(data_csm);
 
 % Hindered Fraction Map
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/CSM_grouped/csm_hindered_fraction_map_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI/CSM_grouped/csm_hindered_fraction_map_data.mat');
 csm_hindered = cell2mat(data_csm);
 
 % Restricted Fraction Map
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI/CSM_grouped/csm_restricted_fraction_map_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI/CSM_grouped/csm_restricted_fraction_map_data.mat');
 csm_restricted = cell2mat(data_csm);
 
 %% Volume Calculations
