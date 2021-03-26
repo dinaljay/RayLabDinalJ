@@ -131,6 +131,17 @@ fpr, tpr, threshold = metrics.roc_curve(y, y_conf)
 roc_auc = metrics.roc_auc_score(y, y_conf)
 print("AUC:", roc_auc)
 
+#Save dataframe of y and y_pred as csv file
+all_data = pd.read_csv(url)
+out_folder = '/home/functionalspinelab/Desktop/Dinal/DBSI_data/Post_op_predictions/mild_vs_mod_csm.csv'
+data = all_data.iloc[:, :2]
+temp1 = y.reshape(len(y), 1)
+temp2 = y_pred.reshape(len(y_pred), 1)
+y_df = pd.DataFrame(temp1, columns=['Group ID'])
+y_pred_df = pd.DataFrame(temp2, columns=['Pred Group ID'])
+out_df = pd.concat([data, y_df, y_pred_df], axis=1)
+out_df.to_csv(out_folder, index=False, header=True)
+
 sys.exit()
 #Plot ROC curve
 

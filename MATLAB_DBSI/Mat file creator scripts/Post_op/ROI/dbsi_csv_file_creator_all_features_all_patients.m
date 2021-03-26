@@ -182,7 +182,7 @@ writetable(table_out,fullfile(out_dir,terminal2));
 
 terminal2 = strcat('all_patients_all_features_mild_CSM','_data.csv');
 table_mild = table_out;
-table_mild(((end-numel(moderate_cm_subjects)):end),:)=[];
+table_mild(((end-numel(moderate_cm_subjects)+1):end),:)=[];
 
 writetable(table_mild,fullfile(out_dir,terminal2));
 

@@ -87,6 +87,7 @@ y = np.asarray(y)
 y_pred = np.asarray(y_pred)
 y_conf = np.asarray(y_conf)
 
+sys.exit()
 #Import scikit-learn metrics module for accuracy calculation
 from sklearn import metrics
 

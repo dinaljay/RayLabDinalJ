@@ -10,7 +10,8 @@ addpath (genpath('/home/functionalspinelab/Desktop/Dinal/Scripts/MATLAB_DBSI'));
 controls = [4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20,21,22,23,24];
 
 % mild_cm_subjects = [1,2,3,4,10,15,16,17,18,19,21,23,24,26,28,29,31,32,33,36,38,40,42,43,44,45,46,48,49,50];
-mild_cm_subjects = [1,2,3,4,10,15,16,18,19,21,23,24,26,28,29,31,32,36,38,40,42,43,44,45,46,48,49,50];
+mild_cm_subjects = [2,3,4,10,15,16,18,19,21,23,24,26,28,29,31,32,36,38,40,42,43,44,45,46,48,49,50];
+%CSM_P01 template no good
 
 % moderate_cm_subjects = [5,6,7,8,9,11,12,13,14,20,22,25,27,30,34,35,37,39,41,47];
 moderate_cm_subjects = [5,6,9,11,12,13,14,20,22,25,27,30,34,37,41];
@@ -185,7 +186,7 @@ writetable(table_out,fullfile(out_dir,terminal2));
 
 terminal2 = strcat('all_patients_all_features_mild_CSM','_data.csv');
 table_mild = table_out;
-table_mild(((end-numel(moderate_cm_subjects)):end),:)=[];
+table_mild(((end-numel(moderate_cm_subjects)+1):end),:)=[];
 
 writetable(table_mild,fullfile(out_dir,terminal2));
 
