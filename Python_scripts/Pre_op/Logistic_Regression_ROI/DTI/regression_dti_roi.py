@@ -28,9 +28,7 @@ url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_ROI/DBSI_CSV_Data/
 
 all_data = pd.read_csv(url, header=0)
 
-X = all_data[['dti_adc_1', 'dti_adc_2', 'dti_adc_3', 'dti_adc_4', 'dti_axial_1', 'dti_axial_2', 'dti_axial_3',
-             'dti_axial_4', 'dti_fa_1', 'dti_fa_2', 'dti_fa_3', 'dti_fa_4', 'dti_radial_1', 'dti_radial_2', 'dti_radial_3', 'dti_radial_4']]
-
+X = all_data[['dti_adc', 'dti_axial', 'dti_fa', 'dti_radial']]
 y = all_data['Group_ID']
 
 # Scale data
@@ -41,6 +39,7 @@ X_scaled = preprocessing.scale(X)
 
 #Implement leave one out cross validation
 y_pred = []
+y_conf = []
 
 for i in range(len(X_scaled)):
 
@@ -61,6 +60,10 @@ for i in range(len(X_scaled)):
 
     #Predict the response for test dataset
     y_pred.append(logref.predict(X_test))
+
+    #Get confidence scores
+    temp = clf.decision_function(X_test)
+    y_conf.append(temp[0])
 
 
 #Import scikit-learn metrics module for accuracy calculation
@@ -97,21 +100,24 @@ specificity1 = cm1[1,1]/(cm1[1,0]+cm1[1,1])
 print('Specificity:', specificity1)
 
 #Calculate AUC
-fpr, tpr, threshold = metrics.roc_curve(y, np.asarray(y_pred))
-roc_auc = metrics.auc(fpr, tpr)
+fpr, tpr, threshold = metrics.roc_curve(y, y_conf)
+#roc_auc = metrics.auc(fpr, tpr)
+roc_auc = metrics.roc_auc_score(y, y_conf)
 print("AUC:", roc_auc)
 
+sys.exit()
 #Plot ROC curve
+
 lw=2
 plt.title('Receiver Operating Characteristic')
-plt.plot(fpr, tpr, 'darkorange', lw=lw, label = 'ROC curve (area = %0.2f)' %roc_auc)
+plt.plot(fpr, tpr, color='darkorange', lw=lw, label='SVM (area = %0.2f)' %roc_auc)
+plt.plot([0, 1], [0, 1],color='navy', lw=lw, linestyle='--', label='No Skill')
 plt.legend(loc='lower right')
-plt.plot([0, 1], [0, 1],color='navy', lw=lw, linestyle='--')
-plt.xlim([0, 1])
+plt.xlim([-0.1, 1])
 plt.ylim([0, 1.05])
 plt.ylabel('True Positive Rate')
 plt.xlabel('False Positive Rate')
-plt.show()
+
 
 
 

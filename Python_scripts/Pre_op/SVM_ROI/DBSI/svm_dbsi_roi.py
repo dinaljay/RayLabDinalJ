@@ -80,7 +80,7 @@ for i in range(len(X_scaled)):
     temp = clf.predict(X_test)
     y_pred.append(temp[0])
 
-    #Get confidecne scores
+    #Get confidence scores
     temp = clf.decision_function(X_test)
     y_conf.append(temp[0])
 

@@ -24,7 +24,7 @@ url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_ROI/DBSI_CSV_Data/
 all_data = pd.read_csv(url, header=0)
 
 X = all_data.drop(['Patient_ID', 'Group', 'Group_ID', 'dti_adc', 'dti_axial', 'dti_fa', 'dti_radial'], axis=1)
-#X = all_data[['fiber_fraction', 'fiber_fa', 'fiber_radial', 'water_fraction']]
+#X = all_data[['fiber_axial', 'axon_volume', 'fiber_radial', 'water_fraction']]
 y = all_data['Group_ID']
 
 ## Grid Search
@@ -40,11 +40,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 # Set the parameters by cross-validation
 
-tuned_parameters = [{'kernel': ['linear'], 'C': [1, 2, 3, 4, 5]},
-                    {'kernel': ['poly'], 'degree': [2, 3, 4, 5, 6],
-                     'gamma': [10e-5, 10e-3, 10e-1, 10e1, 10e3, 10e5]}]
-
-
+tuned_parameters = [{'kernel': ['linear'], 'C': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}]
 
 #tuned_parameters = [{'kernel': ['rbf'], 'gamma': [10e-5, 10e-4, 10e-3, 10e-2, 10e-1, 10e1, 10e2,10e3],
 #                     'C': [10e-5, 10e-4, 10e-3, 10e-2, 10e-1, 1, 10e1, 10e2, 10e3, 10e4, 10e5]},

@@ -28,24 +28,41 @@ url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_ROI/DBSI_CSV_Data/
 
 all_data = pd.read_csv(url, header=0)
 
-X = all_data.drop(['Patient_ID', 'Group', 'Group_ID', 'dti_adc', 'dti_axial', 'dti_fa', 'dti_radial'], axis=1)
+#X = all_data.drop(['Patient_ID', 'Group', 'Group_ID', 'dti_adc', 'dti_axial', 'dti_fa', 'dti_radial'], axis=1)
+X = all_data.drop(['Patient_ID', 'Group', 'Group_ID'], axis=1)
+
 #X = all_data.drop(['Patient_ID', 'Group', 'Group_ID'], axis=1)
 y = all_data['Group_ID']
+
+# Scale data
+
+from sklearn import preprocessing
+
+X_scaled = preprocessing.scale(X)
+
+# Tuning hyperparameters
+from sklearn.model_selection import GridSearchCV
+from sklearn.svm import SVC
+
+tuned_parameters = [{'kernel': ['linear'], 'C': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}]
+clf = GridSearchCV(SVC(), tuned_parameters, scoring='accuracy')
+clf.fit(X_scaled, y)
+params = clf.best_params_
+cost = params['C']
 
 ## Recursive Feature Elimination
 
 from sklearn.feature_selection import RFE
-from sklearn.svm import SVC
 
-svc = SVC(kernel="linear", C=1.0)
+svc = SVC(kernel="linear", C=cost)
 selector = RFE(estimator=svc, step=1)
-final = selector.fit(X, y)
+final = selector.fit(X_scaled, y)
 
 #print(final.support_)
 #print("\n")
 #print(final.ranking_)
 
-#print("Optimal number of features : %d" % selector.n_features_)
+print("Optimal number of features : %d" % selector.n_features_)
 
 print(X.columns)
 

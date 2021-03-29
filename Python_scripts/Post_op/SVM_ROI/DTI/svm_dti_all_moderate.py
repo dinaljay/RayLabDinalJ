@@ -79,7 +79,7 @@ for i in range(len(X_scaled)):
     temp = clf.predict(hold)
     y_pred.append(temp[0])
 
-    #Get confidence scores
+    #Get confidecne scores
     temp = clf.decision_function(hold)
     y_conf.append(temp[0])
 
@@ -89,7 +89,7 @@ y_conf = np.asarray(y_conf)
 
 from sklearn import metrics
 
-# Model Accuracy: how often is the classifierc correct?
+# Model Accuracy: how often is the classifier correct?
 print("Accuracy:", metrics.accuracy_score(y, y_pred))
 
 # Model Precision
@@ -129,6 +129,18 @@ fpr, tpr, threshold = metrics.roc_curve(y, y_conf)
 roc_auc = metrics.roc_auc_score(y, y_conf)
 print("AUC:", roc_auc)
 
+#Save dataframe of y and y_pred as csv file
+all_data = pd.read_csv(url)
+out_folder = '/home/functionalspinelab/Desktop/Dinal/DBSI_data/Post_op_predictions/hc_vs_mod_csm.csv'
+data = all_data.iloc[:, :2]
+temp1 = y.reshape(len(y), 1)
+temp2 = y_pred.reshape(len(y_pred), 1)
+y_df = pd.DataFrame(temp1, columns=['Group ID'])
+y_pred_df = pd.DataFrame(temp2, columns=['Pred Group ID'])
+out_df = pd.concat([data, y_df, y_pred_df], axis=1)
+out_df.to_csv(out_folder, index=False, header=True)
+
+
 sys.exit()
 #Plot ROC curve
 
@@ -137,8 +149,8 @@ plt.title('Receiver Operating Characteristic')
 plt.plot(fpr, tpr, color='darkorange', lw=lw, label='SVM (area = %0.2f)' %roc_auc)
 plt.plot([0, 1], [0, 1],color='navy', lw=lw, linestyle='--', label='No Skill')
 plt.legend(loc='lower right')
-plt.xlim([-0.1, 1])
-plt.ylim([0, 1.05])
+plt.xlim([-0.05, 1])
+plt.ylim([-0.05, 1.05])
 plt.ylabel('True Positive Rate')
 plt.xlabel('False Positive Rate')
 #plt.show()
@@ -154,8 +166,8 @@ plt.title('Precision-Recall Curve')
 plt.plot([0, 1], [0, 0], color='navy', lw=lw, linestyle='--', label='No Skill')
 plt.plot(lr_recall, lr_precision, color='darkorange', label='SVM')
 plt.legend(loc='lower right')
-plt.xlim([-0.1, 1])
-plt.ylim([-0.1, 1.05])
+plt.xlim([-0.05, 1])
+plt.ylim([-0.05, 1.05])
 plt.xlabel('Recall')
 plt.ylabel('Precision')
 

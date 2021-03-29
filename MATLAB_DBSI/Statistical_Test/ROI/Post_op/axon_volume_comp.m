@@ -14,9 +14,9 @@ load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI/Mod
 
 %% U test implementation
 
-mild_cm = cell2mat(data_mild_csm(:,1));
-mod_cm = cell2mat(data_mod_csm(:,1));
-control = cell2mat(data_control(:,1));
+mild_cm = cell2mat(mild_csm_axon_volume(:,1));
+mod_cm = cell2mat(mod_csm_axon_volume(:,1));
+control = cell2mat(control_axon_volume(:,1));
 
 [p_mild,~,stats_array] = ranksum(mild_cm,control,'method','approximate');
 zval_mild = stats_array.zval;

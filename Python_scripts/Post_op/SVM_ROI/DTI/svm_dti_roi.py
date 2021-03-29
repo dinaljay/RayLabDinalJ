@@ -7,9 +7,9 @@ import sys
 
 ## Initialize features
 
-dhi_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "fiber1_axial_map", "fiber1_fa_map",
-    "fiber1_radial_map", "fiber_fraction_map", "hindered_fraction_map", "restricted_fraction_map",
-                "water_fraction_map", "axon_volume", "inflammation_volume"]
+dhi_features = ["dti_adc", "dti_axial", "dti_fa", "dtu_radial",  "fiber_axial", "fiber_fa",
+    "fiber_radial", "fiber_fraction", "hindered_fraction", "restricted_fraction",
+                "water_fraction", "axon_volume", "inflammation_volume"]
 
 controls = np.array([4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20])
 mild_cm_subjects = np.array([1,2,3,4,10,15,16,18,19,21,23,24,26,28,29,31,32,36,38,40,42,43,44,45,46])
@@ -54,6 +54,7 @@ clf = SVC(C=cost, kernel="linear")
 clf.fit(X_scaled, y)
 
 ## Load Post-op Data
+del url, all_data, X, X_scaled, y
 
 url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_ROI/DBSI_CSV_Data/Post_op/all_patients_all_features_data.csv'
 
@@ -68,6 +69,7 @@ from sklearn import preprocessing
 
 X_scaled = preprocessing.scale(X)
 X_scaled = np.asarray(X_scaled)
+
 y_pred = []
 y_conf = []
 
@@ -79,7 +81,7 @@ for i in range(len(X_scaled)):
     temp = clf.predict(hold)
     y_pred.append(temp[0])
 
-    #Get confidecne scores
+    #Get confidence scores
     temp = clf.decision_function(hold)
     y_conf.append(temp[0])
 
@@ -128,6 +130,29 @@ fpr, tpr, threshold = metrics.roc_curve(y, y_conf)
 #roc_auc = metrics.auc(fpr, tpr)
 roc_auc = metrics.roc_auc_score(y, y_conf)
 print("AUC:", roc_auc)
+
+#Save dataframe of y and y_pred as csv file
+all_data = pd.read_csv(url)
+out_folder = '/home/functionalspinelab/Desktop/Dinal/DBSI_data/Post_op_predictions/hc_vs_csm.csv'
+data = all_data.iloc[:, :2]
+temp1 = y.reshape(len(y), 1)
+temp2 = y_pred.reshape(len(y_pred), 1)
+y_df = pd.DataFrame(temp1, columns=['Group ID'])
+y_pred_df = pd.DataFrame(temp2, columns=['Pred Group ID'])
+out_df = pd.concat([data, y_df, y_pred_df], axis=1)
+out_df.to_csv(out_folder, index=False, header=True)
+
+sys.exit()
+# get importance
+importance = clf.coef_
+print(importance)
+sys.exit()
+# summarize feature importance
+for i, v in enumerate(importance):
+    print('Feature: %0d, Score: %.5f' % (i, v))
+# plot feature importance
+plt.bar([x for x in range(len(importance))], importance)
+plt.show()
 
 sys.exit()
 #Plot ROC curve

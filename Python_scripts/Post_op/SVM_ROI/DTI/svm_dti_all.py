@@ -22,7 +22,7 @@ csm_ids = np.array([1]*len(all_cm))
 
 all_ids = np.concatenate((control_ids,csm_ids),axis=0)
 
-## Load Data
+## Load Pre-op Data
 
 url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_ROI/DBSI_CSV_Data/Pre_op/all_patients_all_features_by_CSM_group_data.csv'
 
@@ -37,47 +37,57 @@ from sklearn import preprocessing
 
 X_scaled = preprocessing.scale(X)
 
-#Implement leave one out cross validation
+# Tuning hyperparameters
+from sklearn.model_selection import GridSearchCV
+from sklearn.svm import SVC
+
+tuned_parameters = [{'kernel': ['linear'], 'C': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}]
+clf = GridSearchCV(SVC(), tuned_parameters, scoring='accuracy')
+clf.fit(X_scaled, y)
+params = clf.best_params_
+cost = params['C']
+
+# Generating SVM model
+clf = SVC(C=cost, kernel="linear")
+
+#Train the model using the training sets
+clf.fit(X_scaled, y)
+
+## Load Post-op Data
+
+url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_ROI/DBSI_CSV_Data/Post_op/all_patients_all_features_by_CSM_group_data.csv'
+
+all_data = pd.read_csv(url, header=0)
+
+X = all_data[['dti_adc', 'dti_axial', 'dti_fa', 'dti_radial']]
+y = all_data['Group_ID']
+
+# Scale data
+
+from sklearn import preprocessing
+
+X_scaled = preprocessing.scale(X)
+X_scaled = np.asarray(X_scaled)
 y_pred = []
+y_conf = []
 
 for i in range(len(X_scaled)):
 
-    # Splitting Data for tuning hyerparameters
-    X_train = np.delete(X_scaled, [i], axis=0)
-    y_train = y.drop([i], axis=0)
-
-    X_test = X_scaled[i]
-    X_test = X_test.reshape(1, -1)
-    y_test = y[i]
-
-    # Tuning hyperparameters
-    from sklearn.model_selection import GridSearchCV
-    from sklearn.svm import SVC
-
-    tuned_parameters = [{'kernel': ['linear'], 'C': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}]
-    clf = GridSearchCV(SVC(), tuned_parameters, scoring='accuracy')
-    clf.fit(X_train, y_train)
-    params = clf.best_params_
-    cost = params['C']
-
-    # Splitting Data for model
-    X_train = np.delete(X_scaled, [i], axis=0)
-    y_train = y.drop([i], axis=0)
-
-    X_test = X_scaled[i]
-    X_test = X_test.reshape(1, -1)
-    y_test = y[i]
-
-    # Generating SVM model
-    clf = SVC(C=cost, kernel="linear", probability=True)
-
-    #Train the model using the training sets
-    clf.fit(X_train, y_train)
-
     #Predict the response for test dataset
-    y_pred.append(clf.predict(X_test))
+    hold = X_scaled[i]
+    hold = hold.reshape(1, -1)
+    temp = clf.predict(hold)
+    y_pred.append(temp[0])
 
+    #Get confidecne scores
+    temp = clf.decision_function(hold)
+    y_conf.append(temp[0])
 
+y = np.asarray(y)
+y_pred = np.asarray(y_pred)
+y_conf = np.asarray(y_conf)
+
+sys.exit()
 #Import scikit-learn metrics module for accuracy calculation
 from sklearn import metrics
 
@@ -85,18 +95,19 @@ from sklearn import metrics
 print("Accuracy:", metrics.accuracy_score(y, np.asarray(y_pred)))
 
 # Model Precision
-print("Precision:", metrics.precision_score(y, np.asarray(y_pred), average='micro'))
+print("Precision:", metrics.precision_score(y, np.asarray(y_pred), average='weighted'))
 
 # Model Recall
-print("Recall:", metrics.recall_score(y, np.asarray(y_pred), average='micro'))
+print("Recall:", metrics.recall_score(y, np.asarray(y_pred), average='weighted'))
 
-#Model F-1 score
-print("F1 score:", metrics.f1_score(y, np.asarray(y_pred), average='weighted'))
+#Model F1 score
+f1 = metrics.f1_score(y, y_pred, average='weighted')
+print("F1 Score:", f1)
 
 sys.exit()
 
 from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score
-cm1 = confusion_matrix(y, np.asarray(y_pred))
+cm1 = confusion_matrix(y, y_pred)
 
 print("Confusion matrix: \n", cm1)
 #print(classification_report(y, np.asarray(y_pred)))
@@ -121,13 +132,9 @@ from sklearn.metrics import roc_auc_score
 
 y_prob = clf.predict_proba(X_test)
 
-macro_roc_auc_ovo = roc_auc_score(y_test, y_prob, multi_class="ovo",
+macro_roc_auc_ovo = roc_auc_score(y_test, y_conf, multi_class="ovo",
                                   average="macro")
 weighted_roc_auc_ovo = roc_auc_score(y_test, y_prob, multi_class="ovo",
-                                     average="weighted")
-macro_roc_auc_ovr = roc_auc_score(y_test, y_prob, multi_class="ovr",
-                                  average="macro")
-weighted_roc_auc_ovr = roc_auc_score(y_test, y_prob, multi_class="ovr",
                                      average="weighted")
 
 print("AUC:", macro_roc_auc_ovo)
