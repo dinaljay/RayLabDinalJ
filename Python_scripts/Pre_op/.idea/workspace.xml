@@ -2,28 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e05acb7d-33db-4e74-9eca-95a8aff48afc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../MATLAB_DBSI/Statistical_Test/ROI/Post_op/axon_volume_comp.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../MATLAB_DBSI/Statistical_Test/ROI/Post_op/axon_volume_comp.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../MATLAB_DBSI/Statistical_Test/ROI/Post_op/inflammation_volume_comp.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../MATLAB_DBSI/Statistical_Test/ROI/Post_op/inflammation_volume_comp.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../MATLAB_DBSI/Statistical_Test/ROI/Pre_op/axon_volume_comp.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../MATLAB_DBSI/Statistical_Test/ROI/Pre_op/axon_volume_comp.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../MATLAB_DBSI/Statistical_Test/ROI/Pre_op/inflammation_volume_comp.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../MATLAB_DBSI/Statistical_Test/ROI/Pre_op/inflammation_volume_comp.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Post_op/SVM_ROI/DTI/svm_dti_all.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Post_op/SVM_ROI/DTI/svm_dti_all.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Post_op/SVM_ROI/DTI/svm_dti_all_mild.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Post_op/SVM_ROI/DTI/svm_dti_all_mild.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Post_op/SVM_ROI/DTI/svm_dti_all_moderate.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Post_op/SVM_ROI/DTI/svm_dti_all_moderate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Post_op/SVM_ROI/DTI/svm_dti_only_csm.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Post_op/SVM_ROI/DTI/svm_dti_only_csm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Post_op/SVM_ROI/DTI/svm_dti_roi.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Post_op/SVM_ROI/DTI/svm_dti_roi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../MATLAB_DBSI/Plots/Pre_and_post_op/csv_fil_gen.m" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Archive/grid_search_svm_roi.py" beforeDir="false" afterPath="$PROJECT_DIR$/Archive/grid_search_svm_roi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logistic_Regression_ROI/DBSI/regression_dbsi_mild.py" beforeDir="false" afterPath="$PROJECT_DIR$/Logistic_Regression_ROI/DBSI/regression_dbsi_mild.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logistic_Regression_ROI/DBSI/regression_dbsi_moderate.py" beforeDir="false" afterPath="$PROJECT_DIR$/Logistic_Regression_ROI/DBSI/regression_dbsi_moderate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logistic_Regression_ROI/DBSI/regression_dbsi_only_csm.py" beforeDir="false" afterPath="$PROJECT_DIR$/Logistic_Regression_ROI/DBSI/regression_dbsi_only_csm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logistic_Regression_ROI/DBSI/regression_dbsi_roi.py" beforeDir="false" afterPath="$PROJECT_DIR$/Logistic_Regression_ROI/DBSI/regression_dbsi_roi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logistic_Regression_ROI/DTI/regression_dti_mild.py" beforeDir="false" afterPath="$PROJECT_DIR$/Logistic_Regression_ROI/DTI/regression_dti_mild.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logistic_Regression_ROI/DTI/regression_dti_moderate.py" beforeDir="false" afterPath="$PROJECT_DIR$/Logistic_Regression_ROI/DTI/regression_dti_moderate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logistic_Regression_ROI/DTI/regression_dti_only_csm.py" beforeDir="false" afterPath="$PROJECT_DIR$/Logistic_Regression_ROI/DTI/regression_dti_only_csm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logistic_Regression_ROI/DTI/regression_dti_roi.py" beforeDir="false" afterPath="$PROJECT_DIR$/Logistic_Regression_ROI/DTI/regression_dti_roi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/DBSI/feature_elimination.py" beforeDir="false" afterPath="$PROJECT_DIR$/SVM_ROI/DBSI/feature_elimination.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/DBSI/svm_dbsi_roi.py" beforeDir="false" afterPath="$PROJECT_DIR$/SVM_ROI/DBSI/svm_dbsi_roi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/feature_elimination.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,11 +22,11 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Post_op" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.regression_dti_only_csm">
-    <configuration name="regression_dbsi_mild" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.boxplot_pre_and_post_by_slice">
+    <configuration name="boxplot_pre_and_post_by_slice" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Pre_op" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -54,11 +34,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Logistic_Regression_ROI/DBSI" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Plots" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Logistic_Regression_ROI/DBSI/regression_dbsi_mild.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Plots/boxplot_pre_and_post_by_slice.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -152,19 +132,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.regression_dbsi_mild" />
       <item itemvalue="Python.regression_dbsi_only_csm" />
       <item itemvalue="Python.regression_dti_mild" />
       <item itemvalue="Python.regression_dti_only_csm" />
       <item itemvalue="Python.regression_dti_roi" />
+      <item itemvalue="Python.boxplot_pre_and_post_by_slice" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.boxplot_pre_and_post_by_slice" />
         <item itemvalue="Python.regression_dti_only_csm" />
         <item itemvalue="Python.regression_dti_mild" />
         <item itemvalue="Python.regression_dti_roi" />
         <item itemvalue="Python.regression_dbsi_only_csm" />
-        <item itemvalue="Python.regression_dbsi_mild" />
       </list>
     </recent_temporary>
   </component>
@@ -190,22 +170,22 @@
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
     <state x="780" y="297" width="424" height="482" key="FileChooserDialogImpl/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1617054705576" />
-    <state width="1832" height="305" key="GridCell.Tab.0.bottom" timestamp="1617054683522">
+    <state width="1832" height="305" key="GridCell.Tab.0.bottom" timestamp="1617678993435">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="305" key="GridCell.Tab.0.bottom/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1617054683522" />
-    <state width="1832" height="305" key="GridCell.Tab.0.center" timestamp="1617054683522">
+    <state width="1832" height="305" key="GridCell.Tab.0.bottom/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1617678993435" />
+    <state width="1832" height="305" key="GridCell.Tab.0.center" timestamp="1617678993434">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="305" key="GridCell.Tab.0.center/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1617054683522" />
-    <state width="1832" height="305" key="GridCell.Tab.0.left" timestamp="1617054683522">
+    <state width="1832" height="305" key="GridCell.Tab.0.center/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1617678993434" />
+    <state width="1832" height="305" key="GridCell.Tab.0.left" timestamp="1617678993434">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="305" key="GridCell.Tab.0.left/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1617054683522" />
-    <state width="1832" height="305" key="GridCell.Tab.0.right" timestamp="1617054683522">
+    <state width="1832" height="305" key="GridCell.Tab.0.left/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1617678993434" />
+    <state width="1832" height="305" key="GridCell.Tab.0.right" timestamp="1617678993435">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="305" key="GridCell.Tab.0.right/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1617054683522" />
+    <state width="1832" height="305" key="GridCell.Tab.0.right/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1617678993435" />
     <state x="486" y="174" key="SettingsEditor" timestamp="1615595148848">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
