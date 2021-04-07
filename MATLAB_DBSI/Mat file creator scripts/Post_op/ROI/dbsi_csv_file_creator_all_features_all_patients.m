@@ -9,10 +9,9 @@ addpath (genpath('/home/functionalspinelab/Desktop/Dinal/Scripts/MATLAB_DBSI'));
 
 controls = [4,5,8,9,10,11,15,16,17,18];
 
-mild_cm_subjects = [2,3,5,15,18,19,23,28,29,36,40];
-% waiting on 16
+mild_cm_subjects = [2,3,5,15,18,19,21,23,24,26,28,29,30,36,40,41,45,46];
 
-moderate_cm_subjects = [9,12,20,27];
+moderate_cm_subjects = [9,12,17,20,27];
 
 cm_subjects = [mild_cm_subjects,moderate_cm_subjects];
 
