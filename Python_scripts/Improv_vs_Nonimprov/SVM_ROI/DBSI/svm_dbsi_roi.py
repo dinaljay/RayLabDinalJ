@@ -130,9 +130,6 @@ fpr, tpr, threshold = metrics.roc_curve(y, y_conf)
 roc_auc = metrics.roc_auc_score(y, y_conf)
 print("AUC:", roc_auc)
 
-# get importance
-importance = clf.coef_
-print(importance)
 sys.exit()
 # summarize feature importance
 for i, v in enumerate(importance):

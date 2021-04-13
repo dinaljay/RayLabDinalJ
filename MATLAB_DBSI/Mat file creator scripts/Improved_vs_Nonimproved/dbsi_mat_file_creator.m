@@ -14,9 +14,11 @@ out_dir_non_improv = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI
 
 %% Declare necessary variables
 
-improv_subjects = [2,3,4,10,15,16,18,19,21,23,24,26,28,29,31,32,36,38,40,42,43,44,45,46,48,49,50];
+% improv_subjects = [2,5,9,19,24,26,30,36,40,41,46];
+improv_subjects = [2,5,9,3,15,21,23,27,28,29,45,19,24,26,30,36,41,46];
 
-non_improv_subjects = [5,6,9,11,12,13,14,20,22,25,27,30,34,37,41];
+% non_improv_subjects = [3,12,15,18,20,21,23,27,28,29,45];
+non_improv_subjects = [12,18,20,24,40];
 
 slices = (1:1:4);
 
