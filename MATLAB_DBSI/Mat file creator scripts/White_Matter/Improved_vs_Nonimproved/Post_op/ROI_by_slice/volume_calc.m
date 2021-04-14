@@ -3,13 +3,13 @@
 clear all;
 close all;
 addpath (genpath('/home/functionalspinelab/Documents/MATLAB'));
-addpath (genpath('/home/functionalspinelab/Desktop/Dinal/Scripts/MATLAB_DBSI/White_Matter'));
+addpath (genpath('/home/functionalspinelab/Desktop/Dinal/Scripts/MATLAB_DBSI'));
 
 %% File paths
 
 csm_path = '/media/functionalspinelab/RAID/Data/Dinal/DBSI_Data/CSM_New/Patient';
-out_dir_improv = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Improved';
-out_dir_non_improv = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Nonimproved';
+out_dir_improv = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Post_op/ROI_by_slice/Improved';
+out_dir_non_improv = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Post_op/ROI_by_slice/Nonimproved';
 
 %% Declare necessary variables
 
@@ -42,8 +42,8 @@ for k = 1:numel(improv_subjects)
         disp(num2str(slice_num));
         
         param_file =('dti_fa_map.nii');
-        mask_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/label/template/PAM50_wm.nii.gz');
-        dwi_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3',param_file);
+        mask_file = fullfile(csm_path,subjectID,'/scan_2/dMRI_ZOOMit/',slice_num,'/all_volumes/label/template/PAM50_wm.nii.gz');
+        dwi_file = fullfile(csm_path,subjectID,'/scan_2/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3',param_file);
         
         mask = niftiread(mask_file);
         dwi_data = niftiread(dwi_file);
@@ -51,9 +51,8 @@ for k = 1:numel(improv_subjects)
         expert_rois = double(mask);
         dwi_data = double(dwi_data);
         data = dwi_data(expert_rois>0.7);
-        temp = [temp;data];
+        data_improv{k,j} = length(data);
     end
-    data_improv{k,1} = length(temp);
 end
 
 fprintf('\n')
@@ -72,8 +71,8 @@ for k = 1:numel(non_improv_subjects)
         disp(num2str(slice_num));
         
         param_file =('dti_fa_map.nii');
-        mask_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/label/template/PAM50_wm.nii.gz');
-        dwi_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3',param_file);
+        mask_file = fullfile(csm_path,subjectID,'/scan_2/dMRI_ZOOMit/',slice_num,'/all_volumes/label/template/PAM50_wm.nii.gz');
+        dwi_file = fullfile(csm_path,subjectID,'/scan_2/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3',param_file);
         
         mask = niftiread(mask_file);
         dwi_data = niftiread(dwi_file);
@@ -81,17 +80,18 @@ for k = 1:numel(non_improv_subjects)
         expert_rois = double(mask);
         dwi_data = double(dwi_data);
         data = dwi_data(expert_rois>0.7);
-        temp = [temp;data];
+        data_non_improv{k,j} = length(data);
     end
-    data_non_improv{k,1} = length(temp);
 end
 
 %% Caculate volume and surface area
 
 % Improved subjects
 for i = 1:length(data_improv)
-    improv_volumes{i,1} = data_improv{i,1}*voxel_volume;
-    improv_surface_area{i,1} = data_improv{i,1}*voxel_surface_area;
+    for j = 1:numel(slices)
+        improv_volumes{i,j} = data_improv{i,j}*voxel_volume;
+        improv_surface_area{i,j} = data_improv{i,j}*voxel_surface_area;
+    end
 end
 
 terminal = strcat('improv_volume','_data.mat');
@@ -100,10 +100,12 @@ save(fullfile(out_dir_improv,terminal),'improv_subjects','improv_volumes');
 terminal = strcat('improv_surface_area','_data.mat');
 save(fullfile(out_dir_improv,terminal),'improv_subjects','improv_surface_area');
 
-% Moderate CM subjects
+% Non Improved subjects
 for i = 1:length(data_non_improv)
-    non_improv_volumes{i,1} = data_non_improv{i,1}*voxel_volume;
-    non_improv_surface_area{i,1} = data_non_improv{i,1}*voxel_surface_area;
+    for j = 1:numel(slices)
+        non_improv_volumes{i,j} = data_non_improv{i,j}*voxel_volume;
+        non_improv_surface_area{i,j} = data_non_improv{i,j}*voxel_surface_area;
+    end
 end
 
 terminal = strcat('non_improv_volume','_data.mat');

@@ -4,13 +4,13 @@
 clear all;
 close all;
 addpath (genpath('/home/functionalspinelab/Documents/MATLAB'));
-addpath (genpath('/home/functionalspinelab/Desktop/Dinal/Scripts/MATLAB_DBSI/White_Matter'));
+addpath (genpath('/home/functionalspinelab/Desktop/Dinal/Scripts/MATLAB_DBSI'));
 
 %% File paths
 
 csm_path = '/media/functionalspinelab/RAID/Data/Dinal/DBSI_Data/CSM_New/Patient';
-out_dir_improv = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Improved';
-out_dir_non_improv = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Nonimproved';
+out_dir_improv = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Post_op/ROI/Improved';
+out_dir_non_improv = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Post_op/ROI/Nonimproved';
 
 %% Declare necessary variables
 
@@ -33,29 +33,29 @@ dhi_features = ["b0_map";"dti_adc_map";"dti_axial_map";"dti_fa_map";"dti_radial_
 % fraction) and ROI volume
 
 %Volume files
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Improved/improv_volume_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Post_op/ROI/Improved/improv_volume_data.mat');
 improv_volumes = cell2mat(improv_volumes);
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Nonimproved/non_improv_volume_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Post_op/ROI/Nonimproved/non_improv_volume_data.mat');
 non_improv_volumes = cell2mat(non_improv_volumes);
 
 % Fiber Fraction Map
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Improved/improv_fiber_fraction_map_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Post_op/ROI/Improved/improv_fiber_fraction_map_data.mat');
 improv_fiber_fraction = cell2mat(data_improv);
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Nonimproved/non_improv_fiber_fraction_map_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Post_op/ROI/Nonimproved/non_improv_fiber_fraction_map_data.mat');
 non_improv_fiber_fraction = cell2mat(data_non_improv);
 clear data_control; clear data_improv; clear data_non_improv;
 
 % Hindered Fraction Map
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Improved/improv_hindered_fraction_map_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Post_op/ROI/Improved/improv_hindered_fraction_map_data.mat');
 improv_hindered = cell2mat(data_improv);
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Improved_vs_Nonimproved/Nonimproved/non_improv_hindered_fraction_map_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Post_op/ROI/Nonimproved/non_improv_hindered_fraction_map_data.mat');
 non_improv_hindered = cell2mat(data_non_improv);
 clear data_control; clear data_improv; clear data_non_improv;
 
 % Restricted Fraction Map
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Improved/improv_restricted_fraction_map_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Post_op/ROI/Improved/improv_restricted_fraction_map_data.mat');
 improv_restricted = cell2mat(data_improv);
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Nonimproved/non_improv_restricted_fraction_map_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Post_op/ROI/Nonimproved/non_improv_restricted_fraction_map_data.mat');
 non_improv_restricted = cell2mat(data_non_improv);
 clear data_control; clear data_improv; clear data_non_improv;
 

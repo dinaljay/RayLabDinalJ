@@ -9,8 +9,8 @@ addpath (genpath('/home/functionalspinelab/Desktop/Dinal/Scripts/MATLAB_DBSI'));
 %% File paths
 
 csm_path = '/media/functionalspinelab/RAID/Data/Dinal/DBSI_Data/CSM_New/Patient';
-out_dir_improv = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Improved';
-out_dir_non_improv = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Nonimproved';
+out_dir_improv = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Pre_op/ROI/Improved';
+out_dir_non_improv = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Improved_vs_Nonimproved/Pre_op/ROI/Nonimproved';
 
 %% Declare necessary variables
 
