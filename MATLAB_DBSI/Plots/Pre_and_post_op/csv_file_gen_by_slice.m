@@ -18,14 +18,14 @@ for j = 1:numel(slices)
     %% Create variable stores for Pre-op
     % %B0 Map
     %
-    % load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI_by_slice/Pre_op/Control/control_b0_map_data.mat');
-    % load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI_by_slice/Pre_op/CSM/csm_b0_map_data.mat');
+    % load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/ROI_by_slice/Pre_op/Control/control_b0_map_data.mat');
+    % load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/ROI_by_slice/Pre_op/CSM/csm_b0_map_data.mat');
     % b0 = [cell2mat(data_control);cell2mat(data_csm)];
     
     % DTI_ADC Map
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Control/control_dti_adc_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Mild_CSM/mild_csm_dti_adc_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Moderate_CSM/mod_csm_dti_adc_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Control/control_dti_adc_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Mild_CSM/mild_csm_dti_adc_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Moderate_CSM/mod_csm_dti_adc_map_data.mat');
     all_control_pre{1,1} = data_control(:,j);
     mild_csm_pre{1,1} = data_mild_csm(:,j);
     mod_csm_pre{1,1} = data_mod_csm(:,j);
@@ -33,9 +33,9 @@ for j = 1:numel(slices)
     clear data_control; clear data_mild_csm; clear data_mod_csm;
     
     % DTI Axial Map
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Control/control_dti_axial_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Mild_CSM/mild_csm_dti_axial_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Moderate_CSM/mod_csm_dti_axial_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Control/control_dti_axial_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Mild_CSM/mild_csm_dti_axial_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Moderate_CSM/mod_csm_dti_axial_map_data.mat');
     all_control_pre{2,1} = data_control(:,j);
     mild_csm_pre{2,1} = data_mild_csm(:,j);
     mod_csm_pre{2,1} = data_mod_csm(:,j);
@@ -43,9 +43,9 @@ for j = 1:numel(slices)
     clear data_control; clear data_mild_csm; clear data_mod_csm;
     
     % DTI FA Map
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Control/control_dti_fa_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Mild_CSM/mild_csm_dti_fa_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Moderate_CSM/mod_csm_dti_fa_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Control/control_dti_fa_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Mild_CSM/mild_csm_dti_fa_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Moderate_CSM/mod_csm_dti_fa_map_data.mat');
     all_control_pre{3,1} = data_control(:,j);
     mild_csm_pre{3,1} = data_mild_csm(:,j);
     mod_csm_pre{3,1} = data_mod_csm(:,j);
@@ -53,9 +53,9 @@ for j = 1:numel(slices)
     clear data_control; clear data_mild_csm; clear data_mod_csm;
     
     % DTI Radial Map
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Control/control_dti_radial_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Mild_CSM/mild_csm_dti_radial_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Moderate_CSM/mod_csm_dti_radial_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Control/control_dti_radial_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Mild_CSM/mild_csm_dti_radial_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Moderate_CSM/mod_csm_dti_radial_map_data.mat');
     all_control_pre{4,1} = data_control(:,j);
     mild_csm_pre{4,1} = data_mild_csm(:,j);
     mod_csm_pre{4,1} = data_mod_csm(:,j);
@@ -63,9 +63,9 @@ for j = 1:numel(slices)
     clear data_control; clear data_mild_csm; clear data_mod_csm;
     
     % Fiber Axial Map
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Control/control_fiber1_axial_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Mild_CSM/mild_csm_fiber1_axial_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Moderate_CSM/mod_csm_fiber1_axial_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Control/control_fiber1_axial_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Mild_CSM/mild_csm_fiber1_axial_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Moderate_CSM/mod_csm_fiber1_axial_map_data.mat');
     all_control_pre{5,1} = data_control(:,j);
     mild_csm_pre{5,1} = data_mild_csm(:,j);
     mod_csm_pre{5,1} = data_mod_csm(:,j);
@@ -73,9 +73,9 @@ for j = 1:numel(slices)
     clear data_control; clear data_mild_csm; clear data_mod_csm;
     
     % Fiber FA Map
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Control/control_fiber1_fa_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Mild_CSM/mild_csm_fiber1_fa_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Moderate_CSM/mod_csm_fiber1_fa_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Control/control_fiber1_fa_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Mild_CSM/mild_csm_fiber1_fa_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Moderate_CSM/mod_csm_fiber1_fa_map_data.mat');
     all_control_pre{6,1} = data_control(:,j);
     mild_csm_pre{6,1} = data_mild_csm(:,j);
     mod_csm_pre{6,1} = data_mod_csm(:,j);
@@ -83,9 +83,9 @@ for j = 1:numel(slices)
     clear data_control; clear data_mild_csm; clear data_mod_csm;
     
     % Fiber Radial Map
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Control/control_fiber1_radial_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Mild_CSM/mild_csm_fiber1_radial_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Moderate_CSM/mod_csm_fiber1_radial_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Control/control_fiber1_radial_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Mild_CSM/mild_csm_fiber1_radial_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Moderate_CSM/mod_csm_fiber1_radial_map_data.mat');
     all_control_pre{7,1} = data_control(:,j);
     mild_csm_pre{7,1} = data_mild_csm(:,j);
     mod_csm_pre{7,1} = data_mod_csm(:,j);
@@ -93,9 +93,9 @@ for j = 1:numel(slices)
     clear data_control; clear data_mild_csm; clear data_mod_csm;
     
     % Fiber Fraction Map
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Control/control_fiber_fraction_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Mild_CSM/mild_csm_fiber_fraction_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Moderate_CSM/mod_csm_fiber_fraction_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Control/control_fiber_fraction_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Mild_CSM/mild_csm_fiber_fraction_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Moderate_CSM/mod_csm_fiber_fraction_map_data.mat');
     all_control_pre{8,1} = data_control(:,j);
     mild_csm_pre{8,1} = data_mild_csm(:,j);
     mod_csm_pre{8,1} = data_mod_csm(:,j);
@@ -103,9 +103,9 @@ for j = 1:numel(slices)
     clear data_control; clear data_mild_csm; clear data_mod_csm;
     
     % Hindered Fraction Map
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Control/control_hindered_fraction_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Mild_CSM/mild_csm_hindered_fraction_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Moderate_CSM/mod_csm_hindered_fraction_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Control/control_hindered_fraction_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Mild_CSM/mild_csm_hindered_fraction_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Moderate_CSM/mod_csm_hindered_fraction_map_data.mat');
     all_control_pre{9,1} = data_control(:,j);
     mild_csm_pre{9,1} = data_mild_csm(:,j);
     mod_csm_pre{9,1} = data_mod_csm(:,j);
@@ -113,9 +113,9 @@ for j = 1:numel(slices)
     clear data_control; clear data_mild_csm; clear data_mod_csm;
     
     % Restricted Fraction Map
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Control/control_restricted_fraction_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Mild_CSM/mild_csm_restricted_fraction_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Moderate_CSM/mod_csm_restricted_fraction_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Control/control_restricted_fraction_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Mild_CSM/mild_csm_restricted_fraction_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Moderate_CSM/mod_csm_restricted_fraction_map_data.mat');
     all_control_pre{10,1} = data_control(:,j);
     mild_csm_pre{10,1} = data_mild_csm(:,j);
     mod_csm_pre{10,1} = data_mod_csm(:,j);
@@ -123,9 +123,9 @@ for j = 1:numel(slices)
     clear data_control; clear data_mild_csm; clear data_mod_csm;
     
     % Water Fraction Map
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Control/control_water_fraction_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Mild_CSM/mild_csm_water_fraction_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Moderate_CSM/mod_csm_water_fraction_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Control/control_water_fraction_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Mild_CSM/mild_csm_water_fraction_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Moderate_CSM/mod_csm_water_fraction_map_data.mat');
     all_control_pre{11,1} = data_control(:,j);
     mild_csm_pre{11,1} = data_mild_csm(:,j);
     mod_csm_pre{11,1} = data_mod_csm(:,j);
@@ -133,9 +133,9 @@ for j = 1:numel(slices)
     clear data_control; clear data_mild_csm; clear data_mod_csm;
     
     %Axon volume
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Control/control_axon_volume_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Mild_CSM/mild_csm_axon_volume_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Moderate_CSM/mod_csm_axon_volume_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Control/control_axon_volume_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Mild_CSM/mild_csm_axon_volume_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Moderate_CSM/mod_csm_axon_volume_data.mat');
     all_control_pre{12,1} = control_axon_volume(:,j);
     mild_csm_pre{12,1} = mild_csm_axon_volume(:,j);
     mod_csm_pre{12,1} = mod_csm_axon_volume(:,j);
@@ -143,9 +143,9 @@ for j = 1:numel(slices)
     clear data_control; clear data_mild_csm; clear data_mod_csm;
     
     %Inflammation volume
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Control/control_inflammation_volume_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Mild_CSM/mild_csm_inflammation_volume_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Pre_op/ROI_by_slice/Moderate_CSM/mod_csm_inflammation_volume_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Control/control_inflammation_volume_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Mild_CSM/mild_csm_inflammation_volume_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI_by_slice/Moderate_CSM/mod_csm_inflammation_volume_data.mat');
     all_control_pre{13,1} = control_inflammation_volume(:,j);
     mild_csm_pre{13,1} = mild_csm_inflammation_volume(:,j);
     mod_csm_pre{13,1} = mod_csm_inflammation_volume(:,j);
@@ -155,14 +155,14 @@ for j = 1:numel(slices)
     %% Create variable stores for Post-op
     % %B0 Map
     %
-    % load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI_by_slice/Post_op/Control/control_b0_map_data.mat');
-    % load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/ROI_by_slice/Post_op/CSM/csm_b0_map_data.mat');
+    % load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/ROI_by_slice/Post_op/Control/control_b0_map_data.mat');
+    % load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/ROI_by_slice/Post_op/CSM/csm_b0_map_data.mat');
     % b0 = [cell2mat(data_control);cell2mat(data_csm)];
     
     % DTI_ADC Map
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Control/control_dti_adc_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Mild_CSM/mild_csm_dti_adc_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Moderate_CSM/mod_csm_dti_adc_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Control/control_dti_adc_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Mild_CSM/mild_csm_dti_adc_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Moderate_CSM/mod_csm_dti_adc_map_data.mat');
     all_control_post{1,1} = data_control(:,j);
     mild_csm_post{1,1} = data_mild_csm(:,j);
     mod_csm_post{1,1} = data_mod_csm(:,j);
@@ -170,9 +170,9 @@ for j = 1:numel(slices)
     clear data_control; clear data_mild_csm; clear data_mod_csm;
     
     % DTI Axial Map
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Control/control_dti_axial_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Mild_CSM/mild_csm_dti_axial_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Moderate_CSM/mod_csm_dti_axial_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Control/control_dti_axial_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Mild_CSM/mild_csm_dti_axial_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Moderate_CSM/mod_csm_dti_axial_map_data.mat');
     all_control_post{2,1} = data_control(:,j);
     mild_csm_post{2,1} = data_mild_csm(:,j);
     mod_csm_post{2,1} = data_mod_csm(:,j);
@@ -180,9 +180,9 @@ for j = 1:numel(slices)
     clear data_control; clear data_mild_csm; clear data_mod_csm;
     
     % DTI FA Map
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Control/control_dti_fa_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Mild_CSM/mild_csm_dti_fa_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Moderate_CSM/mod_csm_dti_fa_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Control/control_dti_fa_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Mild_CSM/mild_csm_dti_fa_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Moderate_CSM/mod_csm_dti_fa_map_data.mat');
     all_control_post{3,1} = data_control(:,j);
     mild_csm_post{3,1} = data_mild_csm(:,j);
     mod_csm_post{3,1} = data_mod_csm(:,j);
@@ -190,9 +190,9 @@ for j = 1:numel(slices)
     clear data_control; clear data_mild_csm; clear data_mod_csm;
     
     % DTI Radial Map
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Control/control_dti_radial_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Mild_CSM/mild_csm_dti_radial_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Moderate_CSM/mod_csm_dti_radial_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Control/control_dti_radial_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Mild_CSM/mild_csm_dti_radial_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Moderate_CSM/mod_csm_dti_radial_map_data.mat');
     all_control_post{4,1} = data_control(:,j);
     mild_csm_post{4,1} = data_mild_csm(:,j);
     mod_csm_post{4,1} = data_mod_csm(:,j);
@@ -200,9 +200,9 @@ for j = 1:numel(slices)
     clear data_control; clear data_mild_csm; clear data_mod_csm;
     
     % Fiber Axial Map
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Control/control_fiber1_axial_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Mild_CSM/mild_csm_fiber1_axial_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Moderate_CSM/mod_csm_fiber1_axial_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Control/control_fiber1_axial_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Mild_CSM/mild_csm_fiber1_axial_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Moderate_CSM/mod_csm_fiber1_axial_map_data.mat');
     all_control_post{5,1} = data_control(:,j);
     mild_csm_post{5,1} = data_mild_csm(:,j);
     mod_csm_post{5,1} = data_mod_csm(:,j);
@@ -210,9 +210,9 @@ for j = 1:numel(slices)
     clear data_control; clear data_mild_csm; clear data_mod_csm;
     
     % Fiber FA Map
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Control/control_fiber1_fa_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Mild_CSM/mild_csm_fiber1_fa_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Moderate_CSM/mod_csm_fiber1_fa_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Control/control_fiber1_fa_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Mild_CSM/mild_csm_fiber1_fa_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Moderate_CSM/mod_csm_fiber1_fa_map_data.mat');
     all_control_post{6,1} = data_control(:,j);
     mild_csm_post{6,1} = data_mild_csm(:,j);
     mod_csm_post{6,1} = data_mod_csm(:,j);
@@ -220,9 +220,9 @@ for j = 1:numel(slices)
     clear data_control; clear data_mild_csm; clear data_mod_csm;
     
     % Fiber Radial Map
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Control/control_fiber1_radial_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Mild_CSM/mild_csm_fiber1_radial_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Moderate_CSM/mod_csm_fiber1_radial_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Control/control_fiber1_radial_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Mild_CSM/mild_csm_fiber1_radial_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Moderate_CSM/mod_csm_fiber1_radial_map_data.mat');
     all_control_post{7,1} = data_control(:,j);
     mild_csm_post{7,1} = data_mild_csm(:,j);
     mod_csm_post{7,1} = data_mod_csm(:,j);
@@ -230,9 +230,9 @@ for j = 1:numel(slices)
     clear data_control; clear data_mild_csm; clear data_mod_csm;
     
     % Fiber Fraction Map
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Control/control_fiber_fraction_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Mild_CSM/mild_csm_fiber_fraction_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Moderate_CSM/mod_csm_fiber_fraction_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Control/control_fiber_fraction_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Mild_CSM/mild_csm_fiber_fraction_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Moderate_CSM/mod_csm_fiber_fraction_map_data.mat');
     all_control_post{8,1} = data_control(:,j);
     mild_csm_post{8,1} = data_mild_csm(:,j);
     mod_csm_post{8,1} = data_mod_csm(:,j);
@@ -240,9 +240,9 @@ for j = 1:numel(slices)
     clear data_control; clear data_mild_csm; clear data_mod_csm;
     
     % Hindered Fraction Map
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Control/control_hindered_fraction_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Mild_CSM/mild_csm_hindered_fraction_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Moderate_CSM/mod_csm_hindered_fraction_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Control/control_hindered_fraction_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Mild_CSM/mild_csm_hindered_fraction_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Moderate_CSM/mod_csm_hindered_fraction_map_data.mat');
     all_control_post{9,1} = data_control(:,j);
     mild_csm_post{9,1} = data_mild_csm(:,j);
     mod_csm_post{9,1} = data_mod_csm(:,j);
@@ -250,9 +250,9 @@ for j = 1:numel(slices)
     clear data_control; clear data_mild_csm; clear data_mod_csm;
     
     % Restricted Fraction Map
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Control/control_restricted_fraction_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Mild_CSM/mild_csm_restricted_fraction_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Moderate_CSM/mod_csm_restricted_fraction_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Control/control_restricted_fraction_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Mild_CSM/mild_csm_restricted_fraction_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Moderate_CSM/mod_csm_restricted_fraction_map_data.mat');
     all_control_post{10,1} = data_control(:,j);
     mild_csm_post{10,1} = data_mild_csm(:,j);
     mod_csm_post{10,1} = data_mod_csm(:,j);
@@ -260,9 +260,9 @@ for j = 1:numel(slices)
     clear data_control; clear data_mild_csm; clear data_mod_csm;
     
     % Water Fraction Map
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Control/control_water_fraction_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Mild_CSM/mild_csm_water_fraction_map_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Moderate_CSM/mod_csm_water_fraction_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Control/control_water_fraction_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Mild_CSM/mild_csm_water_fraction_map_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Moderate_CSM/mod_csm_water_fraction_map_data.mat');
     all_control_post{11,1} = data_control(:,j);
     mild_csm_post{11,1} = data_mild_csm(:,j);
     mod_csm_post{11,1} = data_mod_csm(:,j);
@@ -270,9 +270,9 @@ for j = 1:numel(slices)
     clear data_control; clear data_mild_csm; clear data_mod_csm;
     
     %Axon volume
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Control/control_axon_volume_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Mild_CSM/mild_csm_axon_volume_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Moderate_CSM/mod_csm_axon_volume_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Control/control_axon_volume_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Mild_CSM/mild_csm_axon_volume_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Moderate_CSM/mod_csm_axon_volume_data.mat');
     all_control_post{12,1} = control_axon_volume(:,j);
     mild_csm_post{12,1} = mild_csm_axon_volume(:,j);
     mod_csm_post{12,1} = mod_csm_axon_volume(:,j);
@@ -281,9 +281,9 @@ for j = 1:numel(slices)
     
     
     %Inflammation volume
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Control/control_inflammation_volume_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Mild_CSM/mild_csm_inflammation_volume_data.mat');
-    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI_by_slice/Moderate_CSM/mod_csm_inflammation_volume_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Control/control_inflammation_volume_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Mild_CSM/mild_csm_inflammation_volume_data.mat');
+    load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Moderate_CSM/mod_csm_inflammation_volume_data.mat');
     all_control_post{13,1} = control_inflammation_volume(:,j);
     mild_csm_post{13,1} = mild_csm_inflammation_volume(:,j);
     mod_csm_post{13,1} = mod_csm_inflammation_volume(:,j);
@@ -417,7 +417,7 @@ for j = 1:numel(slices)
     
     %% Save table
     
-    out_dir = "/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_ROI_by_slice";
+    out_dir = "/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/Pycharm_Data_ROI_by_slice";
     terminal = strcat('all_ROI_by_',slice_num,'_data.csv');
     writetable(t_fin,fullfile(out_dir,terminal));
     

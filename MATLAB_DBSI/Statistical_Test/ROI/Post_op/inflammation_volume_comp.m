@@ -8,9 +8,9 @@ addpath (genpath('/home/functionalspinelab/Desktop/Dinal/Scripts/MATLAB Scripts'
 
 %% Import data
 
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI/Control/control_inflammation_volume_data.mat');
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI/Mild_CSM/mild_csm_inflammation_volume_data.mat');
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/Post_op/ROI/Moderate_CSM/mod_csm_inflammation_volume_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI/Control/control_inflammation_volume_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI/Mild_CSM/mild_csm_inflammation_volume_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI/Moderate_CSM/mod_csm_inflammation_volume_data.mat');
 
 %% U test implementation
 

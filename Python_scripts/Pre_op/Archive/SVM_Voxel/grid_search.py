@@ -19,7 +19,7 @@ all_cm = np.concatenate((mild_cm_subjects,moderate_cm_subjects),axis=0)
 
 ## Load Data
 
-url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data_Voxel/DBSI_CSV_Data/all_patients_all_features_data.csv'
+url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/Pycharm_Data_Voxel/DBSI_CSV_Data/all_patients_all_features_data.csv'
 
 all_data = pd.read_csv(url, header=0)
 

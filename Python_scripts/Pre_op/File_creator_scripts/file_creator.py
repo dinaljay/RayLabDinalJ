@@ -2,6 +2,8 @@ import os.path
 import pandas as pd
 import numpy as np
 
+# OUTDATED - NOT IN USE
+
 dhi_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "fiber1_axial_map", "fiber1_fa_map",
     "fiber1_radial_map", "fiber_fraction_map", "hindered_fraction_map", "restricted_fraction_map",
                 "water_fraction_map", "axon_volume", "inflammation_volume"]
