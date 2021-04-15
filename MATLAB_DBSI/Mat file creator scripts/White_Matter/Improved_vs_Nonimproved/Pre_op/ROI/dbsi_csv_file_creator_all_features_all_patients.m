@@ -7,12 +7,11 @@ addpath (genpath('/home/functionalspinelab/Desktop/Dinal/Scripts/MATLAB_DBSI'));
 
 %% Declare necessary variables
 
-% improv_subjects = [2,5,9,19,24,26,30,36,40,41,46];
-improv_subjects = [2,5,9,3,15,21,23,27,28,29,45,19,24,26,30,36,41,46];
+improv_subjects = [2,5,9,24,26,30,36,40,41,46]; %mJOA
+% % improv_subjects = [2,3,5,9,15,19,21,23,26,27,28,29,30,36,41,45,46];  %SF-36 PF
 
-% non_improv_subjects = [3,12,15,18,20,21,23,27,28,29,45];
-non_improv_subjects = [12,18,20,24,40];
-
+non_improv_subjects = [3,12,15,18,20,21,23,27,28,29,45,];  %mJOA
+% non_improv_subjects = [12,18,20,24,40]; %SF-36 PF
 slices = (1:1:4);
 
 dhi_features = ["b0_map";"dti_adc_map";"dti_axial_map";"dti_fa_map";"dti_radial_map";"fiber1_axial_map";"fiber1_fa_map";...
