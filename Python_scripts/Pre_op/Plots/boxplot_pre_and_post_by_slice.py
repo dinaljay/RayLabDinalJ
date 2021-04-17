@@ -30,8 +30,7 @@ for i in range(len(dhi_features)):
     filter_data4 = slice4_data[slice4_data['feature_col'] == dhi_features[i]]
 
     # create grouped boxplot
-    plt.figure()
-    fig, axes = plt.subplots(2, 2, sharex=True, sharey= True,figsize=(12, 16))
+    fig, axes = plt.subplots(2, 2, sharex=True, sharey= True,figsize=(12, 25))
     fig.suptitle(dhi_features[i])
 
     #slice 1
@@ -41,6 +40,7 @@ for i in range(len(dhi_features)):
     axes[0,0].set_title('Slice 1 - C6')
     axes[0,0].set_ylabel("")
     axes[0,0].set_xlabel("")
+    axes[0,0].get_legend().remove()
 
     #slice 2
     sns.boxplot(ax = axes[0,1], x = filter_data2['operation'],
@@ -49,6 +49,7 @@ for i in range(len(dhi_features)):
     axes[0,1].set_title('Slice 2 - C5')
     axes[0,1].set_ylabel("")
     axes[0,1].set_xlabel("")
+    axes[0,1].get_legend().remove()
 
     #slice 3
     sns.boxplot(ax = axes[1,0], x = filter_data3['operation'],
@@ -57,6 +58,7 @@ for i in range(len(dhi_features)):
     axes[1,0].set_title('Slice 3 - C4')
     axes[1,0].set_ylabel("")
     axes[1,0].set_xlabel("")
+    axes[1,0].get_legend().remove()
 
     #slice 4
     sns.boxplot(ax = axes[1,1], x = filter_data4['operation'],
@@ -65,6 +67,17 @@ for i in range(len(dhi_features)):
     axes[1,1].set_title('Slice 4 - C3')
     axes[1,1].set_ylabel("")
     axes[1,1].set_xlabel("")
+    axes[1,1].get_legend().remove()
+
+    lines = []
+    labels = []
+
+    axLine, axLabel = axes[0,0].get_legend_handles_labels()
+    lines.extend(axLine)
+    labels.extend(axLabel)
+
+    fig.legend(lines, labels, loc='lower center', ncol=3)
     plt.show()
+
 
 

@@ -152,6 +152,37 @@ for j = 1:numel(slices)
     
     clear data_control; clear data_mild_csm; clear data_mod_csm;
     
+    %% Create Pre-op patient IDs
+    x=1;
+    for k = 1:numel(controls)
+        
+        pre_patientID{x,1} = strcat('CSM_C0',num2str(controls(k)));
+        x=x+1;
+    end
+    control_pre_patientID = repmat(pre_patientID, numel(dhi_features),1);
+    clear pre_patientID;
+    
+    x=1;
+    for k = 1:numel(mild_cm_subjects)
+        
+        pre_patientID{x,1} = strcat('CSM_P0',num2str(mild_cm_subjects(k)));
+        x=x+1;
+    end
+    
+    mild_csm_pre_patientID = repmat(pre_patientID, numel(dhi_features),1);
+    clear pre_patientID;
+    
+    x=1;
+    for k = 1:numel(moderate_cm_subjects)
+        
+        pre_patientID{x,1} = strcat('CSM_P0',num2str(moderate_cm_subjects(k)));
+        x=x+1;
+    end
+    
+    mod_csm_pre_patientID = repmat(pre_patientID, numel(dhi_features),1);
+    clear pre_patientID;
+    
+    
     %% Create variable stores for Post-op
     % %B0 Map
     %
@@ -290,6 +321,38 @@ for j = 1:numel(slices)
     
     clear data_control; clear data_mild_csm; clear data_mod_csm;
     
+    %Create post-patient IDs
+    x=1;
+    for k = 1:numel(controls)
+        
+        post_patientID{x,1} = strcat('CSM_C0',num2str(controls(k)));
+        x=x+1;
+    end
+    control_post_patientID = repmat(post_patientID, numel(dhi_features),1);
+    clear post_patientID;
+    
+    x=1;
+    for k = 1:numel(mild_cm_subjects)
+        
+        post_patientID{x,1} = strcat('CSM_P0',num2str(mild_cm_subjects(k)));
+        x=x+1;
+    end
+    mild_csm_post_patientID = repmat(post_patientID, numel(dhi_features),1);
+    clear post_patientID;
+    
+    x=1;
+    for k = 1:numel(moderate_cm_subjects)
+        
+        post_patientID{x,1} = strcat('CSM_P0',num2str(moderate_cm_subjects(k)));
+        x=x+1;
+    end
+    
+    mod_csm_post_patientID = repmat(post_patientID, numel(dhi_features),1);
+    clear post_patientID;
+    
+    patientID = [control_pre_patientID; control_post_patientID;...
+        mild_csm_pre_patientID; mild_csm_post_patientID;....
+        mod_csm_pre_patientID; mod_csm_post_patientID];
     
     %% Generate csv files
     
@@ -414,12 +477,36 @@ for j = 1:numel(slices)
     %Final table
     
     t_fin = [t_control_pre;t_control_post;t_mild_pre;t_mild_post;t_mod_pre;t_mod_post];
+    t_fin.PatientID = patientID;
+    
+    t_fin_sorted = table(t_fin.group, t_fin.PatientID, t_fin.operation, t_fin.feature_col, t_fin.data);
     
     %% Save table
     
     out_dir = "/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/Pycharm_Data_ROI_by_slice";
     terminal = strcat('all_ROI_by_',slice_num,'_data.csv');
-    writetable(t_fin,fullfile(out_dir,terminal));
-    
+    writetable(t_fin_sorted,fullfile(out_dir,terminal));
     
 end
+
+%% Create one giant csv file
+
+t_slice_1 = readtable('/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/Pycharm_Data_ROI_by_slice/all_ROI_by_slice_1_data.csv');
+t_slice_2 = readtable('/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/Pycharm_Data_ROI_by_slice/all_ROI_by_slice_2_data.csv');
+t_slice_3 = readtable('/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/Pycharm_Data_ROI_by_slice/all_ROI_by_slice_3_data.csv');
+t_slice_4 = readtable('/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/Pycharm_Data_ROI_by_slice/all_ROI_by_slice_4_data.csv');
+
+slice_1 = repmat('Slice_1',height(t_slice_1),1);
+slice_2 = repmat('Slice_2',height(t_slice_2),1);
+slice_3 = repmat('Slice_3',height(t_slice_3),1);
+slice_4 = repmat('Slice_4',height(t_slice_4),1);
+slice_num = [slice_1;slice_2;slice_3;slice_4];
+
+t_final = [t_slice_1;t_slice_2;t_slice_3;t_slice_4];
+t_final.slice_num = slice_num;
+t_final_sorted = table(t_final.slice_num,t_final.Var1, t_final.Var2, t_final.Var3, t_final.Var4, t_final.Var5, ...
+	'VariableNames', {'Slice_Number', 'Patient_Group', 'PatientID', 'Visit', 'MRI_Feature', 'Data_Value'});
+
+
+terminal = strcat('all_ROI_by_slice','_data.csv');
+writetable(t_final_sorted,fullfile(out_dir,terminal));

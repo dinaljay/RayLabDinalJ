@@ -19,13 +19,24 @@ for i in range(len(dhi_features)):
     filter_data = all_data[all_data['feature_col'] == dhi_features[i]]
 
     # create grouped boxplot
-    plt.figure()
+    plt.figure(figsize=(8,7.5))
     ax = sns.boxplot(x = filter_data['operation'],
                      y = filter_data['data'],
                      hue = filter_data['group'], showfliers=False)
     ax.set_title(dhi_features[i])
     ax.set_ylabel("")
     ax.set_xlabel("")
+    ax.get_legend().remove()
+
+    lines = []
+    labels = []
+
+    axLine, axLabel = ax.get_legend_handles_labels()
+    lines.extend(axLine)
+    labels.extend(axLabel)
+
+    plt.legend(lines, labels, loc='lower center', bbox_to_anchor=(0.25,-0.1,0.5,0.5), ncol=3)
     plt.show()
+
 
 

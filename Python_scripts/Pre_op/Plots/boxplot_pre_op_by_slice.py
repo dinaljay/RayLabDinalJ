@@ -59,12 +59,15 @@ for i in range(len(dhi_features)):
     axes[1,0].set_ylabel("")
     axes[1,0].set_xlabel("")
 
+
     #slice 4
     sns.boxplot(ax = axes[1,1], x = filter_data4['group'],
                      y = filter_data4['data'], showfliers=False)
     axes[1,1].set_title('Slice 4 - C3')
     axes[1,1].set_ylabel("")
     axes[1,1].set_xlabel("")
+
     plt.show()
+
 
 

@@ -27,6 +27,7 @@ for i in range(len(dhi_features)):
     ax.set_title(dhi_features[i])
     ax.set_ylabel("")
     ax.set_xlabel("")
+    plt.legend(bbox_to_anchor=(1.05, 1.0), loc='upper left')
     plt.show()
 
 
