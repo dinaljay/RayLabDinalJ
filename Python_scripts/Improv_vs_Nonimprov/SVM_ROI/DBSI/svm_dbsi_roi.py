@@ -24,12 +24,13 @@ all_ids = np.concatenate((control_ids,csm_ids),axis=0)
 
 ## Load Data
 
-url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/Pycharm_Data_improv_vs_nonimprov/Pre_op/all_patients_all_features_data.csv'
+url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/Pycharm_Data_improv_vs_nonimprov/Pre_op/ROI/all_patients_all_features_data.csv'
 
 all_data = pd.read_csv(url, header=0)
 
-X = all_data.drop(['Patient_ID', 'Group', 'Group_ID', 'dti_adc', 'dti_axial', 'dti_fa', 'dti_radial'], axis=1)
+#X = all_data.drop(['Patient_ID', 'Group', 'Group_ID', 'dti_adc', 'dti_axial', 'dti_fa', 'dti_radial'], axis=1)
 #X = all_data[['fiber_fraction', 'fiber_fa', 'fiber_radial', 'water_fraction']]
+X = all_data[['hindered_fraction', 'restricted_fraction', 'axon_volume', 'inflammation_volume']]
 y = all_data['Group_ID']
 
 # Scale data
