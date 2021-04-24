@@ -8,9 +8,9 @@ addpath (genpath('/home/functionalspinelab/Desktop/Dinal/Scripts/MATLAB Scripts'
 
 %% Import data
 
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI/Control/control_fiber1_radial_map_data.mat');
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI/Mild_CSM/mild_csm_fiber1_radial_map_data.mat');
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Pre_op/ROI/Moderate_CSM/mod_csm_fiber1_radial_map_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Pre_op/ROI/Control/control_fiber1_radial_map_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Pre_op/ROI/Mild_CSM/mild_csm_fiber1_radial_map_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Pre_op/ROI/Moderate_CSM/mod_csm_fiber1_radial_map_data.mat');
 
 %% U test implementation
 

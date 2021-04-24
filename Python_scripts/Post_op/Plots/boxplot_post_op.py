@@ -8,7 +8,7 @@ import seaborn as sns
 
 ## Load Data
 
-url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/Pycharm_Data_ROI/all_ROI_data.csv'
+url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DHI/Pycharm_Data_ROI/all_ROI_data.csv'
 
 all_data = pd.read_csv(url)
 

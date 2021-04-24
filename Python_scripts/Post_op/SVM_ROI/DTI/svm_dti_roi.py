@@ -24,7 +24,7 @@ all_ids = np.concatenate((control_ids,csm_ids),axis=0)
 
 ## Load Pre-op Data
 
-url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/Pycharm_Data_ROI/DBSI_CSV_Data/Pre_op/all_patients_all_features_data.csv'
+url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DHI/Pycharm_Data_ROI/DBSI_CSV_Data/Pre_op/all_patients_all_features_data.csv'
 
 all_data = pd.read_csv(url, header=0)
 
@@ -56,7 +56,7 @@ clf.fit(X_scaled, y)
 ## Load Post-op Data
 del url, all_data, X, X_scaled, y
 
-url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/Pycharm_Data_ROI/DBSI_CSV_Data/Post_op/all_patients_all_features_data.csv'
+url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DHI/Pycharm_Data_ROI/DBSI_CSV_Data/Post_op/all_patients_all_features_data.csv'
 
 all_data = pd.read_csv(url, header=0)
 

@@ -8,16 +8,16 @@ import seaborn as sns
 
 ## Load Data
 
-url1 = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/Pycharm_Data_improv_vs_nonimprov/all_ROI_by_slice_by_slice_1_data.csv'
+url1 = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DHI/Pycharm_Data_improv_vs_nonimprov/all_ROI_by_slice_by_slice_1_data.csv'
 slice1_data = pd.read_csv(url1)
 
-url2 = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/Pycharm_Data_improv_vs_nonimprov/all_ROI_by_slice_by_slice_2_data.csv'
+url2 = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DHI/Pycharm_Data_improv_vs_nonimprov/all_ROI_by_slice_by_slice_2_data.csv'
 slice2_data = pd.read_csv(url2)
 
-url3 = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/Pycharm_Data_improv_vs_nonimprov/all_ROI_by_slice_by_slice_3_data.csv'
+url3 = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DHI/Pycharm_Data_improv_vs_nonimprov/all_ROI_by_slice_by_slice_3_data.csv'
 slice3_data = pd.read_csv(url3)
 
-url4 = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/Pycharm_Data_improv_vs_nonimprov/all_ROI_by_slice_by_slice_4_data.csv'
+url4 = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DHI/Pycharm_Data_improv_vs_nonimprov/all_ROI_by_slice_by_slice_4_data.csv'
 slice4_data = pd.read_csv(url4)
 
 dhi_features = ["DTI ADC", "DTI Axial", "DTI FA", "DTI Radial", "Fiber Axial", "Fiber FA ",

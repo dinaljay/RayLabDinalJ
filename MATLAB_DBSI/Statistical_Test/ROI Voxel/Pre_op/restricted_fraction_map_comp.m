@@ -8,8 +8,8 @@ addpath (genpath('/home/functionalspinelab/Desktop/Dinal/Scripts/MATLAB Scripts'
 
 %% Import data
 
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Voxel/Control/control_restricted_fraction_map_data.mat');
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Voxel/CSM/csm_restricted_fraction_map_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Voxel/Control/control_restricted_fraction_map_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Voxel/CSM/csm_restricted_fraction_map_data.mat');
 
 %% Initialize variables
 

@@ -7,9 +7,9 @@ addpath (genpath('/home/functionalspinelab/Documents/MATLAB'));
 addpath (genpath('/home/functionalspinelab/Desktop/Dinal/Scripts/MATLAB Scripts'));
 
 %% Import data
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Voxel/White_Matter/Voxel/Pre_op/ROI/Control/control_dti_adc_map_data.mat');
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Voxel/White_Matter/Voxel/Pre_op/ROI/Mild_CSM/mild_csm_dti_adc_map_data.mat');
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Voxel/White_Matter/Voxel/Pre_op/ROI/Moderate_CSM/mod_csm_dti_adc_map_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Voxel/White_Matter/DHI/Voxel/Pre_op/ROI/Control/control_dti_adc_map_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Voxel/White_Matter/DHI/Voxel/Pre_op/ROI/Mild_CSM/mild_csm_dti_adc_map_data.mat');
+load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Voxel/White_Matter/DHI/Voxel/Pre_op/ROI/Moderate_CSM/mod_csm_dti_adc_map_data.mat');
 
 %% U test implementation
 

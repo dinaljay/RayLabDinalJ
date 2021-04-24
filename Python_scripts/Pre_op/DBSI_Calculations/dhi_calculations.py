@@ -43,9 +43,8 @@ def dhi_config(patient):
     Config.set('INPUT','dhi_input_file','dhi_input.mat')
     Config.add_section('DHI')
     Config.set('DHI','dhi_input_file','dhi_input.mat')
-    Config.set('DHI','dhi_config_file','/home/functionalspinelab/Documents/MATLAB/dhi_release/Configuration_DHI_IA_Human.mat')
+    Config.set('DHI','dhi_config_file','/home/functionalspinelab/Documents/MATLAB/dhi_release/dhi_spine_180613.mat')
     Config.set('DHI','dhi_class_file','dhi_class.mat')
-    Config.set
     Config.add_section('OUTPUT')
     Config.set('OUTPUT','output_option','2')
     Config.set('OUTPUT','output_format','nii')
@@ -84,6 +83,8 @@ def dhi_save(patient):
     os.chdir(current_dir)
     eng = matlab.engine.start_matlab("-nodesktop -nosplash -nojvm -nodisplay")
     eng.addpath('/home/functionalspinelab/Documents/MATLAB/dhi_release/','/home/functionalspinelab/Documents/MATLAB/dhi_release/Misc/','/home/functionalspinelab/Documents/MATLAB/dhi_release/Misc/NIfTI_20140122')
+    eng.dhi_save(current_dir + '/' + 'config.ini',nargout=0)
+    eng.quit()
 
 for control in controls:
     control_ID = 'CSM_C0'+str(control)
@@ -120,7 +121,7 @@ for csm in csm_patients:
 
         slice_num = 'slice_'+str(i+1)
         print(slice_num)
-        pt_path = os.path.join(csm_path,csm_ID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/dense/dmri_crop_moco.nii')
+        pt_path = os.path.join(csm_path,csm_ID,'scan_1/dMRI_ZOOMit/',slice_num,'all_volumes/dense/dmri_crop_moco.nii')
 
         if first_time == 'True':
             dhi_config(pt_path)
