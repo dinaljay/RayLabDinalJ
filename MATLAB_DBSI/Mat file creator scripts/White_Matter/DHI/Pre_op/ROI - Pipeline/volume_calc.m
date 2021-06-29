@@ -29,6 +29,7 @@ cm_subjects = [mild_cm_subjects,moderate_cm_subjects];
 cm_subjects = sort(cm_subjects,2);
 
 slices = (1:1:4);
+% slices = [4];
 
 voxel_volume = 0.35*0.35*7.5;
 

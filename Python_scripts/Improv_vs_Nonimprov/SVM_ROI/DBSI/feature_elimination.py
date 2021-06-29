@@ -55,7 +55,7 @@ cost = params['C']
 from sklearn.feature_selection import RFE
 
 svc = SVC(kernel="linear", C=cost)
-selector = RFE(estimator=svc, step=1)
+selector = RFE(estimator=svc, step=1, n_features_to_select=1)
 final = selector.fit(X_scaled, y)
 
 #print(final.support_)

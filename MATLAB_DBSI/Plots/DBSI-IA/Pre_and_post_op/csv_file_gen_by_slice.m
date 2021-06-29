@@ -20,6 +20,8 @@ in_dir = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matte
 
 slices = (1:1:4);
 
+%% Create variable stores
+
 for j = 1:numel(slices)
     
     slice_num = strcat('slice_',num2str(slices(j)));
@@ -27,20 +29,20 @@ for j = 1:numel(slices)
     for n=1:numel(dhi_features)
         
         %Pre-op data
-        file_name = strcat('control_',dhi_features(i),'_data.mat');
+        file_name = strcat('control_',dhi_features(n),'_data.mat');
         temp = fullfile(in_dir,'Pre_op/ROI_by_slice/Control/',file_name);
         load(temp);
-        all_control_pre{n,j} = data_control(:,j);
+        all_control_pre{n,1} = data_control(:,j);
         
-        file_name = strcat('mild_csm_',dhi_features(i),'_data.mat');
+        file_name = strcat('mild_csm_',dhi_features(n),'_data.mat');
         temp = fullfile(in_dir,'Pre_op/ROI_by_slice/Mild_CSM/',file_name);
         load(temp);
-        mild_csm_pre{n,j} = data_mild_csm(:,j);
+        mild_csm_pre{n,1} = data_mild_csm(:,j);
         
-        file_name = strcat('mod_csm_',dhi_features(i),'_data.mat');
+        file_name = strcat('mod_csm_',dhi_features(n),'_data.mat');
         temp = fullfile(in_dir,'Pre_op/ROI_by_slice/Moderate_CSM/',file_name);
         load(temp);
-        mod_csm_pre{n,j} = data_mod_csm(:,j);
+        mod_csm_pre{n,1} = data_mod_csm(:,j);
         
         clear data_control; clear data_mild_csm; clear data_mod_csm; clear temp;
         
@@ -49,20 +51,20 @@ for j = 1:numel(slices)
         pre_moderate_cm_subjects = moderate_cm_subjects;
         
         %Post-op data
-        file_name = strcat('control_',dhi_features(i),'_data.mat');
+        file_name = strcat('control_',dhi_features(n),'_data.mat');
         temp = fullfile(in_dir,'Post_op/ROI_by_slice/Control/',file_name);
         load(temp);
-        all_control_post{n,j} = data_control(:,j);
+        all_control_post{n,1} = data_control(:,j);
         
-        file_name = strcat('mild_csm_',dhi_features(i),'_data.mat');
+        file_name = strcat('mild_csm_',dhi_features(n),'_data.mat');
         temp = fullfile(in_dir,'Post_op/ROI_by_slice/Mild_CSM/',file_name);
         load(temp);
-        mild_csm_post{n,j} = data_mild_csm(:,j);
+        mild_csm_post{n,1} = data_mild_csm(:,j);
         
-        file_name = strcat('mod_csm_',dhi_features(i),'_data.mat');
+        file_name = strcat('mod_csm_',dhi_features(n),'_data.mat');
         temp = fullfile(in_dir,'Post_op/ROI_by_slice/Moderate_CSM/',file_name);
         load(temp);
-        mod_csm_post{n,j} = data_mod_csm(:,j);
+        mod_csm_post{n,1} = data_mod_csm(:,j);
         
         clear data_control; clear data_mild_csm; clear data_mod_csm; clear temp;
         
@@ -73,7 +75,7 @@ for j = 1:numel(slices)
     
     %% Create Pre-op patient IDs
     x=1;
-    for k = 1:numel(controls)
+    for k = 1:numel(pre_controls)
         
         pre_patientID{x,1} = strcat('CSM_C0',num2str(pre_controls(k)));
         x=x+1;
@@ -82,7 +84,7 @@ for j = 1:numel(slices)
     clear pre_patientID;
     
     x=1;
-    for k = 1:numel(mild_cm_subjects)
+    for k = 1:numel(pre_mild_cm_subjects)
         
         pre_patientID{x,1} = strcat('CSM_P0',num2str(pre_mild_cm_subjects(k)));
         x=x+1;
@@ -92,7 +94,7 @@ for j = 1:numel(slices)
     clear pre_patientID;
     
     x=1;
-    for k = 1:numel(moderate_cm_subjects)
+    for k = 1:numel(pre_moderate_cm_subjects)
         
         pre_patientID{x,1} = strcat('CSM_P0',num2str(pre_moderate_cm_subjects(k)));
         x=x+1;
@@ -103,7 +105,7 @@ for j = 1:numel(slices)
     
     %Create post-patient IDs
     x=1;
-    for k = 1:numel(controls)
+    for k = 1:numel(post_controls)
         
         post_patientID{x,1} = strcat('CSM_C0',num2str(post_controls(k)));
         x=x+1;
@@ -112,7 +114,7 @@ for j = 1:numel(slices)
     clear post_patientID;
     
     x=1;
-    for k = 1:numel(mild_cm_subjects)
+    for k = 1:numel(post_mild_cm_subjects)
         
         post_patientID{x,1} = strcat('CSM_P0',num2str(post_mild_cm_subjects(k)));
         x=x+1;
@@ -121,7 +123,7 @@ for j = 1:numel(slices)
     clear post_patientID;
     
     x=1;
-    for k = 1:numel(moderate_cm_subjects)
+    for k = 1:numel(post_moderate_cm_subjects)
         
         post_patientID{x,1} = strcat('CSM_P0',num2str(post_moderate_cm_subjects(k)));
         x=x+1;
@@ -259,7 +261,8 @@ for j = 1:numel(slices)
     t_fin = [t_control_pre;t_control_post;t_mild_pre;t_mild_post;t_mod_pre;t_mod_post];
     t_fin.PatientID = patientID;
     
-    t_fin_sorted = table(t_fin.group, t_fin.PatientID, t_fin.operation, t_fin.feature_col, t_fin.data);
+    t_fin_sorted = table(t_fin.group, t_fin.PatientID, t_fin.operation, t_fin.feature_col, t_fin.data,...
+            'VariableNames', {'Patient_Group', 'PatientID', 'Visit', 'MRI_Feature', 'Data_Value'});
     
     %% Save table
     
@@ -284,7 +287,7 @@ slice_num = [slice_1;slice_2;slice_3;slice_4];
 
 t_final = [t_slice_1;t_slice_2;t_slice_3;t_slice_4];
 t_final.slice_num = slice_num;
-t_final_sorted = table(t_final.slice_num,t_final.Var1, t_final.Var2, t_final.Var3, t_final.Var4, t_final.Var5, ...
+t_final_sorted = table(t_final.slice_num,t_final.Patient_Group, t_final.PatientID, t_final.Visit, t_final.MRI_Feature, t_final.Data_Value, ...
     'VariableNames', {'Slice_Number', 'Patient_Group', 'PatientID', 'Visit', 'MRI_Feature', 'Data_Value'});
 
 

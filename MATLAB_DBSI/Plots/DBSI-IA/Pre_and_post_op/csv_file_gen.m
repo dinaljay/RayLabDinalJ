@@ -18,27 +18,22 @@ dhi_features = ["b0_map";"dti_adc_map";"dti_axial_map";"dti_b_map";"dti_dirx_map
 
 in_dir = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DBSI-IA';
 
-%% Create variable stores for Pre-op
-% %B0 Map
-%
-% load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/ROI/Pre_op/Control/control_b0_map_data.mat');
-% load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/ROI/Pre_op/CSM/csm_b0_map_data.mat');
-% b0 = [cell2mat(data_control);cell2mat(data_csm)];
+%% Create variable stores
 
 for n=1:numel(dhi_features)
     
     %Pre-op data
-    file_name = strcat('control_',dhi_features(i),'_data.mat');
+    file_name = strcat('control_',dhi_features(n),'_data.mat');
     temp = fullfile(in_dir,'Pre_op/ROI/Control/',file_name);
     load(temp);
     all_control_pre{n,1} = data_control;
     
-    file_name = strcat('mild_csm_',dhi_features(i),'_data.mat');
+    file_name = strcat('mild_csm_',dhi_features(n),'_data.mat');
     temp = fullfile(in_dir,'Pre_op/ROI/Mild_CSM/',file_name);
     load(temp);
     mild_csm_pre{n,1} = data_mild_csm;
     
-    file_name = strcat('mod_csm_',dhi_features(i),'_data.mat');
+    file_name = strcat('mod_csm_',dhi_features(n),'_data.mat');
     temp = fullfile(in_dir,'Pre_op/ROI/Moderate_CSM/',file_name);
     load(temp);
     mod_csm_pre{n,1} = data_mod_csm;
@@ -46,17 +41,17 @@ for n=1:numel(dhi_features)
     clear data_control; clear data_mild_csm; clear data_mod_csm; clear temp;
     
     %Post-op data
-    file_name = strcat('control_',dhi_features(i),'_data.mat');
+    file_name = strcat('control_',dhi_features(n),'_data.mat');
     temp = fullfile(in_dir,'Post_op/ROI/Control/',file_name);
     load(temp);
     all_control_post{n,1} = data_control;
     
-    file_name = strcat('mild_csm_',dhi_features(i),'_data.mat');
+    file_name = strcat('mild_csm_',dhi_features(n),'_data.mat');
     temp = fullfile(in_dir,'Post_op/ROI/Mild_CSM/',file_name);
     load(temp);
     mild_csm_post{n,1} = data_mild_csm;
     
-    file_name = strcat('mod_csm_',dhi_features(i),'_data.mat');
+    file_name = strcat('mod_csm_',dhi_features(n),'_data.mat');
     temp = fullfile(in_dir,'Post_op/ROI/Moderate_CSM/',file_name);
     load(temp);
     mod_csm_post{n,1} = data_mod_csm;

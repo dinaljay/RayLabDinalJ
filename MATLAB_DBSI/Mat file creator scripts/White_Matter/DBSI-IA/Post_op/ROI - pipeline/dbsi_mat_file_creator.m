@@ -1,4 +1,4 @@
-% This script loads the ROI_by_slice_by_slice files for each slice for each patient and then
+% This script loads the ROI files for each slice for each patient and then
 % extracts the relevant DBSI parameters and saves it as a mat file
 
 clear all;
@@ -10,10 +10,10 @@ addpath (genpath('/home/functionalspinelab/Desktop/Dinal/Scripts/MATLAB_DBSI'));
 
 control_path = '/media/functionalspinelab/RAID/Data/Dinal/DBSI_Data/CSM_New/Control';
 csm_path = '/media/functionalspinelab/RAID/Data/Dinal/DBSI_Data/CSM_New/Patient';
-out_dir_control = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Control';
+out_dir_control = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DBSI-IA/Post_op/ROI/Control';
 
-out_dir_mild_csm = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Mild_CSM';
-out_dir_mod_csm = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/Post_op/ROI_by_slice/Moderate_CSM';
+out_dir_mild_csm = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DBSI-IA//Post_op/ROI/Mild_CSM';
+out_dir_mod_csm = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DBSI-IA/Post_op/ROI/Moderate_CSM';
 
 
 %% Declare necessary variables
@@ -57,7 +57,7 @@ for i = 1:numel(dhi_features)
             
             param_file = strcat(dhi_features(i),'.nii');
             mask_file = fullfile(control_path,subjectID,'/scan_2/dMRI_ZOOMit/',slice_num,'/all_volumes/label/template/PAM50_wm.nii.gz');
-            dwi_file = fullfile(control_path,subjectID,'/scan_2/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3',param_file);
+            dwi_file = fullfile(control_path,subjectID,'/scan_2/dMRI_ZOOMit/',slice_num,'/all_volumes/dense/DHI_IA_results_0.3_0.3_3_3',param_file);
             
             mask = niftiread(mask_file);
             dwi_data = niftiread(dwi_file);
@@ -66,8 +66,9 @@ for i = 1:numel(dhi_features)
             dwi_data = double(dwi_data);
             
             data = dwi_data(expert_rois>0.7);
-            data_control{k,j} = median(data);
+            temp = [temp;data];
         end
+        data_control{k,1} = median(temp);
     end
     
     terminal = strcat('control_',dhi_features(i),'_data.mat');
@@ -96,7 +97,7 @@ for i = 1:numel(dhi_features)
             
             param_file = strcat(dhi_features(i),'.nii');
             mask_file = fullfile(csm_path,subjectID,'/scan_2/dMRI_ZOOMit/',slice_num,'/all_volumes/label/template/PAM50_wm.nii.gz');
-            dwi_file = fullfile(csm_path,subjectID,'/scan_2/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3',param_file);
+            dwi_file = fullfile(csm_path,subjectID,'/scan_2/dMRI_ZOOMit/',slice_num,'/all_volumes/dense/DHI_IA_results_0.3_0.3_3_3',param_file);
             
             mask = niftiread(mask_file);
             dwi_data = niftiread(dwi_file);
@@ -104,8 +105,9 @@ for i = 1:numel(dhi_features)
             expert_rois = double(mask);
             dwi_data = double(dwi_data);
             data = dwi_data(expert_rois>0.7);
-            data_mild_csm{k,j} = median(data);
+            temp = [temp;data];
         end
+        data_mild_csm{k,1} = median(temp);
         
     end
     terminal = strcat('mild_csm_',dhi_features(i),'_data.mat');
@@ -134,7 +136,7 @@ for i = 1:numel(dhi_features)
             
             param_file = strcat(dhi_features(i),'.nii');
             mask_file = fullfile(csm_path,subjectID,'/scan_2/dMRI_ZOOMit/',slice_num,'/all_volumes/label/template/PAM50_wm.nii.gz');
-            dwi_file = fullfile(csm_path,subjectID,'/scan_2/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3',param_file);
+            dwi_file = fullfile(csm_path,subjectID,'/scan_2/dMRI_ZOOMit/',slice_num,'/all_volumes/dense/DHI_IA_results_0.3_0.3_3_3',param_file);
             
             mask = niftiread(mask_file);
             dwi_data = niftiread(dwi_file);
@@ -142,8 +144,9 @@ for i = 1:numel(dhi_features)
             expert_rois = double(mask);
             dwi_data = double(dwi_data);
             data = dwi_data(expert_rois>0.7);
-            data_mod_csm{k,j} = median(data);
+            temp = [temp;data];
         end
+        data_mod_csm{k,1} = median(temp);
         
     end
     terminal = strcat('mod_csm_',dhi_features(i),'_data.mat');
