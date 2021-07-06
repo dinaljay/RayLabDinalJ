@@ -98,7 +98,7 @@ y_conf.append(clf.decision_function(X_test))
 #Import scikit-learn metrics module for accuracy calculation
 from sklearn import metrics
 from sklearn.metrics import classification_report, confusion_matrix
-cm1 = confusion_matrix(y_true, y_pred)
+cm1 = confusion_matrix(y_true, np.asarray(y_pred[0]))
 
 print("Confusion matrix: \n", cm1)
 
