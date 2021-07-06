@@ -17,10 +17,9 @@ url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DHI/P
 
 all_data = pd.read_csv(url, header=0)
 
-X = all_data[['dti_adc', 'dti_axial', 'dti_fa', 'dti_radial']]
+X = all_data.drop(['Patient_ID', 'Group', 'Group_ID', 'dti_adc', 'dti_axial', 'dti_fa', 'dti_radial'], axis=1)
 y = all_data['Group_ID']
-
-# Scale data
+patient_count = X.shape[0]
 
 from sklearn.preprocessing import label_binarize
 from sklearn.multiclass import OneVsRestClassifier
@@ -109,7 +108,7 @@ micro_roc_auc = metrics.roc_auc_score(y_true, y_conf, multi_class="ovr", average
 macro_roc_auc = metrics.roc_auc_score(y_true, y_conf, multi_class="ovr", average="macro")
 
 print("Micro average ROC curve area:", micro_roc_auc)
-print("Micro average ROC curve area:", macro_roc_auc)
+print("Macro average ROC curve area:", macro_roc_auc)
 
 sys.exit()
 
@@ -130,4 +129,3 @@ plt.ylabel('True Positive Rate')
 plt.title('ROC curve for all patient groups')
 plt.legend(loc="lower right")
 plt.show()
-

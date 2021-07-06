@@ -67,7 +67,7 @@ t1 = table(group, group_id);
 t2 = array2table(data);
 t_control_pre = [t1,t2];
 t_control_pre = renamevars(t_control_pre,1:width(t_control_pre),var_Names);
-clear group; clear group_id; clear data; clear t1; clear t2;
+clear group; clear group_id; c clear data;
 
 %Mild CSM pre_op
 
@@ -86,7 +86,7 @@ t1 = table(group, group_id);
 t2 = array2table(data);
 t_mild_pre = [t1,t2];
 t_mild_pre = renamevars(t_mild_pre,1:width(t_mild_pre),var_Names);
-clear group; clear group_id; clear data; clear t1; clear t2;
+clear group; clear group_id; clear data;
 
 %Moderate CSM pre_op
 
@@ -97,16 +97,16 @@ data = [];
 
 for i=1:length(dhi_features)
 
-    data(:,i) = cell2mat(mod_csm_pre{i,1});
+    data = cell2mat(mod_csm_pre{i,1});
     
 end
 
 t1 = table(group, group_id);
 t2 = array2table(data);
 t_mod_pre = [t1,t2];
-t_mod_pre = renamevars(t_mod_pre,1:width(t_mod_pre),var_Names);
+t_mod_pre = renamevars(t_mild_pre,1:width(t_mild_pre),var_Names);
 
-clear group; clear group_id; clear data; clear t1; clear t2;
+clear group; clear group_id; clear data;
 
 %% Save csv files
 
