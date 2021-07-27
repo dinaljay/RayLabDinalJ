@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import sys
 
-## Initialize features
+# Features
 
 dhi_features = ["b0_map", "dti_adc_map","dti_axial_map", "dti_b_map", "dti_dirx_map", "dti_diry_map", "dti_dirz_map", "dti_fa_map",
                 "dti_g_map", "dti_radial_map", "dti_rgba_map", "dti_rgba_map_itk", "dti_r_map", "fiber1_axial_map", "fiber1_dirx_map",
@@ -23,20 +23,22 @@ dbsi_ia_features = ["b0_map", "dti_adc_map", "dti_axial_map", "dti_b_map", "dti_
                     "fraction_rgba_map", "hindered_adc_map", "hindered_fraction_map", "iso_adc_map", "model_v_map", "restricted_adc_map", "restricted_fraction_map",
                     "water_adc_map", "water_fraction_map"]
 
-filter_dhi_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radial_map", "fiber1_axial_map", "fiber1_fa_map",
+filter_dhi_features = ["b0_map", "dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radial_map", "fiber1_axial_map", "fiber1_fa_map",
                        "fiber1_radial_map", "fiber_fraction_map", "hindered_adc_map", "hindered_fraction_map",
                        "iso_adc_map", "model_v_map", "restricted_adc_map", "restricted_fraction_map", "water_adc_map", "water_fraction_map"]
 
 filter_dbsi_ia_features = ["fiber1_extra_axial_map", "fiber1_extra_fraction_map", "fiber1_extra_radial_map", "fiber1_intra_axial_map", "fiber1_intra_fraction_map",
                            "fiber1_intra_radial_map"]
 
-## Load Data
+# Load Data
 
-url_dhi = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DHI/Pycharm_Data_ROI/DBSI_CSV_Data/Pre_op/all_patients_all_features_mild_CSM_data.csv'
+url_dhi = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DHI/Pycharm_Data_ROI_Voxel/Pre_op/all_patients_all_features_data.csv'
 all_data_dhi = pd.read_csv(url_dhi, header=0)
+all_data_dhi[all_data_dhi['Group_ID'] == 2] = 1
 
-url_dbsi_ia = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DBSI-IA/Pycharm_Data_ROI/DBSI_CSV_Data/Pre_op/all_patients_all_features_mild_CSM_data.csv'
+url_dbsi_ia = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DBSI-IA/Pycharm_Data_ROI_Voxel/Pre_op/all_patients_all_features_data.csv'
 all_data_dbsi_ia = pd.read_csv(url_dbsi_ia, header=0)
+all_data_dbsi_ia[all_data_dbsi_ia['Group_ID'] == 2] = 1
 
 # Filter Data
 filter_dhi = all_data_dhi[filter_dhi_features]
@@ -49,106 +51,89 @@ all_data = pd.concat([filter_dhi, filter_dbsi_ia], axis=1)
 for col in all_data.columns:
     all_data[col] = all_data[col].fillna(0)
 
-X = all_data.drop(['dti_adc_map', 'dti_axial_map', 'dti_fa_map', 'dti_radial_map'], axis=1)
+X = all_data
 y = all_data_dhi['Group_ID']
 
-# Scale data
+#sys.exit()
+patient_count = X.shape[0]
 
+#sys.exit()
+# Scale data
 from sklearn import preprocessing
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GridSearchCV
+from sklearn.svm import SVC
 
 X_scaled = preprocessing.scale(X)
 
 #Implement leave one out cross validation
-y_pred = []
-y_conf = []
+y_true, y_pred, y_conf, y_score = [], [], [], []
 
-for i in range(len(X_scaled)):
+# Splitting Data
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.3, random_state=109, shuffle=True) # 70% training and 30% test
 
-    # Splitting Data for tuning hyerparameters
-    X_train = np.delete(X_scaled, [i], axis=0)
-    y_train = y.drop([i], axis=0)
+#sys.exit()
+# Tuning hyperparameters
+tuned_parameters = [{'kernel': ['rbf'], 'C': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                     'gamma':[0.1, 0.001, 0.0001, 0.00001]}]
+clf = GridSearchCV(SVC(), tuned_parameters, scoring='accuracy')
+clf.fit(X_train, y_train)
+params = clf.best_params_
+cost = params['C']
+gamma = params['gamma']
+# Generating SVM model
+clf = SVC(C=cost, gamma=gamma, kernel="rbf", probability=True)
 
-    X_test = X_scaled[i]
-    X_test = X_test.reshape(1, -1)
-    y_test = y[i]
+#Train the model using the training sets
+clf.fit(X_train, y_train)
 
-    # Tuning hyperparameters
-    from sklearn.model_selection import GridSearchCV
-    from sklearn.svm import SVC
+#Predict the response for test dataset
+y_pred.append(clf.predict(X_test))
+y_true = y_test
 
-    tuned_parameters = [{'kernel': ['linear'], 'C': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}]
-    clf = GridSearchCV(SVC(), tuned_parameters, scoring='accuracy')
-    clf.fit(X_train, y_train)
-    params = clf.best_params_
-    cost = params['C']
+#Get confidence scores
+y_conf.append(clf.decision_function(X_test))
 
-    # Splitting Data for model
-    X_train = np.delete(X_scaled, [i], axis=0)
-    y_train = y.drop([i], axis=0)
+#sys.exit()
 
-    X_test = X_scaled[i]
-    X_test = X_test.reshape(1, -1)
-    y_test = y[i]
-
-    # Generating SVM model
-    clf = SVC(C=cost, kernel="linear")
-
-    #Train the model using the training sets
-    clf.fit(X_train, y_train)
-
-    #Predict the response for test dataset
-    temp = clf.predict(X_test)
-    y_pred.append(temp[0])
-
-    #Get confidecne scores
-    temp = clf.decision_function(X_test)
-    y_conf.append(temp[0])
-
-y = np.asarray(y)
-y_pred = np.asarray(y_pred)
-y_conf = np.asarray(y_conf)
-
+#Import scikit-learn metrics module for accuracy calculation
 from sklearn import metrics
-
-# Model Accuracy: how often is the classifier correct?
-print("Accuracy:", metrics.accuracy_score(y, y_pred))
-
-# Model Precision
-print("Precision:", metrics.precision_score(y, y_pred))
-
-# Model Recall
-print("Recall:", metrics.recall_score(y, y_pred))
-
-#Model F1 score
-f1 = metrics.f1_score(y, y_pred)
-print("F1 Score:", f1)
-
 from sklearn.metrics import classification_report, confusion_matrix
-cm1 = confusion_matrix(y, y_pred)
+cm1 = confusion_matrix(y_true, np.asarray(y_pred[0]))
 
 print("Confusion matrix: \n", cm1)
-#print(classification_report(y, np.asarray(y_pred)))
 
-## Caclulate number of true positives, true negatives, false negatives and false positives
-total1=sum(sum(cm1))
+# Model Accuracy: how often is the classifier correct?
+print("Accuracy:", metrics.accuracy_score(y_true, np.asarray(y_pred[0])))
 
-# Accuracy
-accuracy1=(cm1[0,0]+cm1[1,1])/total1
-print('Accuracy:', accuracy1)
+# Model Precision
+print("Precision:", metrics.precision_score(y_true, np.asarray(y_pred[0]), average='weighted'))
 
-#Sensitivity or true positive rate
-sensitivity1 = cm1[0,0]/(cm1[0,0]+cm1[0,1])
-print('Sensitivity:', sensitivity1)
+# Model Recall
+print("Recall:", metrics.recall_score(y_true, np.asarray(y_pred[0]), average='weighted'))
 
-#Specificity or true negative rate
-specificity1 = cm1[1,1]/(cm1[1,0]+cm1[1,1])
-print('Specificity:', specificity1)
+#Model F1 score
+f1 = metrics.f1_score(y_true, np.asarray(y_pred[0]), average='weighted')
+print("F1 Score:", f1)
 
 #Calculate AUC
-fpr, tpr, threshold = metrics.roc_curve(y, y_conf)
+fpr, tpr, threshold = metrics.roc_curve(y_true, y_conf[0])
 #roc_auc = metrics.auc(fpr, tpr)
-roc_auc = metrics.roc_auc_score(y, y_conf)
+roc_auc = metrics.roc_auc_score(y_true, y_conf[0])
 print("AUC:", roc_auc)
+
+sys.exit()
+
+# get importance
+importance = clf.coef_
+print(importance)
+sys.exit()
+# summarize feature importance
+for i, v in enumerate(importance):
+    print('Feature: %0d, Score: %.5f' % (i, v))
+# plot feature importance
+plt.bar([x for x in range(len(importance))], importance)
+plt.show()
 
 sys.exit()
 #Plot ROC curve
@@ -158,8 +143,8 @@ plt.title('Receiver Operating Characteristic')
 plt.plot(fpr, tpr, color='darkorange', lw=lw, label='SVM (area = %0.2f)' %roc_auc)
 plt.plot([0, 1], [0, 1],color='navy', lw=lw, linestyle='--', label='No Skill')
 plt.legend(loc='lower right')
-plt.xlim([-0.05, 1])
-plt.ylim([-0.05, 1.05])
+plt.xlim([-0.1, 1])
+plt.ylim([0, 1.05])
 plt.ylabel('True Positive Rate')
 plt.xlabel('False Positive Rate')
 #plt.show()
@@ -175,10 +160,9 @@ plt.title('Precision-Recall Curve')
 plt.plot([0, 1], [0, 0], color='navy', lw=lw, linestyle='--', label='No Skill')
 plt.plot(lr_recall, lr_precision, color='darkorange', label='SVM')
 plt.legend(loc='lower right')
-plt.xlim([-0.05, 1])
-plt.ylim([-0.05, 1.05])
+plt.xlim([-0.1, 1])
+plt.ylim([-0.1, 1.05])
 plt.xlabel('Recall')
 plt.ylabel('Precision')
 
 plt.show()
-

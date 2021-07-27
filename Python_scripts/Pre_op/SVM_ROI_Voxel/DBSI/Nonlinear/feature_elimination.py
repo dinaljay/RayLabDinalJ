@@ -1,4 +1,3 @@
-
 import numpy as np
 import os.path as path
 import matplotlib.pyplot as plt
@@ -24,7 +23,7 @@ dbsi_ia_features = ["b0_map", "dti_adc_map", "dti_axial_map", "dti_b_map", "dti_
                     "water_adc_map", "water_fraction_map"]
 
 filter_dhi_features = ["b0_map", "dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radial_map", "fiber1_axial_map", "fiber1_fa_map",
-                       "fiber1_fiber_fraction_map", "fiber1_radial_map", "fiber_fraction_map", "hindered_adc_map", "hindered_fraction_map",
+                       "fiber1_radial_map", "fiber_fraction_map", "hindered_adc_map", "hindered_fraction_map",
                        "iso_adc_map", "model_v_map", "restricted_adc_map", "restricted_fraction_map", "water_adc_map", "water_fraction_map"]
 
 filter_dbsi_ia_features = ["fiber1_extra_axial_map", "fiber1_extra_fraction_map", "fiber1_extra_radial_map", "fiber1_intra_axial_map", "fiber1_intra_fraction_map",
@@ -66,102 +65,46 @@ from sklearn.svm import SVC
 
 X_scaled = preprocessing.scale(X)
 
-#Implement leave one out cross validation
-y_true, y_pred, y_conf, y_score = [], [], [], []
-
-# Splitting Data
-X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.3, random_state=109, shuffle=True) # 70% training and 30% test
-
 #sys.exit()
 # Tuning hyperparameters
-tuned_parameters = [{'kernel': ['linear'], 'C': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}]
+tuned_parameters = [{'kernel': ['rbf'], 'C': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                     'gamma':[0.1, 0.001, 0.0001, 0.00001]}]
 clf = GridSearchCV(SVC(), tuned_parameters, scoring='accuracy')
-clf.fit(X_train, y_train)
+clf.fit(X_scaled, y)
 params = clf.best_params_
 cost = params['C']
+gamma = params['gamma']
 
-# Generating SVM model
-clf = SVC(C=cost, kernel="linear", probability=True)
+## Recursive Feature Elimination
 
-#Train the model using the training sets
-clf.fit(X_train, y_train)
+from sklearn.feature_selection import RFE
 
-#Predict the response for test dataset
-y_pred.append(clf.predict(X_test))
-y_true = y_test
+svc = SVC(kernel="rbf", C=cost, gamma=gamma)
+selector = RFE(estimator=svc, step=1, n_features_to_select=1)
+final = selector.fit(X_scaled, y)
 
-#Get confidence scores
-y_conf.append(clf.decision_function(X_test))
+#print(final.support_)
+#print("\n")
+#print(final.ranking_)
 
-#sys.exit()
+#print("Optimal number of features : %d" % selector.n_features_)
 
-#Import scikit-learn metrics module for accuracy calculation
-from sklearn import metrics
-from sklearn.metrics import classification_report, confusion_matrix
-cm1 = confusion_matrix(y_true, np.asarray(y_pred[0]))
+#print(X.columns)
 
-print("Confusion matrix: \n", cm1)
+#for i in range(X.shape[1]):
+#    print('Column: %d, Selected %s, Rank: %.3f' % (i, selector.support_[i], selector.ranking_[i]))
 
-# Model Accuracy: how often is the classifier correct?
-print("Accuracy:", metrics.accuracy_score(y_true, np.asarray(y_pred[0])))
+features = list(X.columns)
 
-# Model Precision
-print("Precision:", metrics.precision_score(y_true, np.asarray(y_pred[0]), average='weighted'))
-
-# Model Recall
-print("Recall:", metrics.recall_score(y_true, np.asarray(y_pred[0]), average='weighted'))
-
-#Model F1 score
-f1 = metrics.f1_score(y_true, np.asarray(y_pred[0]), average='weighted')
-print("F1 Score:", f1)
-
-#Calculate AUC
-fpr, tpr, threshold = metrics.roc_curve(y_true, y_conf[0])
-#roc_auc = metrics.auc(fpr, tpr)
-roc_auc = metrics.roc_auc_score(y_true, y_conf[0])
-print("AUC:", roc_auc)
+d = {'Feature': features, 'Ranking': selector.ranking_}
+rankings = pd.DataFrame(data=d)
+rankings = rankings.sort_values(by=['Ranking'])
+print(rankings)
 
 sys.exit()
-
-# get importance
-importance = clf.coef_
-print(importance)
-sys.exit()
-# summarize feature importance
-for i, v in enumerate(importance):
-    print('Feature: %0d, Score: %.5f' % (i, v))
-# plot feature importance
-plt.bar([x for x in range(len(importance))], importance)
-plt.show()
-
-sys.exit()
-#Plot ROC curve
-
-lw=2
-plt.title('Receiver Operating Characteristic')
-plt.plot(fpr, tpr, color='darkorange', lw=lw, label='SVM (area = %0.2f)' %roc_auc)
-plt.plot([0, 1], [0, 1],color='navy', lw=lw, linestyle='--', label='No Skill')
-plt.legend(loc='lower right')
-plt.xlim([-0.1, 1])
-plt.ylim([0, 1.05])
-plt.ylabel('True Positive Rate')
-plt.xlabel('False Positive Rate')
-#plt.show()
-
-#sys.exit()
-
-# Plot precision recall curve
-
-lr_precision, lr_recall, _ = metrics.precision_recall_curve(y, y_conf)
-
+# Plot number of features VS. cross-validation scores
 plt.figure()
-plt.title('Precision-Recall Curve')
-plt.plot([0, 1], [0, 0], color='navy', lw=lw, linestyle='--', label='No Skill')
-plt.plot(lr_recall, lr_precision, color='darkorange', label='SVM')
-plt.legend(loc='lower right')
-plt.xlim([-0.1, 1])
-plt.ylim([-0.1, 1.05])
-plt.xlabel('Recall')
-plt.ylabel('Precision')
-
+plt.xlabel("Number of features selected")
+plt.ylabel("Cross validation score (no of correct classifications)")
+plt.plot(range(1, len(selector.grid_scores_) + 1), selector.grid_scores_)
 plt.show()

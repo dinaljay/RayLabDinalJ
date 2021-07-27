@@ -1,4 +1,3 @@
-
 import numpy as np
 import os.path as path
 import matplotlib.pyplot as plt
@@ -24,7 +23,7 @@ dbsi_ia_features = ["b0_map", "dti_adc_map", "dti_axial_map", "dti_b_map", "dti_
                     "water_adc_map", "water_fraction_map"]
 
 filter_dhi_features = ["b0_map", "dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radial_map", "fiber1_axial_map", "fiber1_fa_map",
-                       "fiber1_fiber_fraction_map", "fiber1_radial_map", "fiber_fraction_map", "hindered_adc_map", "hindered_fraction_map",
+                       "fiber1_radial_map", "fiber_fraction_map", "hindered_adc_map", "hindered_fraction_map",
                        "iso_adc_map", "model_v_map", "restricted_adc_map", "restricted_fraction_map", "water_adc_map", "water_fraction_map"]
 
 filter_dbsi_ia_features = ["fiber1_extra_axial_map", "fiber1_extra_fraction_map", "fiber1_extra_radial_map", "fiber1_intra_axial_map", "fiber1_intra_fraction_map",
@@ -78,18 +77,20 @@ X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.3, 
 
 #sys.exit()
 # Tuning hyperparameters
-tuned_parameters = [{'estimator__kernel': ['linear'], 'estimator__C': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}]
+tuned_parameters = [{'estimator__kernel': ['rbf'], 'estimator__C': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                     'estimator__gamma':[0.1, 0.001, 0.0001, 0.00001]}]
 clf = GridSearchCV(OneVsRestClassifier(SVC()), tuned_parameters, scoring='accuracy')
 clf.fit(X_train, y_train)
 params = clf.best_params_
 cost = params['estimator__C']
+gamma = params['estimator__gamma']
 
 # Generating SVM model
-clf = OneVsRestClassifier(SVC(C=cost, kernel="linear", probability=True))
+clf = OneVsRestClassifier(SVC(C=cost, gamma=gamma, kernel="rbf", probability=True))
 
 #Train the model using the training sets
 clf.fit(X_train, y_train)
-
+#sys.exit()
 #Predict the response for test dataset
 y_pred.append(clf.predict(X_test))
 y_true = y_test

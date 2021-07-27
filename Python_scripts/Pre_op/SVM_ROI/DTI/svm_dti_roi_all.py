@@ -5,19 +5,12 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import sys
 
-## Initialize features
-
-dhi_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "fiber1_axial_map", "fiber1_fa_map",
-    "fiber1_radial_map", "fiber_fraction_map", "hindered_fraction_map", "restricted_fraction_map",
-                "water_fraction_map", "axon_volume", "inflammation_volume"]
-
 ## Load Data
 
 url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DHI/Pycharm_Data_ROI/DBSI_CSV_Data/Pre_op/all_patients_all_features_by_CSM_group_data.csv'
-
 all_data = pd.read_csv(url, header=0)
 
-X = all_data[['dti_adc', 'dti_axial', 'dti_fa', 'dti_radial']]
+X = all_data[['dti_adc_map', 'dti_axial_map', 'dti_fa_map', 'dti_radial_map']]
 y = all_data['Group_ID']
 patient_count = X.shape[0]
 
