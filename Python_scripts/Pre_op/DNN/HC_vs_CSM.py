@@ -1,4 +1,3 @@
-
 import numpy as np
 import os.path as path
 import matplotlib.pyplot as plt
@@ -32,11 +31,15 @@ filter_dbsi_ia_features = ["fiber1_extra_axial_map", "fiber1_extra_fraction_map"
 
 ## Load Data
 
-url_dhi = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DHI/Pycharm_Data_ROI/DBSI_CSV_Data/Pre_op/all_patients_all_features_data.csv'
-all_data_dhi = pd.read_csv(url_dhi, header=0)
+# Load Data
 
-url_dbsi_ia = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DBSI-IA/Pycharm_Data_ROI/DBSI_CSV_Data/Pre_op/all_patients_all_features_data.csv'
+url_dhi = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DHI/Pycharm_Data_ROI_Voxel/Pre_op/all_patients_all_features_data.csv'
+all_data_dhi = pd.read_csv(url_dhi, header=0)
+all_data_dhi[all_data_dhi['Group_ID'] == 2] = 1
+
+url_dbsi_ia = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DBSI-IA/Pycharm_Data_ROI_Voxel/Pre_op/all_patients_all_features_data.csv'
 all_data_dbsi_ia = pd.read_csv(url_dbsi_ia, header=0)
+all_data_dbsi_ia[all_data_dbsi_ia['Group_ID'] == 2] = 1
 
 # Filter Data
 filter_dhi = all_data_dhi[filter_dhi_features]
@@ -49,7 +52,7 @@ all_data = pd.concat([filter_dhi, filter_dbsi_ia], axis=1)
 for col in all_data.columns:
     all_data[col] = all_data[col].fillna(0)
 
-X = all_data
+X = all_data.drop(['dti_adc_map', 'dti_axial_map', 'dti_fa_map', 'dti_radial_map'], axis=1)
 y = all_data_dhi['Group_ID']
 
 # Scale data
@@ -58,49 +61,23 @@ from sklearn import preprocessing
 
 X_scaled = preprocessing.scale(X)
 
-# Tuning hyperparameters
-from sklearn.model_selection import GridSearchCV
-from sklearn.svm import SVC
-
-tuned_parameters = [{'kernel': ['linear'], 'C': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}]
-clf = GridSearchCV(SVC(), tuned_parameters, scoring='accuracy')
-clf.fit(X_scaled, y)
-params = clf.best_params_
-cost = params['C']
-
-## Recursive Feature Elimination
-
-from sklearn.feature_selection import RFE
-
-svc = SVC(kernel="linear", C=cost)
-selector = RFE(estimator=svc, step=1, n_features_to_select=1)
-final = selector.fit(X_scaled, y)
-
-#print(final.support_)
-#print("\n")
-#print(final.ranking_)
-
-print("Optimal number of features : %d" % selector.n_features_)
-
-#print(X.columns)
-
-#for i in range(X.shape[1]):
-#    print('Column: %d, Selected %s, Rank: %.3f' % (i, selector.support_[i], selector.ranking_[i]))
-
-features = list(X.columns)
-
-d = {'Feature': features, 'Ranking': selector.ranking_}
-rankings = pd.DataFrame(data=d)
-rankings = rankings.sort_values(by=['Ranking'])
-print(rankings)
-
-sys.exit()
-# Plot number of features VS. cross-validation scores
-plt.figure()
-plt.xlabel("Number of features selected")
-plt.ylabel("Cross validation score (no of correct classifications)")
-plt.plot(range(1, len(selector.grid_scores_) + 1), selector.grid_scores_)
-plt.show()
+#Import DNN databases
+from numpy import loadtxt
+from keras.models import Sequential
+from keras.layers import Dense
 
 
+# define the keras model
+model = Sequential()
+model.add(Dense(12, input_dim=18, activation='relu'))
+model.add(Dense(8, activation='relu'))
+model.add(Dense(1, activation='sigmoid'))
+
+# compile the keras model
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+# fit the keras model on the dataset
+model.fit(X, y, epochs=150, batch_size=10)
+# evaluate the keras model
+_, accuracy = model.evaluate(X_scaled, y)
+print('Accuracy: %.2f' % (accuracy*100))
 

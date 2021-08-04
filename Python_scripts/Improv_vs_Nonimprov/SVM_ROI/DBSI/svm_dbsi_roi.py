@@ -7,31 +7,50 @@ import sys
 
 ## Initialize features
 
-dhi_features = ["dti_adc", "dti_axial", "dti_fa", "dtu_radial",  "fiber_axial", "fiber_fa",
-    "fiber_radial", "fiber_fraction", "hindered_fraction", "restricted_fraction",
-                "water_fraction", "axon_volume", "inflammation_volume"]
+dhi_features = ["b0_map", "dti_adc_map","dti_axial_map", "dti_b_map", "dti_dirx_map", "dti_diry_map", "dti_dirz_map", "dti_fa_map",
+                "dti_g_map", "dti_radial_map", "dti_rgba_map", "dti_rgba_map_itk", "dti_r_map", "fiber1_axial_map", "fiber1_dirx_map",
+                "fiber1_diry_map", "fiber1_dirz_map", "fiber1_fa_map", "fiber1_fiber_fraction_map", "fiber1_radial_map", "fiber1_rgba_map",
+                "fiber1_rgba_map_itk", "fiber2_axial_map", "fiber2_dirx_map", "fiber2_diry_map", "fiber2_dirz_map", "fiber2_fa_map",
+                "fiber2_fiber_fraction_map", "fiber2_radial_map", "fiber_fraction_map", "fraction_rgba_map", "hindered_adc_map",
+                "hindered_fraction_map", "iso_adc_map", "model_v_map", "restricted_adc_map", "restricted_fraction_map", "water_adc_map",
+                "water_fraction_map"]
 
-controls = np.array([4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20])
-mild_cm_subjects = np.array([1,2,3,4,10,15,16,18,19,21,23,24,26,28,29,31,32,36,38,40,42,43,44,45,46])
-moderate_cm_subjects = np.array([5,6,9,12,13,14,20,22,25,27,30,34,37,41,47])
+dbsi_ia_features = ["b0_map", "dti_adc_map", "dti_axial_map", "dti_b_map", "dti_dirx_map", "dti_diry_map", "dti_fa_map", "dti_g_map",
+                    "dti_radial_map", "dti_rgba_map", "dti_rgba_map_itk", "dti_r_map", "fiber1_dirx_map", "fiber1_diry_map", "fiber1_dirz_map",
+                    "fiber1_extra_axial_map", "fiber1_extra_fraction_map", "fiber1_extra_radial_map", "fiber1_intra_axial_map", "fiber1_intra_fraction_map",
+                    "fiber1_intra_radial_map", "fiber1_rgba_map_itk", "fiber2_dirx_map", "fiber2_diry_map", "fiber2_dirz_map", "fiber2_extra_axial_map",
+                    "fiber2_extra_fraction_map", "fiber2_extra_radial_map", "fiber2_intra_axial_map", "fiber2_intra_fraction_map", "fiber2_intra_radial_map",
+                    "fraction_rgba_map", "hindered_adc_map", "hindered_fraction_map", "iso_adc_map", "model_v_map", "restricted_adc_map", "restricted_fraction_map",
+                    "water_adc_map", "water_fraction_map"]
 
-all_cm = np.concatenate((mild_cm_subjects,moderate_cm_subjects),axis=0)
+filter_dhi_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radial_map", "fiber1_axial_map", "fiber1_fa_map",
+                       "fiber1_radial_map", "fiber_fraction_map", "hindered_adc_map", "hindered_fraction_map",
+                       "iso_adc_map", "model_v_map", "restricted_adc_map", "restricted_fraction_map", "water_adc_map", "water_fraction_map"]
 
-control_ids = np.array([0]*len(controls))
-csm_ids = np.array([1]*len(all_cm))
-
-all_ids = np.concatenate((control_ids,csm_ids),axis=0)
+filter_dbsi_ia_features = ["fiber1_extra_axial_map", "fiber1_extra_fraction_map", "fiber1_extra_radial_map", "fiber1_intra_axial_map", "fiber1_intra_fraction_map",
+                           "fiber1_intra_radial_map"]
 
 ## Load Data
 
-url = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DHI/Pycharm_Data_improv_vs_nonimprov/Pre_op/ROI/all_patients_all_features_data.csv'
+url_dhi = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DHI/Pycharm_Data_improv_vs_nonimprov/Pre_op/ROI/all_patients_all_features_data.csv'
+all_data_dhi = pd.read_csv(url_dhi, header=0)
 
-all_data = pd.read_csv(url, header=0)
+url_dbsi_ia = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DBSI-IA/Pycharm_Data_improv_vs_nonimprov/Pre_op/ROI/all_patients_all_features_data.csv'
+all_data_dbsi_ia = pd.read_csv(url_dbsi_ia, header=0)
 
-#X = all_data.drop(['Patient_ID', 'Group', 'Group_ID', 'dti_adc', 'dti_axial', 'dti_fa', 'dti_radial'], axis=1)
-#X = all_data[['fiber_fraction', 'fiber_fa', 'fiber_radial', 'water_fraction']]
-X = all_data[['hindered_fraction', 'restricted_fraction', 'axon_volume', 'inflammation_volume']]
-y = all_data['Group_ID']
+# Filter Data
+filter_dhi = all_data_dhi[filter_dhi_features]
+filter_dbsi_ia = all_data_dbsi_ia[filter_dbsi_ia_features]
+
+all_data = pd.concat([filter_dhi, filter_dbsi_ia], axis=1)
+
+#Set NaN data to 0
+
+for col in all_data.columns:
+    all_data[col] = all_data[col].fillna(0)
+
+X = all_data.drop(['dti_adc_map', 'dti_axial_map', 'dti_fa_map', 'dti_radial_map'], axis=1)
+y = all_data_dhi['Group_ID']
 
 # Scale data
 
@@ -131,6 +150,9 @@ fpr, tpr, threshold = metrics.roc_curve(y, y_conf)
 roc_auc = metrics.roc_auc_score(y, y_conf)
 print("AUC:", roc_auc)
 
+# get importance
+importance = clf.coef_
+print(importance)
 sys.exit()
 # summarize feature importance
 for i, v in enumerate(importance):

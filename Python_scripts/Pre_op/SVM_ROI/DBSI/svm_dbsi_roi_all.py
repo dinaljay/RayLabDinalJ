@@ -58,7 +58,6 @@ from sklearn.multiclass import OneVsRestClassifier
 
 y = label_binarize(y=y, classes=[0, 1, 2])
 n_classes = y.shape[1]
-
 #sys.exit()
 # Scale data
 

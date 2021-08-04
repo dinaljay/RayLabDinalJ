@@ -32,10 +32,10 @@ filter_dbsi_ia_features = ["fiber1_extra_axial_map", "fiber1_extra_fraction_map"
 
 ## Load Data
 
-url_dhi = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DHI/Pycharm_Data_ROI/DBSI_CSV_Data/Pre_op/all_patients_all_features_data.csv'
+url_dhi = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DHI/Pycharm_Data_ROI/DBSI_CSV_Data/Pre_op/all_patients_all_features_by_CSM_group_data.csv'
 all_data_dhi = pd.read_csv(url_dhi, header=0)
 
-url_dbsi_ia = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DBSI-IA/Pycharm_Data_ROI/DBSI_CSV_Data/Pre_op/all_patients_all_features_data.csv'
+url_dbsi_ia = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DBSI-IA/Pycharm_Data_ROI/DBSI_CSV_Data/Pre_op/all_patients_all_features_by_CSM_group_data.csv'
 all_data_dbsi_ia = pd.read_csv(url_dbsi_ia, header=0)
 
 # Filter Data
@@ -61,18 +61,20 @@ X_scaled = preprocessing.scale(X)
 # Tuning hyperparameters
 from sklearn.model_selection import GridSearchCV
 from sklearn.svm import SVC
+from sklearn.multiclass import OneVsRestClassifier
 
-tuned_parameters = [{'kernel': ['linear'], 'C': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}]
-clf = GridSearchCV(SVC(), tuned_parameters, scoring='accuracy')
+# Tuning hyperparameters
+tuned_parameters = [{'estimator__kernel': ['linear'], 'estimator__C': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}]
+clf = GridSearchCV(OneVsRestClassifier(SVC()), tuned_parameters, scoring='accuracy')
 clf.fit(X_scaled, y)
 params = clf.best_params_
-cost = params['C']
+cost = params['estimator__C']
 
 ## Recursive Feature Elimination
 
 from sklearn.feature_selection import RFE
 
-svc = SVC(kernel="linear", C=cost)
+svc = OneVsRestClassifier(SVC(C=cost, kernel="linear", probability=True))
 selector = RFE(estimator=svc, step=1, n_features_to_select=1)
 final = selector.fit(X_scaled, y)
 
@@ -95,12 +97,3 @@ rankings = rankings.sort_values(by=['Ranking'])
 print(rankings)
 
 sys.exit()
-# Plot number of features VS. cross-validation scores
-plt.figure()
-plt.xlabel("Number of features selected")
-plt.ylabel("Cross validation score (no of correct classifications)")
-plt.plot(range(1, len(selector.grid_scores_) + 1), selector.grid_scores_)
-plt.show()
-
-
-
