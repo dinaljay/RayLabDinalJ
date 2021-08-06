@@ -62,33 +62,53 @@ from sklearn import preprocessing
 X_scaled = preprocessing.scale(X)
 
 #Import DNN databases
-from numpy import loadtxt
+from keras.constraints import maxnorm
+import eli5
+from eli5.sklearn import PermutationImportance
+from sklearn.inspection import permutation_importance
 import tensorflow as tf
-#from keras.models import Sequential
-#from keras.layers import Dense
-from sklearn.model_selection import train_test_split
 
-X_train, X_temp, y_train, y_temp = train_test_split(X_scaled, y, test_size=0.3, random_state=109, shuffle=True) # 70% training and 30% test an validation
-X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.33, random_state=109, shuffle=True) # 66.66% validation and 33.33% test
+# Function to create model
+def create_model():
+    # create model
+    model = tf.keras.Sequential([
+        tf.keras.layers.Dense(12, input_dim=18, kernel_initializer='uniform', activation='relu', kernel_constraint=maxnorm(4)),
+        tf.keras.layers.Dense(8, activation='relu'),
+        tf.keras.layers.Dense(1, kernel_initializer='uniform', activation='sigmoid')])
+    # Compile model
+    model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+    return model
 
 
-# define the keras model
+# create model
+model = tf.keras.wrappers.scikit_learn.KerasClassifier(build_fn=create_model, epochs=100, batch_size=150, verbose=1)
+model.fit(X_scaled, y)
+#perm = PermutationImportance(estimator=model, X_scaled, y, scoring= 'accuracy', random_state=1)
+#eli5.show_weights(perm, feature_names = X_scaled.columns.tolist())
 
-model = tf.keras.Sequential([
-    tf.keras.layers.Dense(12, input_dim=18, activation='relu'),
-    tf.keras.layers.Dense(8, activation='relu'),
-    tf.keras.layers.Dense(1, activation='sigmoid')])
+results = permutation_importance(model, X_scaled, y, scoring='accuracy')
 
-# Compile model
-model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+# get importance
+importance = results.importances_mean
 
-# fix random seed for reproducibility
-seed = 7
-np.random.seed(seed)
+# summarize feature importance
+features = list(X.columns)
 
-# fit the keras model on the dataset
-model.fit(X_train, y_train, epochs=100, batch_size=150, verbose=0)
+for i,v in enumerate(importance):
+    print('Feature: %0d, Score: %.5f' % (features[i],v))
+
+# plot feature importance
+plt.bar([x for x in range(len(importance))], importance)
+plt.show()
+
+
+d = {'Feature': features, 'Ranking': selector.ranking_}
+rankings = pd.DataFrame(data=d)
+rankings = rankings.sort_values(by=['Ranking'])
+print(rankings)
+
+sys.exit()
 # evaluate the keras model
-_, accuracy = model.evaluate(X_test, y_test)
+_, accuracy = model.evaluate(X_scaled, y)
 print('Accuracy: %.2f' % (accuracy*100))
 

@@ -62,33 +62,52 @@ from sklearn import preprocessing
 X_scaled = preprocessing.scale(X)
 
 #Import DNN databases
-from numpy import loadtxt
+
+import numpy
+from sklearn.model_selection import GridSearchCV
+from keras.constraints import maxnorm
 import tensorflow as tf
-#from keras.models import Sequential
-#from keras.layers import Dense
 from sklearn.model_selection import train_test_split
 
 X_train, X_temp, y_train, y_temp = train_test_split(X_scaled, y, test_size=0.3, random_state=109, shuffle=True) # 70% training and 30% test an validation
 X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.33, random_state=109, shuffle=True) # 66.66% validation and 33.33% test
 
+# Function to create model
+def create_model(activation='tanh', hidden_layers=1):
+    # create model
+    model = tf.keras.Sequential([
+        tf.keras.layers.Dense(50, input_dim=18, activation=activation)])
 
-# define the keras model
+    for i in range(hidden_layers):
+        # Add one hidden layer
+        model.add(tf.keras.layers.Dense(50, activation=activation))
 
-model = tf.keras.Sequential([
-    tf.keras.layers.Dense(12, input_dim=18, activation='relu'),
-    tf.keras.layers.Dense(8, activation='relu'),
-    tf.keras.layers.Dense(1, activation='sigmoid')])
+    model.add(tf.keras.layers.Dropout(0.2))
+    model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
 
-# Compile model
-model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+    # Compile model
+    model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+    return model
+
 
 # fix random seed for reproducibility
 seed = 7
-np.random.seed(seed)
+numpy.random.seed(seed)
 
-# fit the keras model on the dataset
-model.fit(X_train, y_train, epochs=100, batch_size=150, verbose=0)
-# evaluate the keras model
-_, accuracy = model.evaluate(X_test, y_test)
-print('Accuracy: %.2f' % (accuracy*100))
+# create model
+model = tf.keras.wrappers.scikit_learn.KerasClassifier(build_fn=create_model, epochs=50, batch_size=200, verbose=0)
 
+# define the grid search parameters
+layers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+param_grid = dict(hidden_layers=layers)
+grid = GridSearchCV(estimator=model, param_grid=param_grid, n_jobs=-1, cv=3)
+grid_result = grid.fit(X_val, y_val)
+
+# summarize results
+means = grid_result.cv_results_['mean_test_score']
+stds = grid_result.cv_results_['std_test_score']
+params = grid_result.cv_results_['params']
+for mean, stdev, param in zip(means, stds, params):
+    print("%f (%f) with: %r" % (mean, stdev, param))
+
+print("Best: %f using %s" % (grid_result.best_score_, grid_result.best_params_))

@@ -65,27 +65,26 @@ from sklearn.preprocessing import label_binarize
 y = label_binarize(y=y, classes=[0, 1, 2])
 n_classes = y.shape[1]
 
-# multi-class classification with Keras
-import pandas
-from keras.models import Sequential
-from keras.layers import Dense
-from keras.wrappers.scikit_learn import KerasClassifier
-from keras.utils import np_utils
+# Import libraries
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import KFold
-from sklearn.pipeline import Pipeline
+import tensorflow as tf
+
+from sklearn.model_selection import train_test_split
+
+X_train, X_temp, y_train, y_temp = train_test_split(X_scaled, y, test_size=0.3, random_state=109, shuffle=True) # 70% training and 30% test an validation
+X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.33, random_state=109, shuffle=True) # 66.66% validation and 33.33% test
 
 # define baseline model
-def baseline_model():
-    # create model
-    model = Sequential()
-    model.add(Dense(10, input_dim=23, activation='relu'))
-    model.add(Dense(3, activation='softmax'))
-    # Compile model
-    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-    return model
+model = tf.keras.Sequential([
+    tf.keras.layers.Dense(10, input_dim=23, activation='relu'),
+    tf.keras.layers.Dense(3, activation='softmax')])
 
-estimator = KerasClassifier(build_fn=baseline_model, epochs=200, batch_size=5, verbose=0)
-kfold = KFold(n_splits=10, shuffle=True)
-results = cross_val_score(estimator, X_scaled, y, cv=kfold)
-print("Baseline: %.2f%% (%.2f%%)" % (results.mean() * 100, results.std() * 100))
+# Compile model
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+# fit the keras model on the dataset
+model.fit(X_train, y_train, epochs=100, batch_size=150, verbose=0)
+# evaluate the keras model
+_, accuracy = model.evaluate(X_test, y_test)
+print('Accuracy: %.2f' % (accuracy*100))
