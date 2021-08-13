@@ -61,63 +61,102 @@ X_scaled = preprocessing.scale(X)
 #Import DNN databases
 
 import numpy
-from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import train_test_split
 import tensorflow as tf
 from tensorboard.plugins.hparams import api as hp
+from tensorflow.python.keras.callbacks import TensorBoard
+import time
 
 X_train, X_temp, y_train, y_temp = train_test_split(X_scaled, y, test_size=0.3, random_state=109, shuffle=True) # 70% training and 30% test and validation
 X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.33, random_state=109, shuffle=True) # 66.66% validation and 30% test
 
-HP_NUM_UNITS = hp.HParam('num_units', hp.Discrete[16, 32])
-HP_DROPOUT = hp.HParam('dropout', hp.RealInterval(0.001, 0.3))
-HP_OPTIMIZER = hp.HParam('optimizer', hp.Discrete(['adam', 'sgd', 'RSMprop']))
+HP_NUM_UNITS = hp.HParam('num_units', hp.Discrete([16, 32]))
+HP_DENSE_LAYERS = hp.HParam("dense_layers", hp.Discrete([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]))
+HP_DROPOUT = hp.HParam("dropout", hp.RealInterval(0.001, 0.4))
+HP_OPTIMIZER = hp.HParam("optimizer", hp.Discrete(['adagrad', 'RMSprop', 'sgd', 'adam']))
+HP_ACTIVATION = hp.HParam("activation", hp.Discrete(['softmax', 'softplus', 'softsign', 'relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear']))
+
+
+METRICS = [
+    hp.Metric(
+        "epoch_accuracy",
+        group="validation",
+        display_name="accuracy (val.)",
+    ),
+    hp.Metric(
+        "epoch_loss",
+        group="validation",
+        display_name="loss (val.)",
+    ),
+    hp.Metric(
+        "batch_accuracy",
+        group="train",
+        display_name="accuracy (train)",
+    ),
+    hp.Metric(
+        "batch_loss",
+        group="train",
+        display_name="loss (train)",
+    ),
+]
 
 METRIC_ACCURACY = 'accuracy'
 
-with tf.summary.create_file_writer('logs/hparam_tuning').as_default():
-  hp.hparams_config(
-    hparams=[HP_NUM_UNITS, HP_DROPOUT, HP_OPTIMIZER],
-    metrics=[hp.Metric(METRIC_ACCURACY, display_name='Accuracy')],
-  )
+with tf.summary.create_file_writer('logs/v1/hparam_tuning').as_default():
+    hp.hparams_config(
+        hparams=[HP_NUM_UNITS, HP_DROPOUT, HP_OPTIMIZER, HP_DENSE_LAYERS, HP_ACTIVATION],
+        metrics=[hp.Metric(METRIC_ACCURACY, display_name='Accuracy')],
+    )
 
 def train_test_model(hparams):
-  model = tf.keras.models.Sequential([
-    tf.keras.layers.Dense(hparams[HP_NUM_UNITS], activation=tf.nn.tanh),
-    tf.keras.layers.Dropout(hparams[HP_DROPOUT]),
-    tf.keras.layers.Dense(10, activation=tf.nn.sigmoid),
-  ])
-  model.compile(
-      optimizer=hparams[HP_OPTIMIZER],
-      loss='sparse_categorical_crossentropy',
-      metrics=['accuracy'],
-  )
+    model = tf.keras.models.Sequential()
+    model.add(tf.keras.layers.Flatten())
+    model.add(tf.keras.layers.Dense(18, activation=hparams[HP_ACTIVATION]))
+    model.add(tf.keras.layers.Dropout(hparams[HP_DROPOUT]))
 
-  model.fit(X_val, y_val, epochs=50, batch_size=150) # Run with 1 epoch to speed things up for demo purposes
-  _, accuracy = model.evaluate(X_val, y_val)
-  return accuracy
+    # Add fully connected layers
+    for _ in range(hparams[HP_DENSE_LAYERS]):
+        model.add(tf.keras.layers.Dense(hparams[HP_NUM_UNITS], activation=hparams[HP_ACTIVATION]))
+
+    #Add final output layer
+    model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
+
+    NAME = "DBSI-DNN-{}".format(int(time.time()))
+    tensorboard = TensorBoard(log_dir="logs/v1/{}".format(NAME))
+
+    model.compile(
+        optimizer=hparams[HP_OPTIMIZER],
+        loss='binary_crossentropy',
+        metrics=['accuracy'],
+    )
+
+    model.fit(X_val, y_val, epochs=50, batch_size=150, callbacks=[tensorboard])  # Run with 1 epoch to speed things up for demo purposes
+    _, accuracy = model.evaluate(X_val, y_val)
+    return accuracy
 
 def run(run_dir, hparams):
-  with tf.summary.create_file_writer(run_dir).as_default():
-    hp.hparams(hparams)  # record the values used in this trial
-    accuracy = train_test_model(hparams)
-    tf.summary.scalar(METRIC_ACCURACY, accuracy, step=1)
+    with tf.summary.create_file_writer(run_dir).as_default():
+        hp.hparams(hparams)  # record the values used in this trial
+        accuracy = train_test_model(hparams)
+        tf.summary.scalar(METRIC_ACCURACY, accuracy, step=1)
+
 
 session_num = 0
 
 for num_units in HP_NUM_UNITS.domain.values:
-  for dropout_rate in (HP_DROPOUT.domain.min_value, HP_DROPOUT.domain.max_value):
-    for optimizer in HP_OPTIMIZER.domain.values:
-      hparams = {
-          HP_NUM_UNITS: num_units,
-          HP_DROPOUT: dropout_rate,
-          HP_OPTIMIZER: optimizer,
-      }
-      run_name = "run-%d" % session_num
-      print('--- Starting trial: %s' % run_name)
-      print({h.name: hparams[h] for h in hparams})
-      run('logs/hparam_tuning/' + run_name, hparams)
-      session_num += 1
-
-
-#%tensorboard --logdir logs/hparam_tuning
+    for num_layers in HP_DENSE_LAYERS.domain.values:
+        for activation in HP_ACTIVATION.domain.values:
+            for dropout_rate in (HP_DROPOUT.domain.min_value, HP_DROPOUT.domain.max_value):
+                for optimizer in HP_OPTIMIZER.domain.values:
+                    hparams = {
+                        HP_NUM_UNITS: num_units,
+                        HP_DROPOUT: dropout_rate,
+                        HP_OPTIMIZER: optimizer,
+                        HP_DENSE_LAYERS: num_layers,
+                        HP_ACTIVATION: activation,
+                    }
+                    run_name = "run-%d" % session_num
+                    print('--- Starting trial: %s' % run_name)
+                    print({h.name: hparams[h] for h in hparams})
+                    run('logs/v1/hparam_tuning/' + run_name, hparams)
+                    session_num += 1
