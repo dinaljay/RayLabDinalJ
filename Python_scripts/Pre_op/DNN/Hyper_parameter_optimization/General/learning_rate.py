@@ -1,11 +1,9 @@
-
-import numpy as np
 import os.path as path
 import matplotlib.pyplot as plt
 import pandas as pd
 import sys
 
-# Features
+## Initialize features
 
 dhi_features = ["b0_map", "dti_adc_map","dti_axial_map", "dti_b_map", "dti_dirx_map", "dti_diry_map", "dti_dirz_map", "dti_fa_map",
                 "dti_g_map", "dti_radial_map", "dti_rgba_map", "dti_rgba_map_itk", "dti_r_map", "fiber1_axial_map", "fiber1_dirx_map",
@@ -23,20 +21,24 @@ dbsi_ia_features = ["b0_map", "dti_adc_map", "dti_axial_map", "dti_b_map", "dti_
                     "fraction_rgba_map", "hindered_adc_map", "hindered_fraction_map", "iso_adc_map", "model_v_map", "restricted_adc_map", "restricted_fraction_map",
                     "water_adc_map", "water_fraction_map"]
 
-filter_dhi_features = ["b0_map", "dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radial_map", "fiber1_axial_map", "fiber1_fa_map",
+filter_dhi_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radial_map", "fiber1_axial_map", "fiber1_fa_map",
                        "fiber1_radial_map", "fiber_fraction_map", "hindered_adc_map", "hindered_fraction_map",
                        "iso_adc_map", "model_v_map", "restricted_adc_map", "restricted_fraction_map", "water_adc_map", "water_fraction_map"]
 
 filter_dbsi_ia_features = ["fiber1_extra_axial_map", "fiber1_extra_fraction_map", "fiber1_extra_radial_map", "fiber1_intra_axial_map", "fiber1_intra_fraction_map",
                            "fiber1_intra_radial_map"]
 
+## Load Data
+
 # Load Data
 
 url_dhi = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DHI/Pycharm_Data_ROI_Voxel/Pre_op/all_patients_all_features_data.csv'
 all_data_dhi = pd.read_csv(url_dhi, header=0)
+all_data_dhi[all_data_dhi['Group_ID'] == 2] = 1
 
 url_dbsi_ia = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DBSI-IA/Pycharm_Data_ROI_Voxel/Pre_op/all_patients_all_features_data.csv'
 all_data_dbsi_ia = pd.read_csv(url_dbsi_ia, header=0)
+all_data_dbsi_ia[all_data_dbsi_ia['Group_ID'] == 2] = 1
 
 # Filter Data
 filter_dhi = all_data_dhi[filter_dhi_features]
@@ -52,56 +54,67 @@ for col in all_data.columns:
 X = all_data.drop(['dti_adc_map', 'dti_axial_map', 'dti_fa_map', 'dti_radial_map'], axis=1)
 y = all_data_dhi['Group_ID']
 
-#sys.exit()
-patient_count = X.shape[0]
 # Scale data
 
 from sklearn import preprocessing
 
 X_scaled = preprocessing.scale(X)
 
-from sklearn.preprocessing import label_binarize
+#Import DNN databases
 
-y = label_binarize(y=y, classes=[0, 1, 2])
-n_classes = y.shape[1]
-
-# Import libraries
-from sklearn.model_selection import cross_val_score
-from sklearn.model_selection import KFold
+import numpy
+from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import train_test_split
 import tensorflow as tf
 
-from sklearn.model_selection import train_test_split
+X_train, X_temp, y_train, y_temp = train_test_split(X_scaled, y, test_size=0.3, random_state=109, shuffle=True, stratify=y) # 70% training and 30% test and validation
+X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.33, random_state=109, shuffle=True, stratify=y_temp) # 66.66% validation and 30% test
 
-X_train, X_temp, y_train, y_temp = train_test_split(X_scaled, y, test_size=0.3, random_state=109, shuffle=True, stratify=y) # 70% training and 30% test an validation
-X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.33, random_state=109, shuffle=True, stratify=y_temp) # 66.66% validation and 33.33% test
 
-# define the keras model
-
-model = tf.keras.models.Sequential()
-model.add(tf.keras.layers.Flatten())
-model.add(tf.keras.layers.Dense(18, input_dim=18, activation='relu'))
-model.add(tf.keras.layers.Dropout(0.001))
-
-# Add fully connected layers
-dense_neurons=12
-for _ in range(3):
-    model.add(tf.keras.layers.Dense(dense_neurons, activation='relu'))
+# Function to create model
+def create_model(learn_rate=0.01):
+    # create model
+    model = tf.keras.models.Sequential()
+    model.add(tf.keras.layers.Flatten())
+    model.add(tf.keras.layers.Dense(18, activation='tanh'))
     model.add(tf.keras.layers.Dropout(0.001))
-    #dense_neurons/=2
 
-# Add final output layer
-model.add(tf.keras.layers.Dense(3, activation='softmax'))
+    # Add fully connected layers
+    dense_neurons = 12
+    for _ in range(9):
+        model.add(tf.keras.layers.Dense(dense_neurons, activation='tanh'))
+        #dense_neurons /= 2
 
-# Compile model
-model.compile(loss='categorical_crossentropy', optimizer=tf.keras.optimizers.Adam(learning_rate=0.001), metrics=['accuracy'])
+    #Add final output layer
+    model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
+
+    optimizer = tf.keras.optimizers.Adam(lr=learn_rate)
+    # Compile model
+    model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=['accuracy'])
+    return model
 
 # fix random seed for reproducibility
 seed = 7
-np.random.seed(seed)
+numpy.random.seed(seed)
 
-# fit the keras model on the dataset
-model.fit(X_train, y_train, epochs=200, batch_size=150, verbose=1)
-# evaluate the keras model
-_, accuracy = model.evaluate(X_test, y_test)
-print('Accuracy: %.2f' % (accuracy*100))
+# create model
+model = tf.keras.wrappers.scikit_learn.KerasClassifier(build_fn=create_model, verbose=0)
 
+learn_rate = numpy.linspace(0.001, 0.2, 100)
+learn_rate = learn_rate.tolist()
+batch_size=[200]
+epochs=[150]
+param_grid = dict(learn_rate=learn_rate, batch_size=batch_size, epochs=epochs)
+grid = GridSearchCV(estimator=model, param_grid=param_grid, n_jobs=-1, cv=3)
+grid_result = grid.fit(X_val, y_val)
+
+# summarize results
+#print("Best: %f using %s" % (grid_result.best_score_, grid_result.best_params_))
+means = grid_result.cv_results_['mean_test_score']
+stds = grid_result.cv_results_['std_test_score']
+params = grid_result.cv_results_['params']
+
+for mean, stdev, param in zip(means, stds, params):
+    print("%f (%f) with: %r" % (mean, stdev, param))
+
+print("Best: %f using %s" % (grid_result.best_score_, grid_result.best_params_))

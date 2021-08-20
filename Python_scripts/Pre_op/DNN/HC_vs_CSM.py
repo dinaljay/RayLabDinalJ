@@ -68,26 +68,36 @@ import tensorflow as tf
 #from keras.layers import Dense
 from sklearn.model_selection import train_test_split
 
-X_train, X_temp, y_train, y_temp = train_test_split(X_scaled, y, test_size=0.3, random_state=109, shuffle=True) # 70% training and 30% test an validation
-X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.33, random_state=109, shuffle=True) # 66.66% validation and 33.33% test
+X_train, X_temp, y_train, y_temp = train_test_split(X_scaled, y, test_size=0.3, random_state=109, shuffle=True, stratify=y) # 70% training and 30% test an validation
+X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.33, random_state=109, shuffle=True, stratify=y_temp) # 66.66% validation and 33.33% test
 
 
 # define the keras model
 
-model = tf.keras.Sequential([
-    tf.keras.layers.Dense(12, input_dim=18, activation='relu'),
-    tf.keras.layers.Dense(8, activation='relu'),
-    tf.keras.layers.Dense(1, activation='sigmoid')])
+model = tf.keras.models.Sequential()
+model.add(tf.keras.layers.Flatten())
+model.add(tf.keras.layers.Dense(18, input_dim=18, activation='tanh'))
+model.add(tf.keras.layers.Dropout(0.001))
+
+# Add fully connected layers
+dense_neurons=12
+for _ in range(9):
+    model.add(tf.keras.layers.Dense(dense_neurons, activation='tanh'))
+    model.add(tf.keras.layers.Dropout(0.001))
+    #dense_neurons/=2
+
+# Add final output layer
+model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
 
 # Compile model
-model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+model.compile(loss='binary_crossentropy', optimizer=tf.keras.optimizers.Adam(learning_rate=0.001), metrics=['accuracy'])
 
 # fix random seed for reproducibility
 seed = 7
 np.random.seed(seed)
 
 # fit the keras model on the dataset
-model.fit(X_train, y_train, epochs=100, batch_size=150, verbose=0)
+model.fit(X_train, y_train, epochs=200, batch_size=150, verbose=1)
 # evaluate the keras model
 _, accuracy = model.evaluate(X_test, y_test)
 print('Accuracy: %.2f' % (accuracy*100))
