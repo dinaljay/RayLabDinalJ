@@ -3,14 +3,12 @@
 
 clear all;
 close all;
-addpath (genpath('/home/functionalspinelab/Documents/MATLAB'));
-addpath (genpath('/home/functionalspinelab/Desktop/Dinal/Scripts/MATLAB_DBSI'));
 
 %% File paths
 
 control_path = '/media/functionalspinelab/RAID/Data/Dinal/DBSI_Data/CSM_New/Control';
 csm_path = '/media/functionalspinelab/RAID/Data/Dinal/DBSI_Data/CSM_New/Patient';
-out_dir_control = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DBSI-IA/Pre_op/ROI_by_slice/Control';
+out_dir_control = ('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DBSI-IA/Pre_op/ROI_by_slice/Control');
 
 out_dir_mild_csm = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DBSI-IA/Pre_op/ROI_by_slice/Mild_CSM';
 out_dir_mod_csm = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DBSI-IA/Pre_op/ROI_by_slice/Moderate_CSM';
@@ -43,6 +41,7 @@ dhi_features = ["b0_map";"dti_adc_map";"dti_axial_map";"dti_b_map";"dti_dirx_map
     "fraction_rgba_map";"hindered_adc_map";"hindered_fraction_map";"iso_adc_map";"model_v_map";"restricted_adc_map";"restricted_fraction_map";...
     "water_adc_map";"water_fraction_map"];
 
+
 %% Load patient data for each condition
 
 fprintf('Control Patients \n')
@@ -72,7 +71,7 @@ for i = 1:numel(dhi_features)
             dwi_data = double(dwi_data);
             
             data = dwi_data(expert_rois>=1);
-            data_control{k,j} = median(data);
+            data_control{k,j} = median(data, 'omitnan');
         end
     end
     
@@ -111,7 +110,7 @@ for i = 1:numel(dhi_features)
             expert_rois = double(mask);
             dwi_data = double(dwi_data);
             data = dwi_data(expert_rois>=1);
-            data_mild_csm{k,j} = median(data);
+            data_mild_csm{k,j} = median(data, 'omitnan');
         end
         
     end
@@ -150,7 +149,7 @@ for i = 1:numel(dhi_features)
             expert_rois = double(mask);
             dwi_data = double(dwi_data);
             data = dwi_data(expert_rois>=1);
-            data_mod_csm{k,j} = median(data);
+            data_mod_csm{k,j} = median(data, 'omitnan');
         end
         
     end

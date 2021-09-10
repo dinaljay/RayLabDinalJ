@@ -1,5 +1,4 @@
 import numpy as np
-import os.path as path
 import matplotlib.pyplot as plt
 import pandas as pd
 import sys
@@ -27,7 +26,7 @@ filter_dhi_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radial
                        "iso_adc_map", "model_v_map", "restricted_adc_map", "restricted_fraction_map", "water_adc_map", "water_fraction_map"]
 
 filter_dbsi_ia_features = ["fiber1_extra_axial_map", "fiber1_extra_fraction_map", "fiber1_extra_radial_map", "fiber1_intra_axial_map", "fiber1_intra_fraction_map",
-                           "fiber1_intra_radial_map"]
+                           "fiber1_intra_radial_map", "Group_ID"]
 
 ## Load Data
 
@@ -52,48 +51,22 @@ all_data = pd.concat([filter_dhi, filter_dbsi_ia], axis=1)
 for col in all_data.columns:
     all_data[col] = all_data[col].fillna(0)
 
-X = all_data.drop(['dti_adc_map', 'dti_axial_map', 'dti_fa_map', 'dti_radial_map'], axis=1)
-y = all_data_dhi['Group_ID']
+data = all_data.drop(['dti_adc_map', 'dti_axial_map', 'dti_fa_map', 'dti_radial_map'], axis=1)
 
 # Scale data
 
 from sklearn import preprocessing
+import seaborn as sns
 
-X_scaled = preprocessing.scale(X)
+X_scaled = preprocessing.scale(data)
+input_size = X_scaled.shape[1]-1
 
-#Import DNN databases
-import tensorflow as tf
-from sklearn.model_selection import train_test_split
+X = data.iloc[:, 0:input_size]
+y = data.iloc[:, -1]
 
-X_train, X_temp, y_train, y_temp = train_test_split(X_scaled, y, test_size=0.3, random_state=109, shuffle=True, stratify=y) # 70% training and 30% test an validation
-X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.33, random_state=109, shuffle=True, stratify=y_temp) # 66.66% validation and 33.33% test
-
-# define the keras model
-
-model = tf.keras.models.Sequential()
-model.add(tf.keras.layers.Flatten())
-model.add(tf.keras.layers.Dense(18, input_dim=18, activation='relu'))
-model.add(tf.keras.layers.Dropout(0.01))
-# Add fully connected layers
-dense_neurons=1024
-for _ in range(2):
-    model.add(tf.keras.layers.Dense(dense_neurons, activation='relu'))
-    model.add(tf.keras.layers.Dropout(0.1))
-    #dense_neurons/=2
-
-# Add final output layer
-model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
-
-# Compile model
-model.compile(loss='binary_crossentropy', optimizer='sgd', metrics=['accuracy'])
-
-# fix random seed for reproducibility
-seed = 7
-np.random.seed(seed)
-
-# fit the keras model on the dataset
-model.fit(X_train, y_train, epochs=200, batch_size=150, verbose=1)
-# evaluate the keras model
-_, accuracy = model.evaluate(X_test, y_test)
-print('Accuracy: %.2f' % (accuracy*100))
-
+corrmat = data.corr()
+top_corr_features = corrmat.index
+plt.figure(figsize=((input_size+1), (input_size+1)))
+#plot heat map
+g=sns.heatmap(data[top_corr_features].corr(),annot=True,cmap="RdYlGn")
+plt.show()

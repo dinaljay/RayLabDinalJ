@@ -55,7 +55,7 @@ for i = 1:numel(dhi_features)
             data = dwi_data(expert_rois>0.7);
             temp = [temp;data];
         end
-        data_improv{k,1} = median(temp);
+        data_improv{k,1} = median(temp,'omitnan');
         
     end
     terminal = strcat('improv_',dhi_features(i),'_data.mat');
@@ -94,7 +94,7 @@ for i = 1:numel(dhi_features)
             data = dwi_data(expert_rois>0.7);
             temp = [temp;data];
         end
-        data_non_improv{k,1} = median(temp);
+        data_non_improv{k,1} = median(temp,'omitnan');
         
     end
     terminal = strcat('non_improv_',dhi_features(i),'_data.mat');

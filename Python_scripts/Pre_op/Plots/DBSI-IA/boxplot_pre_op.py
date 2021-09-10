@@ -14,12 +14,17 @@ all_data = pd.read_csv(url)
 
 pre_op_data = all_data[all_data['operation']== 'Pre_op']
 
+"""
 dhi_features = ["b0_map", "dti_adc_map", "dti_axial_map", "dti_b_map", "dti_dirx_map", "dti_diry_map", "dti_fa_map", "dti_g_map", \
     "dti_radial_map", "dti_rgba_map", "dti_rgba_map_itk", "dti_r_map", "fiber1_dirx_map", "fiber1_diry_map", "fiber1_dirz_map", \
     "fiber1_extra_axial_map", "fiber1_extra_fraction_map", "fiber1_extra_radial_map", "fiber1_intra_axial_map", "fiber1_intra_fraction_map", \
     "fiber1_intra_radial_map", "fiber1_rgba_map_itk", "fiber2_dirx_map", "fiber2_diry_map", "fiber2_dirz_map", "fiber2_extra_axial_map", \
     "fiber2_extra_fraction_map", "fiber2_extra_radial_map", "fiber2_intra_axial_map", "fiber2_intra_fraction_map", "fiber2_intra_radial_map", \
     "fraction_rgba_map", "hindered_adc_map", "hindered_fraction_map", "iso_adc_map", "model_v_map", "restricted_adc_map", "restricted_fraction_map", \
+    "water_adc_map", "water_fraction_map"]
+"""
+dhi_features = ["fiber1_extra_axial_map", "fiber1_extra_radial_map", "fiber1_intra_axial_map", \
+    "fiber1_intra_radial_map", "hindered_adc_map", "hindered_fraction_map", "iso_adc_map", "restricted_adc_map", "restricted_fraction_map", \
     "water_adc_map", "water_fraction_map"]
 
 

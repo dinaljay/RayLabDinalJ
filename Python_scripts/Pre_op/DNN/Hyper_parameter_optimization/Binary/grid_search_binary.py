@@ -1,4 +1,3 @@
-import numpy as np
 import os.path as path
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -28,8 +27,6 @@ filter_dhi_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radial
 
 filter_dbsi_ia_features = ["fiber1_extra_axial_map", "fiber1_extra_fraction_map", "fiber1_extra_radial_map", "fiber1_intra_axial_map", "fiber1_intra_fraction_map",
                            "fiber1_intra_radial_map"]
-
-## Load Data
 
 # Load Data
 
@@ -62,38 +59,96 @@ from sklearn import preprocessing
 X_scaled = preprocessing.scale(X)
 
 #Import DNN databases
+
+from sklearn.metrics import classification_report, make_scorer, confusion_matrix, accuracy_score
+from sklearn.model_selection import train_test_split, KFold, cross_val_score, GridSearchCV
 import tensorflow as tf
-from sklearn.model_selection import train_test_split
+from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
+import random
 
-X_train, X_temp, y_train, y_temp = train_test_split(X_scaled, y, test_size=0.3, random_state=109, shuffle=True, stratify=y) # 70% training and 30% test an validation
-X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.33, random_state=109, shuffle=True, stratify=y_temp) # 66.66% validation and 33.33% test
+X_train, X_temp, y_train, y_temp = train_test_split(X_scaled, y, test_size=0.3, random_state=109, shuffle=True, stratify=y) # 70% training and 30% test and validation
+X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.33, random_state=109, shuffle=True, stratify=y_temp) # 66.66% validation and 30% test
 
-# define the keras model
+#Grid search parameters
 
-model = tf.keras.models.Sequential()
-model.add(tf.keras.layers.Flatten())
-model.add(tf.keras.layers.Dense(18, input_dim=18, activation='relu'))
-model.add(tf.keras.layers.Dropout(0.01))
-# Add fully connected layers
-dense_neurons=1024
-for _ in range(2):
-    model.add(tf.keras.layers.Dense(dense_neurons, activation='relu'))
-    model.add(tf.keras.layers.Dropout(0.1))
-    #dense_neurons/=2
+dense_layers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+dropout = [0.001, 0.1, 0.2, 0.3, 0.4]
+optimizer = ['RMSprop', 'sgd', 'adam']
+batch_size = [100, 150, 200]
+epochs = [100, 150, 200, 250]
 
-# Add final output layer
-model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
+param_grid = dict(dense_layers=dense_layers, dropout=dropout, optimizer=optimizer,
+                    batch_size=batch_size, epochs=epochs)
+OUTPUT_CLASSES = 1
 
-# Compile model
-model.compile(loss='binary_crossentropy', optimizer='sgd', metrics=['accuracy'])
+def model_fn(dense_layers=1, dropout=0.1, optimizer='adam'):
+    """Create a Keras model with the given hyperparameters.
+    Args:
+      hparams: A dict mapping hyperparameters in `HPARAMS` to values.
+    Returns:
+      A compiled Keras model.
+    """
 
-# fix random seed for reproducibility
-seed = 7
-np.random.seed(seed)
+    model = tf.keras.models.Sequential()
+    model.add(tf.keras.layers.Flatten())
+    model.add(tf.keras.layers.Dense(18, input_dim=18, activation='relu'))
+    model.add(tf.keras.layers.Dropout(dropout))
 
-# fit the keras model on the dataset
-model.fit(X_train, y_train, epochs=200, batch_size=150, verbose=1)
-# evaluate the keras model
-_, accuracy = model.evaluate(X_test, y_test)
-print('Accuracy: %.2f' % (accuracy*100))
+    # Add fully connected layers.
 
+    for _ in range(dense_layers):
+        model.add(tf.keras.layers.Dense(512, activation='relu'))
+        model.add(tf.keras.layers.Dropout(dropout))
+
+    # Add the final output layer.
+    model.add(tf.keras.layers.Dense(OUTPUT_CLASSES, activation="sigmoid"))
+
+    model.compile(
+        loss="binary_crossentropy",
+        optimizer=optimizer,
+        metrics=["accuracy"],
+    )
+    return model
+
+
+# create model
+model = tf.keras.wrappers.scikit_learn.KerasClassifier(build_fn=model_fn, verbose=0)
+kfold = KFold(n_splits=3, random_state=42)
+
+# define the grid search parameters
+grid = GridSearchCV(estimator=model, param_grid=param_grid, n_jobs=-1, cv=kfold, verbose=3)
+grid_result = grid.fit(X_val, y_val)
+
+# Print best results
+print('\n')
+print("Best: %f using %s" % (grid_result.best_score_, grid_result.best_params_))
+
+sys.exit()
+
+# Define cross validation
+kfold = KFold(n_splits=5, random_state=42)
+
+# AUC and accuracy as score
+scoring = {'AUC':'roc_auc', 'Accuracy':make_scorer(accuracy_score)}
+
+# Define grid search
+grid = GridSearchCV(
+  estimator=KerasClassifier(build_fn=model_fn(), verbose=0),
+  param_grid=search_space,
+  cv=kfold,
+  scoring=scoring,
+  refit='AUC',
+  verbose=0,
+  n_jobs=-1
+)
+# Fit grid search
+model = grid.fit(X_val, y_val)
+
+predict = model.predict(X_test)
+print('Best AUC Score: {}'.format(model.best_score_))
+print('Accuracy: {}'.format(accuracy_score(y_test, predict)))
+print(confusion_matrix(y_test,predict))
+
+#Print best parameters
+print('\n')
+print(model.best_params_)

@@ -61,39 +61,89 @@ from sklearn import preprocessing
 
 X_scaled = preprocessing.scale(X)
 
-#Import DNN databases
+#Import databases
 import tensorflow as tf
+from sklearn.metrics import accuracy_score, make_scorer, classification_report, confusion_matrix
 from sklearn.model_selection import train_test_split
+from xgboost import XGBClassifier
+from sklearn.model_selection import KFold, cross_val_score, GridSearchCV
+from collections import Counter
+from sklearn.feature_selection import chi2
 
 X_train, X_temp, y_train, y_temp = train_test_split(X_scaled, y, test_size=0.3, random_state=109, shuffle=True, stratify=y) # 70% training and 30% test an validation
 X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.33, random_state=109, shuffle=True, stratify=y_temp) # 66.66% validation and 33.33% test
 
-# define the keras model
+# define the XGBoost model
+counter = Counter(y)
+estimate = counter[0]/counter[1]
+pred_model = XGBClassifier(objective='binary:logistic')
 
-model = tf.keras.models.Sequential()
-model.add(tf.keras.layers.Flatten())
-model.add(tf.keras.layers.Dense(18, input_dim=18, activation='relu'))
-model.add(tf.keras.layers.Dropout(0.01))
-# Add fully connected layers
-dense_neurons=1024
-for _ in range(2):
-    model.add(tf.keras.layers.Dense(dense_neurons, activation='relu'))
-    model.add(tf.keras.layers.Dropout(0.1))
-    #dense_neurons/=2
+#Grid search parameters
+search_space = [
+  {
+    'clf__n_estimators': [50, 100, 150, 200],
+    'clf__learning_rate': [0.01, 0.1, 0.2, 0.3],
+    'clf__max_depth': range(3, 10),
+    'clf__colsample_bytree': [i/10.0 for i in range(1, 3)],
+    'clf__gamma': [i/10.0 for i in range(3)],
+    'clf__subsample':[i/10.0 for i in range(10)],
+    'clf__reg_alpha':[i/1000 for i in range(10)],
+    #'fs__score_func': [chi2],
+    #'fs__k': [10],
+  }
+]
 
-# Add final output layer
-model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
+# Define cross validation
+kfold = KFold(n_splits=5, random_state=42)
 
-# Compile model
-model.compile(loss='binary_crossentropy', optimizer='sgd', metrics=['accuracy'])
+# AUC and accuracy as score
+scoring = {'AUC':'roc_auc', 'Accuracy':make_scorer(accuracy_score)}
 
-# fix random seed for reproducibility
-seed = 7
-np.random.seed(seed)
+# Define grid search
+grid = GridSearchCV(
+  estimator=pred_model,
+  param_grid=search_space,
+  cv=kfold,
+  scoring=scoring,
+  refit='AUC',
+  verbose=0,
+  n_jobs=-1
+)
+# Fit grid search
+model = grid.fit(X_train, y_train)
+
+predict = model.predict(X_test)
+print('Best AUC Score: {}'.format(model.best_score_))
+print('Accuracy: {}'.format(accuracy_score(y_test, predict)))
+print(confusion_matrix(y_test,predict))
+
+#Print best parameters
+print('\n')
+print(model.best_params_)
+
+
+
+
+
+
+
+sys.exit()
 
 # fit the keras model on the dataset
-model.fit(X_train, y_train, epochs=200, batch_size=150, verbose=1)
-# evaluate the keras model
-_, accuracy = model.evaluate(X_test, y_test)
-print('Accuracy: %.2f' % (accuracy*100))
+model.fit(X_train, y_train)
 
+scores = cross_val_score(model, X_train, y_train, cv=5)
+print("Mean cross-validation score: %.2f" % scores.mean())
+
+kfold = KFold(n_splits=10, shuffle=True)
+kf_cv_scores = cross_val_score(model, X_train, y_train, cv=kfold)
+print("K-fold CV average score: %.2f" % kf_cv_scores.mean())
+
+#Prediction
+
+y_pred = model.predict(X_test)
+predictions = [round(value) for value in y_pred]
+
+# evaluate the model
+accuracy = accuracy_score(y_test, predictions)
+print('Accuracy: %.2f' % (accuracy*100))

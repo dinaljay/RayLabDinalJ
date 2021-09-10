@@ -61,39 +61,44 @@ from sklearn import preprocessing
 
 X_scaled = preprocessing.scale(X)
 
-#Import DNN databases
+#Import databases
 import tensorflow as tf
+from sklearn.metrics import accuracy_score, classification_report
 from sklearn.model_selection import train_test_split
+from xgboost import XGBClassifier
+from sklearn.model_selection import KFold, cross_val_score
+from collections import Counter
 
 X_train, X_temp, y_train, y_temp = train_test_split(X_scaled, y, test_size=0.3, random_state=109, shuffle=True, stratify=y) # 70% training and 30% test an validation
 X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.33, random_state=109, shuffle=True, stratify=y_temp) # 66.66% validation and 33.33% test
 
-# define the keras model
-
-model = tf.keras.models.Sequential()
-model.add(tf.keras.layers.Flatten())
-model.add(tf.keras.layers.Dense(18, input_dim=18, activation='relu'))
-model.add(tf.keras.layers.Dropout(0.01))
-# Add fully connected layers
-dense_neurons=1024
-for _ in range(2):
-    model.add(tf.keras.layers.Dense(dense_neurons, activation='relu'))
-    model.add(tf.keras.layers.Dropout(0.1))
-    #dense_neurons/=2
-
-# Add final output layer
-model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
-
-# Compile model
-model.compile(loss='binary_crossentropy', optimizer='sgd', metrics=['accuracy'])
-
-# fix random seed for reproducibility
-seed = 7
-np.random.seed(seed)
+# define the XGBoost model
+counter = Counter(y)
+estimate = counter[0]/counter[1]
+model = XGBClassifier(objective='binary:hinge', scale_pos_weight=estimate, max_depth=3, learning_rate=0.01, n_estimators=50, gamma=0,
+                      min_child_weight=1, subsample=0, colsample_bytree=0.1, reg_alpha=0)
 
 # fit the keras model on the dataset
-model.fit(X_train, y_train, epochs=200, batch_size=150, verbose=1)
-# evaluate the keras model
-_, accuracy = model.evaluate(X_test, y_test)
+model.fit(X_train, y_train)
+
+scores = cross_val_score(model, X_train, y_train, cv=5)
+print("Mean cross-validation score: %.2f" % scores.mean())
+
+kfold = KFold(n_splits=5, shuffle=True)
+kf_cv_scores = cross_val_score(model, X_train, y_train, cv=kfold)
+print("K-fold CV average score: %.2f" % kf_cv_scores.mean())
+
+#Prediction
+
+y_pred = model.predict(X_test)
+predictions = [round(value) for value in y_pred]
+
+# evaluate the model
+accuracy = accuracy_score(y_test, predictions)
 print('Accuracy: %.2f' % (accuracy*100))
 
+sys.exit()
+#print classification report
+
+cr = classification_report(y_test, y_pred)
+print(cr)

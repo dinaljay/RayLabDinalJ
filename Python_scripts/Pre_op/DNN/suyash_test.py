@@ -60,6 +60,7 @@ y = all_data_dhi['Group_ID']
 from sklearn import preprocessing
 
 X_scaled = preprocessing.scale(X)
+input_size = X_scaled.shape[1]
 
 #Import DNN databases
 from numpy import loadtxt
@@ -78,26 +79,26 @@ model = tf.keras.models.Sequential()
 model.add(tf.keras.layers.Flatten())
 
 #Input layer
-model.add(tf.keras.layers.Dense(18, input_dim=18, activation='relu'))
-model.add(tf.keras.layers.Dropout(0))
+model.add(tf.keras.layers.Dense(18, input_dim=input_size, activation='relu'))#, kernel_regularizer=tf.keras.regularizers.l2(0.001)))
+#model.add(tf.keras.layers.Dropout(0.1))
 
 #Layer 1
-model.add(tf.keras.layers.Dense(512, activation='relu'))
-model.add(tf.keras.layers.Dropout(0))
+model.add(tf.keras.layers.Dense(512, activation='relu'))#, kernel_regularizer=tf.keras.regularizers.l2(0.001)))
+#model.add(tf.keras.layers.Dropout(0.1))
 
 #Layer 2
-model.add(tf.keras.layers.Dense(512, activation='relu'))
-model.add(tf.keras.layers.Dropout(0))
+model.add(tf.keras.layers.Dense(1024, activation='relu'))#, kernel_regularizer=tf.keras.regularizers.l2(0.001)))
+#model.add(tf.keras.layers.Dropout(0.1))
 
 #Layer 3
-model.add(tf.keras.layers.Dense(256, activation='relu'))
-model.add(tf.keras.layers.Dropout(0))
+model.add(tf.keras.layers.Dense(1536, activation='relu'))#, kernel_regularizer=tf.keras.regularizers.l2(0.001)))
+#model.add(tf.keras.layers.Dropout(0.1))
 
 # Add final output layer
 model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
 
 # Compile model
-model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+model.compile(loss='binary_crossentropy', optimizer='sgd', metrics=['accuracy'])
 
 # fix random seed for reproducibility
 seed = 7
@@ -106,5 +107,5 @@ np.random.seed(seed)
 # fit the keras model on the dataset
 model.fit(X_train, y_train, epochs=200, batch_size=150, verbose=1)
 # evaluate the keras model
-_, accuracy = model.evaluate(X_val, y_val)
+_, accuracy = model.evaluate(X_test, y_test)
 print('Accuracy: %.2f' % (accuracy*100))

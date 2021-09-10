@@ -61,7 +61,7 @@ for i = 1:numel(dhi_features)
             dwi_data = double(dwi_data);
             
             data = dwi_data(expert_rois>0.7);
-            data_control{k,j} = median(data);
+            data_control{k,j} = median(data,'omitnan');
         end
     end
     
@@ -99,7 +99,7 @@ for i = 1:numel(dhi_features)
             expert_rois = double(mask);
             dwi_data = double(dwi_data);
             data = dwi_data(expert_rois>0.7);
-            data_mild_csm{k,j} = median(data);
+            data_mild_csm{k,j} = median(data,'omitnan');
         end
         
     end
@@ -137,7 +137,7 @@ for i = 1:numel(dhi_features)
             expert_rois = double(mask);
             dwi_data = double(dwi_data);
             data = dwi_data(expert_rois>0.7);
-            data_mod_csm{k,j} = median(data);
+            data_mod_csm{k,j} = median(data,'omitnan');
         end
         
     end

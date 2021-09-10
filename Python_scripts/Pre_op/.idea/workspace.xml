@@ -22,109 +22,9 @@
     <list default="true" id="e05acb7d-33db-4e74-9eca-95a8aff48afc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DNN/HC_vs_CSM.py" beforeDir="false" afterPath="$PROJECT_DIR$/DNN/HC_vs_CSM.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/HC_vs_CSM_by_group.py" beforeDir="false" afterPath="$PROJECT_DIR$/DNN/HC_vs_CSM_by_group.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/activation_function.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/all_hparams.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/all_hparams_v2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/all_params.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/batch_and_epoch.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/dropout.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/layer_optimize.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/learning_rate.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/0/events.out.tfevents.1628871742.fsl2.30946.277.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/0/train/events.out.tfevents.1628871742.fsl2.30946.339.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/0/validation/events.out.tfevents.1628871744.fsl2.30946.1306.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/1/events.out.tfevents.1628871800.fsl2.30946.13971.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/1/train/events.out.tfevents.1628871800.fsl2.30946.14033.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/1/validation/events.out.tfevents.1628871801.fsl2.30946.15000.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/10/events.out.tfevents.1628873203.fsl2.30946.138078.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/10/train/events.out.tfevents.1628873203.fsl2.30946.138140.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/10/validation/events.out.tfevents.1628873204.fsl2.30946.139132.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/11/events.out.tfevents.1628873214.fsl2.30946.151637.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/11/train/events.out.tfevents.1628873214.fsl2.30946.151699.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/11/validation/events.out.tfevents.1628873215.fsl2.30946.152691.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/12/events.out.tfevents.1628873225.fsl2.30946.165371.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/12/train/events.out.tfevents.1628873225.fsl2.30946.165433.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/12/validation/events.out.tfevents.1628873235.fsl2.30946.166627.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/13/events.out.tfevents.1628873703.fsl2.30946.179356.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/13/train/events.out.tfevents.1628873703.fsl2.30946.179418.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/13/validation/events.out.tfevents.1628873712.fsl2.30946.180612.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/14/events.out.tfevents.1628874166.fsl2.30946.193241.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/14/train/events.out.tfevents.1628874166.fsl2.30946.193303.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/14/validation/events.out.tfevents.1628874167.fsl2.30946.194633.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/15/events.out.tfevents.1628874189.fsl2.30946.207234.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/15/train/events.out.tfevents.1628874189.fsl2.30946.207296.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/15/validation/events.out.tfevents.1628874190.fsl2.30946.208626.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/16/events.out.tfevents.1628874213.fsl2.30946.221252.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/16/train/events.out.tfevents.1628874213.fsl2.30946.221314.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/16/validation/events.out.tfevents.1628874214.fsl2.30946.222736.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/17/events.out.tfevents.1628874247.fsl2.30946.235369.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/17/train/events.out.tfevents.1628874247.fsl2.30946.235431.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/17/validation/events.out.tfevents.1628874248.fsl2.30946.236853.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/18/events.out.tfevents.1628874281.fsl2.30946.249486.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/18/train/events.out.tfevents.1628874281.fsl2.30946.249548.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/18/validation/events.out.tfevents.1628874282.fsl2.30946.250610.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/19/events.out.tfevents.1628874314.fsl2.30946.263243.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/19/train/events.out.tfevents.1628874314.fsl2.30946.263305.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/19/validation/events.out.tfevents.1628874315.fsl2.30946.264367.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/2/events.out.tfevents.1628871857.fsl2.30946.27515.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/2/train/events.out.tfevents.1628871857.fsl2.30946.27577.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/2/validation/events.out.tfevents.1628871858.fsl2.30946.28388.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/20/events.out.tfevents.1628874347.fsl2.30946.277075.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/20/train/events.out.tfevents.1628874348.fsl2.30946.277137.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/20/validation/events.out.tfevents.1628874358.fsl2.30946.278563.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/21/events.out.tfevents.1628874869.fsl2.30946.291292.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/21/train/events.out.tfevents.1628874869.fsl2.30946.291354.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/21/validation/events.out.tfevents.1628874880.fsl2.30946.292780.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/22/events.out.tfevents.1628875388.fsl2.30946.305309.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/22/train/events.out.tfevents.1628875388.fsl2.30946.305371.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/22/validation/events.out.tfevents.1628875388.fsl2.30946.306333.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/23/events.out.tfevents.1628875397.fsl2.30946.318806.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/23/train/events.out.tfevents.1628875397.fsl2.30946.318868.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/23/validation/events.out.tfevents.1628875397.fsl2.30946.319830.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/24/events.out.tfevents.1628875406.fsl2.30946.332328.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/24/train/events.out.tfevents.1628875406.fsl2.30946.332390.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/24/validation/events.out.tfevents.1628875407.fsl2.30946.333227.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/25/events.out.tfevents.1628875416.fsl2.30946.345732.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/25/train/events.out.tfevents.1628875416.fsl2.30946.345794.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/25/validation/events.out.tfevents.1628875417.fsl2.30946.346631.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/26/events.out.tfevents.1628875427.fsl2.30946.359111.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/26/train/events.out.tfevents.1628875427.fsl2.30946.359173.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/26/validation/events.out.tfevents.1628875427.fsl2.30946.360103.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/27/events.out.tfevents.1628875437.fsl2.30946.372576.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/27/train/events.out.tfevents.1628875437.fsl2.30946.372638.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/27/validation/events.out.tfevents.1628875437.fsl2.30946.373568.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/28/events.out.tfevents.1628875447.fsl2.30946.386116.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/28/train/events.out.tfevents.1628875447.fsl2.30946.386178.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/28/validation/events.out.tfevents.1628875447.fsl2.30946.387416.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/29/events.out.tfevents.1628875464.fsl2.30946.399985.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/29/train/events.out.tfevents.1628875464.fsl2.30946.400047.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/29/validation/events.out.tfevents.1628875465.fsl2.30946.401285.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/3/events.out.tfevents.1628871865.fsl2.30946.40861.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/3/train/events.out.tfevents.1628871865.fsl2.30946.40923.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/3/validation/events.out.tfevents.1628871866.fsl2.30946.41734.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/4/events.out.tfevents.1628871873.fsl2.30946.54357.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/4/train/events.out.tfevents.1628871874.fsl2.30946.54419.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/4/validation/events.out.tfevents.1628871875.fsl2.30946.55721.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/5/events.out.tfevents.1628871932.fsl2.30946.68386.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/5/train/events.out.tfevents.1628871932.fsl2.30946.68448.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/5/validation/events.out.tfevents.1628871933.fsl2.30946.69750.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/6/events.out.tfevents.1628871990.fsl2.30946.82440.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/6/train/events.out.tfevents.1628871990.fsl2.30946.82502.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/6/validation/events.out.tfevents.1628871993.fsl2.30946.83652.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/7/events.out.tfevents.1628872113.fsl2.30946.96349.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/7/train/events.out.tfevents.1628872113.fsl2.30946.96411.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/7/validation/events.out.tfevents.1628872116.fsl2.30946.97561.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/8/events.out.tfevents.1628872236.fsl2.30946.110283.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/8/train/events.out.tfevents.1628872236.fsl2.30946.110345.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/8/validation/events.out.tfevents.1628872246.fsl2.30946.111539.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/9/events.out.tfevents.1628872721.fsl2.30946.124268.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/9/train/events.out.tfevents.1628872721.fsl2.30946.124330.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/9/validation/events.out.tfevents.1628872731.fsl2.30946.125524.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/logs/v2/events.out.tfevents.1628871742.fsl2.30946.5.v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/optimizer.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/test2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DNN/suyash_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/DNN/suyash_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plots/DBSI-IA/boxplot_pre_op.py" beforeDir="false" afterPath="$PROJECT_DIR$/Plots/DBSI-IA/boxplot_pre_op.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plots/DBSI-IA/boxplot_pre_op_by_slice.py" beforeDir="false" afterPath="$PROJECT_DIR$/Plots/DBSI-IA/boxplot_pre_op_by_slice.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,7 +55,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Improv_vs_Nonimprov" />
     <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
-  <component name="RunManager" selected="Python.suyash_test">
+  <component name="RunManager" selected="Python.boxplot_pre_op_by_slice">
     <configuration name="HC_vs_CSM" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Pre_op" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -177,7 +77,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="HC_vs_CSM_by_group" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="boxplot_pre_op" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Pre_op" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -185,11 +85,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/DNN" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Plots/DBSI-IA" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DNN/HC_vs_CSM_by_group.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Plots/DBSI-IA/boxplot_pre_op.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -198,7 +98,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="all_hparams_multi" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="boxplot_pre_op_by_slice" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Pre_op" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -206,11 +106,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/Multi" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Plots/DBSI-IA" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/Multi/all_hparams_multi.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Plots/DBSI-IA/boxplot_pre_op_by_slice.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -219,7 +119,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="batch_and_epoch" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="grid_search_binary" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Pre_op" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -227,11 +127,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/DNN/Hyper_parameter_optimization" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/Binary" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/batch_and_epoch.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/Binary/grid_search_binary.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -262,19 +162,19 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.grid_search_binary" />
       <item itemvalue="Python.HC_vs_CSM" />
-      <item itemvalue="Python.HC_vs_CSM_by_group" />
-      <item itemvalue="Python.batch_and_epoch" />
-      <item itemvalue="Python.all_hparams_multi" />
       <item itemvalue="Python.suyash_test" />
+      <item itemvalue="Python.boxplot_pre_op" />
+      <item itemvalue="Python.boxplot_pre_op_by_slice" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.boxplot_pre_op_by_slice" />
+        <item itemvalue="Python.boxplot_pre_op" />
         <item itemvalue="Python.suyash_test" />
         <item itemvalue="Python.HC_vs_CSM" />
-        <item itemvalue="Python.all_hparams_multi" />
-        <item itemvalue="Python.HC_vs_CSM_by_group" />
-        <item itemvalue="Python.batch_and_epoch" />
+        <item itemvalue="Python.grid_search_binary" />
       </list>
     </recent_temporary>
   </component>
@@ -312,38 +212,38 @@
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
     <state x="780" y="297" width="424" height="482" key="FileChooserDialogImpl/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1627399948862" />
-    <state width="1832" height="305" key="GridCell.Tab.0.bottom" timestamp="1629425832482">
+    <state width="1832" height="305" key="GridCell.Tab.0.bottom" timestamp="1631298460059">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="305" key="GridCell.Tab.0.bottom/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1629425832482" />
-    <state width="1832" height="305" key="GridCell.Tab.0.center" timestamp="1629425832482">
+    <state width="1832" height="305" key="GridCell.Tab.0.bottom/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1631298460059" />
+    <state width="1832" height="305" key="GridCell.Tab.0.center" timestamp="1631298460058">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="305" key="GridCell.Tab.0.center/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1629425832482" />
-    <state width="1832" height="305" key="GridCell.Tab.0.left" timestamp="1629425832482">
+    <state width="1832" height="305" key="GridCell.Tab.0.center/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1631298460058" />
+    <state width="1832" height="305" key="GridCell.Tab.0.left" timestamp="1631298460058">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="305" key="GridCell.Tab.0.left/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1629425832482" />
-    <state width="1832" height="305" key="GridCell.Tab.0.right" timestamp="1629425832482">
+    <state width="1832" height="305" key="GridCell.Tab.0.left/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1631298460058" />
+    <state width="1832" height="305" key="GridCell.Tab.0.right" timestamp="1631298460058">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="305" key="GridCell.Tab.0.right/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1629425832482" />
-    <state width="1832" height="365" key="GridCell.Tab.1.bottom" timestamp="1629386274060">
+    <state width="1832" height="305" key="GridCell.Tab.0.right/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1631298460058" />
+    <state width="1832" height="365" key="GridCell.Tab.1.bottom" timestamp="1631113822308">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="365" key="GridCell.Tab.1.bottom/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1629386274060" />
-    <state width="1832" height="365" key="GridCell.Tab.1.center" timestamp="1629386274060">
+    <state width="1832" height="365" key="GridCell.Tab.1.bottom/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1631113822308" />
+    <state width="1832" height="365" key="GridCell.Tab.1.center" timestamp="1631113822308">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="365" key="GridCell.Tab.1.center/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1629386274060" />
-    <state width="1832" height="365" key="GridCell.Tab.1.left" timestamp="1629386274060">
+    <state width="1832" height="365" key="GridCell.Tab.1.center/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1631113822308" />
+    <state width="1832" height="365" key="GridCell.Tab.1.left" timestamp="1631113822308">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="365" key="GridCell.Tab.1.left/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1629386274060" />
-    <state width="1832" height="365" key="GridCell.Tab.1.right" timestamp="1629386274060">
+    <state width="1832" height="365" key="GridCell.Tab.1.left/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1631113822308" />
+    <state width="1832" height="365" key="GridCell.Tab.1.right" timestamp="1631113822308">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="365" key="GridCell.Tab.1.right/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1629386274060" />
+    <state width="1832" height="365" key="GridCell.Tab.1.right/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1631113822308" />
     <state x="486" y="174" key="SettingsEditor" timestamp="1625292852351">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
@@ -352,10 +252,10 @@
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
     <state width="928" height="542" key="XDebugger.FullValuePopup/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1625417803249" />
-    <state x="540" y="251" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1628822277628">
+    <state x="540" y="251" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1631113653125">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state x="540" y="251" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1628822277628" />
+    <state x="540" y="251" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1631113653125" />
     <state x="655" y="236" width="672" height="678" key="search.everywhere.popup" timestamp="1628822059613">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>

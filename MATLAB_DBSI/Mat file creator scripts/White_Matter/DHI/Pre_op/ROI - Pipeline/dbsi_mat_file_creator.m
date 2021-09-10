@@ -67,7 +67,7 @@ for i = 1:numel(dhi_features)
             data = dwi_data(expert_rois>0.7);
             temp = [temp;data];
         end
-        data_control{k,1} = median(temp);
+        data_control{k,1} = median(temp,'omitnan');
     end
     
     terminal = strcat('control_',dhi_features(i),'_data.mat');
@@ -106,7 +106,7 @@ for i = 1:numel(dhi_features)
             data = dwi_data(expert_rois>0.7);
             temp = [temp;data];
         end
-        data_mild_csm{k,1} = median(temp);
+        data_mild_csm{k,1} = median(temp,'omitnan');
         
     end
     terminal = strcat('mild_csm_',dhi_features(i),'_data.mat');
@@ -145,7 +145,7 @@ for i = 1:numel(dhi_features)
             data = dwi_data(expert_rois>0.7);
             temp = [temp;data];
         end
-        data_mod_csm{k,1} = median(temp);
+        data_mod_csm{k,1} = median(temp,'omitnan');
         
     end
     terminal = strcat('mod_csm_',dhi_features(i),'_data.mat');

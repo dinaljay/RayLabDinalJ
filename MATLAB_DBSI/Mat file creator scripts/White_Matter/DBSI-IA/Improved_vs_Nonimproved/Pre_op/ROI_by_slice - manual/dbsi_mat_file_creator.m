@@ -56,7 +56,7 @@ for i = 1:numel(dhi_features)
             expert_rois = double(mask);
             dwi_data = double(dwi_data);
             data = dwi_data(expert_rois>=1);
-            data_improv{k,j} = median(data);
+            data_improv{k,j} = median(data, 'omitnan');
         end
         
     end
@@ -95,7 +95,7 @@ for i = 1:numel(dhi_features)
             expert_rois = double(mask);
             dwi_data = double(dwi_data);
             data = dwi_data(expert_rois>=1);
-            data_non_improv{k,j} = median(data);
+            data_non_improv{k,j} = median(data, 'omitnan');
         end
         
     end
