@@ -78,7 +78,8 @@ X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.3, 
 
 #sys.exit()
 # Tuning hyperparameters
-tuned_parameters = [{'estimator__kernel': ['linear'], 'estimator__C': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}]
+tuned_parameters = [{'kernel': ['rbf'], 'C': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                     'gamma':[0.1, 0.001, 0.0001, 0.00001]}]
 clf = GridSearchCV(OneVsRestClassifier(SVC()), tuned_parameters, scoring='accuracy')
 clf.fit(X_train, y_train)
 params = clf.best_params_

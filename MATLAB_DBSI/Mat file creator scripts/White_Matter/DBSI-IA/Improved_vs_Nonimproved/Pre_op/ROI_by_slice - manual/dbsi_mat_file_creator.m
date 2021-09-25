@@ -16,16 +16,23 @@ csm_roi = '/media/functionalspinelab/RAID/Data/Dinal/DBSI_Manual_ROIs/Patient';
 
 %% Declare necessary variables
 
-% improv_subjects = [2,5,9,24,26,30,36,40,41,46]; %mJOA
-improv_subjects = [2,3,5,9,15,19,21,23,26,27,28,29,30,36,41,45,46];  %SF-36 PF
+improv_subjects = [2,4,5,9,10,14,16,19,22,24,26,30,36,40,41,42,46,49]; %mJOA
+% improv_subjects = [2,3,5,9,15,19,21,23,26,27,28,29,30,36,41,45,46];  %SF-36 PF
+% improv_subjects = [2,3,5,9,15,19,21,23,26,27,28,29,30,36,41,45,46]; %NASS
 
-% non_improv_subjects = [3,12,15,18,20,21,23,27,28,29,45,];  %mJOA
-non_improv_subjects = [12,18,20,24,40]; %SF-36 PF
+non_improv_subjects = [3,6,11,12,15,18,20,21,23,24,25,27,28,29,31,32,37,45,48];  %mJOA
+% non_improv_subjects = [12,18,20,24,40]; %SF-36 PF
+% non_improv_subjects = [12,18,20,24,40]; %NASS
 
 slices = (1:1:4);
 
-dhi_features = ["b0_map";"dti_adc_map";"dti_axial_map";"dti_fa_map";"dti_radial_map";"fiber1_axial_map";"fiber1_fa_map";...
-    "fiber1_radial_map";"fiber_fraction_map";"hindered_fraction_map";"restricted_fraction_map";"water_fraction_map"];
+dhi_features = ["b0_map";"dti_adc_map";"dti_axial_map";"dti_b_map";"dti_dirx_map";"dti_diry_map";"dti_fa_map";"dti_g_map";...
+    "dti_radial_map";"dti_rgba_map";"dti_rgba_map_itk";"dti_r_map";"fiber1_dirx_map";"fiber1_diry_map";"fiber1_dirz_map";...
+    "fiber1_extra_axial_map";"fiber1_extra_fraction_map";"fiber1_extra_radial_map";"fiber1_intra_axial_map";"fiber1_intra_fraction_map";...
+    "fiber1_intra_radial_map";"fiber1_rgba_map_itk";"fiber2_dirx_map";"fiber2_diry_map";"fiber2_dirz_map";"fiber2_extra_axial_map";...
+    "fiber2_extra_fraction_map";"fiber2_extra_radial_map";"fiber2_intra_axial_map";"fiber2_intra_fraction_map";"fiber2_intra_radial_map";...
+    "fraction_rgba_map";"hindered_adc_map";"hindered_fraction_map";"iso_adc_map";"model_v_map";"restricted_adc_map";"restricted_fraction_map";...
+    "water_adc_map";"water_fraction_map"];
 
 %% Load patient data for each condition
 

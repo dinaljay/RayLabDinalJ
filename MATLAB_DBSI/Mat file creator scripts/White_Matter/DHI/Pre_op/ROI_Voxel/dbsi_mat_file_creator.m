@@ -24,11 +24,14 @@ control_roi = '/media/functionalspinelab/RAID/Data/Dinal/DBSI_Manual_ROIs/Contro
 controls = [4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20,21,22,23,24];
 
 % mild_cm_subjects = [1,2,3,4,10,15,16,17,18,19,21,23,24,26,28,29,31,32,33,36,38,40,42,43,44,45,46,48,49,50];
-mild_cm_subjects = [2,3,4,10,15,16,18,19,21,23,24,26,28,29,31,32,36,38,40,42,43,44,45,46,48,49,50];
+% mild_cm_subjects = [2,3,4,10,15,16,18,19,21,23,24,26,28,29,31,32,36,38,40,42,43,44,45,46,48,49,50]; %Dinal's classification
 %CSM_P01 template no good
+mild_cm_subjects = [3,4,15,16,18,19,21,23,24,28,29,32,36,38,40,42,43,44,45,46,48,49,50]; %Justin's classification
 
 % moderate_cm_subjects = [5,6,7,8,9,11,12,13,14,20,22,25,27,30,34,35,37,39,41,47];
-moderate_cm_subjects = [5,6,9,11,12,13,14,20,22,25,27,30,37,41];
+% moderate_cm_subjects = [5,6,9,11,12,13,14,20,22,25,27,30,34,37,41]; %Dinal's classification
+
+moderate_cm_subjects = [2,5,6,9,10,11,12,13,14,20,22,25,26,27,30,31,34,37,41]; %Justin's classification
 
 cm_subjects = [mild_cm_subjects,moderate_cm_subjects];
 
