@@ -20,118 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e05acb7d-33db-4e74-9eca-95a8aff48afc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DBSI-IA/Improved_vs_Nonimproved/Pre_op/ROI - manual/dbsi_csv_file_creator_all_features_all_patients.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DBSI-IA/Improved_vs_Nonimproved/Pre_op/ROI - manual/dbsi_csv_file_creator_all_features_all_patients.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DBSI-IA/Improved_vs_Nonimproved/Pre_op/ROI - manual/dbsi_mat_file_creator.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DBSI-IA/Improved_vs_Nonimproved/Pre_op/ROI - manual/dbsi_mat_file_creator.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DBSI-IA/Improved_vs_Nonimproved/Pre_op/ROI - pipeline/dbsi_mat_file_creator.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DBSI-IA/Improved_vs_Nonimproved/Pre_op/ROI - pipeline/dbsi_mat_file_creator.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DBSI-IA/Improved_vs_Nonimproved/Pre_op/ROI_by_slice - manual/dbsi_mat_file_creator.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DBSI-IA/Improved_vs_Nonimproved/Pre_op/ROI_by_slice - manual/dbsi_mat_file_creator.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DBSI-IA/Improved_vs_Nonimproved/Pre_op/ROI_by_slice - pipeline/dbsi_mat_file_creator.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DBSI-IA/Improved_vs_Nonimproved/Pre_op/ROI_by_slice - pipeline/dbsi_mat_file_creator.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DBSI-IA/Pre_op/ROI - manual/dbsi_csv_file_creator_all_features_all_patients.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DBSI-IA/Pre_op/ROI - manual/dbsi_csv_file_creator_all_features_all_patients.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DBSI-IA/Pre_op/ROI - manual/dbsi_mat_file_creator.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DBSI-IA/Pre_op/ROI - manual/dbsi_mat_file_creator.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DBSI-IA/Pre_op/ROI_Voxel/dbsi_mat_file_creator.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DBSI-IA/Pre_op/ROI_Voxel/dbsi_mat_file_creator.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI - manual/dbsi_mat_file_creator.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI - manual/dbsi_mat_file_creator.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI - pipeline/dbsi_csv_file_creator_all_features_all_patients.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI - pipeline/dbsi_csv_file_creator_all_features_all_patients.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI - pipeline/dbsi_mat_file_creator.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI - pipeline/dbsi_mat_file_creator.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI_by_slice - manual/dbsi_mat_file_creator.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI_by_slice - manual/dbsi_mat_file_creator.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI_by_slice - pipeline/dbsi_mat_file_creator.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI_by_slice - pipeline/dbsi_mat_file_creator.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DHI/Pre_op/ROI - Manual/dbsi_csv_file_creator_all_features_all_patients.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DHI/Pre_op/ROI - Manual/dbsi_csv_file_creator_all_features_all_patients.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DHI/Pre_op/ROI - Manual/dbsi_mat_file_creator.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DHI/Pre_op/ROI - Manual/dbsi_mat_file_creator.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DHI/Pre_op/ROI_Voxel/dbsi_mat_file_creator.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../MATLAB_DBSI/Mat file creator scripts/White_Matter/DHI/Pre_op/ROI_Voxel/dbsi_mat_file_creator.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Improv_vs_Nonimprov/Logistic_Regression_ROI/DBSI/regression_dbsi_roi.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Improv_vs_Nonimprov/Logistic_Regression_ROI/DBSI/regression_dbsi_roi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Improv_vs_Nonimprov/SVM_ROI/grid_search_svm_roi.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Improv_vs_Nonimprov/SVM_ROI/grid_search_svm_roi.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Clinical/regression_sf36.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Clinical/svm_sf36.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/HC_vs_CSM.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/HC_vs_CSM_by_group.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/Binary/all_hparams_binary.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/Binary/all_hparams_v2_binary.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/Binary/grid_search_binary.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/Binary/suyash_test_bin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/General/activation_function.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/General/all_params.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/General/batch_and_epoch.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/General/dropout.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/General/layer_optimize.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/General/learning_rate.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/General/optimizer.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/General/test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/General/test2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/Multi/all_hparams_multi.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/Hyper_parameter_optimization/Multi/all_hparams_v2_multi.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/corr_heat_map.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/feature_importance.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DNN/suyash_test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logistic_Regression_ROI/DBSI/regression_dbsi_all.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logistic_Regression_ROI/DBSI/regression_dbsi_mild.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logistic_Regression_ROI/DBSI/regression_dbsi_moderate.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logistic_Regression_ROI/DBSI/regression_dbsi_only_csm.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logistic_Regression_ROI/DBSI/regression_dbsi_roi.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logistic_Regression_ROI/DTI/regression_dti_all.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logistic_Regression_ROI/DTI/regression_dti_mild.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logistic_Regression_ROI/DTI/regression_dti_moderate.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logistic_Regression_ROI/DTI/regression_dti_only_csm.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logistic_Regression_ROI/DTI/regression_dti_roi.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logistic_Regression_ROI_Voxel/DBSI/regress_dbsi_roi_vox_70_30.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logistic_Regression_ROI_Voxel/DBSI/regress_dbsi_roi_vox_all_mild.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logistic_Regression_ROI_Voxel/DBSI/regress_dbsi_roi_vox_all_moderate.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logistic_Regression_ROI_Voxel/DBSI/regress_dbsi_roi_vox_k.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logistic_Regression_ROI_Voxel/DBSI/regress_dbsi_roi_vox_only_csm.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logistic_Regression_ROI_Voxel/DTI/regress_dti_roi_vox.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logistic_Regression_ROI_Voxel/regress_roi_vox_k.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logistic_Regression_ROI_Voxel/regress_roi_vox_kstrat.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plots/DBSI-IA/boxplot_pre_and_post.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plots/DBSI-IA/boxplot_pre_and_post_by_slice.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plots/DBSI-IA/boxplot_pre_op.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plots/DBSI-IA/boxplot_pre_op_by_slice.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plots/DHI/boxplot_pre_and_post.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plots/DHI/boxplot_pre_and_post_by_slice.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plots/DHI/boxplot_pre_op.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plots/DHI/boxplot_pre_op_by_slice.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plots/DHI/boxplot_roi_vox.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/.idea/SVM_ROI.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/DBSI/feature_elimination.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/DBSI/feature_elimination_all.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/DBSI/svm_dbsi_roi.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/DBSI/svm_dbsi_roi_70_30_split.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/DBSI/svm_dbsi_roi_all.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/DBSI/svm_dbsi_roi_all_mild.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/DBSI/svm_dbsi_roi_all_moderate.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/DBSI/svm_dbsi_roi_only_csm.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/DBSI/svm_test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/DTI/svm_dti_roi.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/DTI/svm_dti_roi_all.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/DTI/svm_dti_roi_all_mild.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/DTI/svm_dti_roi_all_moderate.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/DTI/svm_dti_roi_only_csm.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/TEST2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/export_to_csv.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI/test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI_Voxel/DBSI/Linear/feature_elimination.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI_Voxel/DBSI/Linear/svm_dbsi__roi_vox_all.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI_Voxel/DBSI/Linear/svm_dbsi_roi_vox.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI_Voxel/DBSI/Linear/svm_dbsi_roi_vox_all_mild.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI_Voxel/DBSI/Linear/svm_dbsi_roi_vox_k.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI_Voxel/DBSI/Linear/svm_dbsi_roi_vox_only_csm.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI_Voxel/DBSI/Linear/svm_roi_vox_all_moderate.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI_Voxel/DBSI/Nonlinear/feature_elimination.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI_Voxel/DBSI/Nonlinear/svm_dbsi__roi_vox_all.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI_Voxel/DBSI/Nonlinear/svm_dbsi__roi_vox_rbf_all.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI_Voxel/DBSI/Nonlinear/svm_dbsi__roi_vox_sigmoid_all.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI_Voxel/DBSI/Nonlinear/svm_dbsi_roi_vox.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI_Voxel/DBSI/Nonlinear/svm_dbsi_roi_vox_all_mild.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI_Voxel/DBSI/Nonlinear/svm_dbsi_roi_vox_only_csm.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI_Voxel/DBSI/Nonlinear/svm_roi_vox_all_moderate.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI_Voxel/DTI/svm_dti_roi_vox.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI_Voxel/svm_roi_k.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM_ROI_Voxel/svm_roi_kstrat.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XGBoost/HC_vs_CSM_boost.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XGBoost/grid_search_boost.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clinical/svm_clinical_roi.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clinical/svm_clinical_roi_all.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,8 +53,8 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
-  <component name="RunManager" selected="Python.feature_elimination_all">
-    <configuration name="feature_elimination" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.svm_dbsi_roi_all">
+    <configuration name="svm_dbsi_roi" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Pre_op" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -171,11 +62,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Clinical + Radiographic/Feature Selection" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Radiographic/SVM_ROI/DBSI/Classification" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Clinical + Radiographic/Feature Selection/feature_elimination.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Radiographic/SVM_ROI/DBSI/Classification/svm_dbsi_roi.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -184,7 +75,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="feature_elimination_all" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="svm_dbsi_roi_all" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Pre_op" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -192,11 +83,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Clinical + Radiographic/Feature Selection" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Radiographic/SVM_ROI/DBSI/Classification" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Clinical + Radiographic/Feature Selection/feature_elimination_all.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Radiographic/SVM_ROI/DBSI/Classification/svm_dbsi_roi_all.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -205,7 +96,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="svm_all_var_2_group_mild" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="svm_dbsi_roi_all_mild" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Pre_op" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -213,11 +104,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Clinical + Radiographic" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Radiographic/SVM_ROI/DBSI/Classification" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Clinical + Radiographic/svm_all_var_2_group_mild.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Radiographic/SVM_ROI/DBSI/Classification/svm_dbsi_roi_all_mild.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -226,7 +117,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="svm_all_var_2_group_moderate" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="svm_dbsi_roi_all_moderate" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Pre_op" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -234,11 +125,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Clinical + Radiographic" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Radiographic/SVM_ROI/DBSI/Classification" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Clinical + Radiographic/svm_all_var_2_group_moderate.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Radiographic/SVM_ROI/DBSI/Classification/svm_dbsi_roi_all_moderate.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -247,7 +138,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="svm_all_var_2_group_only_csm" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="svm_dbsi_roi_only_csm" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Pre_op" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -255,11 +146,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Clinical + Radiographic" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Radiographic/SVM_ROI/DBSI/Classification" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Clinical + Radiographic/svm_all_var_2_group_only_csm.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Radiographic/SVM_ROI/DBSI/Classification/svm_dbsi_roi_only_csm.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -269,19 +160,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.svm_all_var_2_group_mild" />
-      <item itemvalue="Python.svm_all_var_2_group_moderate" />
-      <item itemvalue="Python.svm_all_var_2_group_only_csm" />
-      <item itemvalue="Python.feature_elimination" />
-      <item itemvalue="Python.feature_elimination_all" />
+      <item itemvalue="Python.svm_dbsi_roi" />
+      <item itemvalue="Python.svm_dbsi_roi_all_mild" />
+      <item itemvalue="Python.svm_dbsi_roi_all_moderate" />
+      <item itemvalue="Python.svm_dbsi_roi_only_csm" />
+      <item itemvalue="Python.svm_dbsi_roi_all" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.feature_elimination_all" />
-        <item itemvalue="Python.feature_elimination" />
-        <item itemvalue="Python.svm_all_var_2_group_only_csm" />
-        <item itemvalue="Python.svm_all_var_2_group_moderate" />
-        <item itemvalue="Python.svm_all_var_2_group_mild" />
+        <item itemvalue="Python.svm_dbsi_roi_all" />
+        <item itemvalue="Python.svm_dbsi_roi_only_csm" />
+        <item itemvalue="Python.svm_dbsi_roi_all_moderate" />
+        <item itemvalue="Python.svm_dbsi_roi_all_mild" />
+        <item itemvalue="Python.svm_dbsi_roi" />
       </list>
     </recent_temporary>
   </component>
@@ -319,22 +210,22 @@
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
     <state x="780" y="297" width="424" height="482" key="FileChooserDialogImpl/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1631311711875" />
-    <state width="1832" height="305" key="GridCell.Tab.0.bottom" timestamp="1632528019664">
+    <state width="1832" height="305" key="GridCell.Tab.0.bottom" timestamp="1632756367683">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="305" key="GridCell.Tab.0.bottom/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1632528019664" />
-    <state width="1832" height="305" key="GridCell.Tab.0.center" timestamp="1632528019664">
+    <state width="1832" height="305" key="GridCell.Tab.0.bottom/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1632756367683" />
+    <state width="1832" height="305" key="GridCell.Tab.0.center" timestamp="1632756367683">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="305" key="GridCell.Tab.0.center/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1632528019664" />
-    <state width="1832" height="305" key="GridCell.Tab.0.left" timestamp="1632528019664">
+    <state width="1832" height="305" key="GridCell.Tab.0.center/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1632756367683" />
+    <state width="1832" height="305" key="GridCell.Tab.0.left" timestamp="1632756367682">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="305" key="GridCell.Tab.0.left/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1632528019664" />
-    <state width="1832" height="305" key="GridCell.Tab.0.right" timestamp="1632528019664">
+    <state width="1832" height="305" key="GridCell.Tab.0.left/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1632756367682" />
+    <state width="1832" height="305" key="GridCell.Tab.0.right" timestamp="1632756367683">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="305" key="GridCell.Tab.0.right/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1632528019664" />
+    <state width="1832" height="305" key="GridCell.Tab.0.right/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1632756367683" />
     <state width="1832" height="365" key="GridCell.Tab.1.bottom" timestamp="1631311714010">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
