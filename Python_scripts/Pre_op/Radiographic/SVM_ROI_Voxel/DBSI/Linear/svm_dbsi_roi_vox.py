@@ -30,6 +30,9 @@ filter_dhi_features = ["b0_map", "dti_adc_map", "dti_axial_map", "dti_fa_map", "
 filter_dbsi_ia_features = ["fiber1_extra_axial_map", "fiber1_extra_fraction_map", "fiber1_extra_radial_map", "fiber1_intra_axial_map", "fiber1_intra_fraction_map",
                            "fiber1_intra_radial_map"]
 
+rfe_features = ["fiber1_intra_radial_map", "hindered_fraction_map", "water_fraction_map", "restricted_fraction_map", "fiber_fraction_map",
+                "fiber1_radial_map", "fiber1_intra_fraction_map", "fiber1_extra_fraction_map", "restricted_adc_map", "fiber1_axial_map"]
+
 # Load Data
 
 url_dhi = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DHI/Pycharm_Data_ROI_Voxel/Pre_op/all_patients_all_features_data.csv'

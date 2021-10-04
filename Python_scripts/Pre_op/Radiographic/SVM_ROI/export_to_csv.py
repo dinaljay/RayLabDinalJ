@@ -42,10 +42,5 @@ filter_dbsi_ia = all_data_dbsi_ia[filter_dbsi_ia_features]
 all_data = pd.concat([filter_dhi, filter_dbsi_ia], axis=1)
 y = all_data_dhi[['Patient_ID', 'Group_ID', 'Group']]
 
-#Set NaN data to 0
-
-for col in all_data.columns:
-    all_data[col] = all_data[col].fillna(0)
-
 final = pd.concat([y, all_data], axis=1)
 final.to_csv(r'/home/functionalspinelab/Desktop/Dinal/DBSI_data/all_dbsi_roi_data.csv', index=False, header=True)

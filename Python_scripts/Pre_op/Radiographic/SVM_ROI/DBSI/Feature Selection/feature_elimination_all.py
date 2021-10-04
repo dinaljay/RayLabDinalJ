@@ -44,11 +44,6 @@ filter_dbsi_ia = all_data_dbsi_ia[filter_dbsi_ia_features]
 
 all_data = pd.concat([filter_dhi, filter_dbsi_ia], axis=1)
 
-#Set NaN data to 0
-
-for col in all_data.columns:
-    all_data[col] = all_data[col].fillna(0)
-
 X = all_data
 y = all_data_dhi['Group_ID']
 
