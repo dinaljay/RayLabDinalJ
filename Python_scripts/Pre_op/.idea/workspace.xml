@@ -20,20 +20,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e05acb7d-33db-4e74-9eca-95a8aff48afc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Improv_vs_Nonimprov/Logistic_Regression_ROI/DBSI/regression_dbsi_roi.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Improv_vs_Nonimprov/Logistic_Regression_ROI/DTI/regression_dti_roi.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Improv_vs_Nonimprov/Plots/boxplot_pre_and_post.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Improv_vs_Nonimprov/Plots/boxplot_pre_and_post_by_slice.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Improv_vs_Nonimprov/SVM_ROI/DBSI/feature_elimination.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Improv_vs_Nonimprov/SVM_ROI/DBSI/svm_dbsi_roi.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Improv_vs_Nonimprov/SVM_ROI/DTI/svm_dti_roi.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Improv_vs_Nonimprov/SVM_ROI/grid_search_svm_roi.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Improv_vs_Nonimprov/Clinical + Radiographic/feature_elimination.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Improv_vs_Nonimprov/Clinical + Radiographic/svm_all.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Improv_vs_Nonimprov/Radiographic/SVM_ROI/DBSI/svm_dbsi.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Improv_vs_Nonimprov/Radiographic/SVM_ROI/DBSI/svm_dbsi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Improv_vs_Nonimprov/Radiographic/SVM_ROI/DTI/svm_dti_roi.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Radiographic/SVM_ROI/DBSI/Feature Selection/feature_elimination.py" beforeDir="false" afterPath="$PROJECT_DIR$/Radiographic/SVM_ROI/DBSI/Feature Selection/feature_elimination.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Radiographic/SVM_ROI/DBSI/Feature Selection/feature_elimination_all.py" beforeDir="false" afterPath="$PROJECT_DIR$/Radiographic/SVM_ROI/DBSI/Feature Selection/feature_elimination_all.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Radiographic/SVM_ROI/export_to_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/Radiographic/SVM_ROI/export_to_csv.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Radiographic/SVM_ROI_Voxel/DBSI/Linear/feature_elimination.py" beforeDir="false" afterPath="$PROJECT_DIR$/Radiographic/SVM_ROI_Voxel/DBSI/Linear/feature_elimination.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Radiographic/SVM_ROI_Voxel/DBSI/Linear/svm_dbsi_roi_vox.py" beforeDir="false" afterPath="$PROJECT_DIR$/Radiographic/SVM_ROI_Voxel/DBSI/Linear/svm_dbsi_roi_vox.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clinical + Radiographic/Classification/svm_all_var_3_group.py" beforeDir="false" afterPath="$PROJECT_DIR$/Clinical + Radiographic/Classification/svm_all_var_3_group.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clinical/svm_clinical_all.py" beforeDir="false" afterPath="$PROJECT_DIR$/Clinical/svm_clinical_all.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Radiographic/SVM_ROI/DBSI/Classification/svm_dbsi_roi_all.py" beforeDir="false" afterPath="$PROJECT_DIR$/Radiographic/SVM_ROI/DBSI/Classification/svm_dbsi_roi_all.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Radiographic/SVM_ROI/DTI/svm_dti_roi_all.py" beforeDir="false" afterPath="$PROJECT_DIR$/Radiographic/SVM_ROI/DTI/svm_dti_roi_all.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,11 +56,11 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Improv_vs_Nonimprov" />
     <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
-  <component name="RunManager" selected="Python.svm_dbsi_roi_vox">
-    <configuration name="feature_elimination" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.svm_all_var_3_group">
+    <configuration name="feature_elimination_all" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Pre_op" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -73,11 +68,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Radiographic/SVM_ROI_Voxel/DBSI/Linear" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Clinical + Radiographic/Feature Selection" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Radiographic/SVM_ROI_Voxel/DBSI/Linear/feature_elimination.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Clinical + Radiographic/Feature Selection/feature_elimination_all.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -86,7 +81,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="svm_clinical_mild" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="svm_all_var_3_group" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Pre_op" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -94,11 +89,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Clinical" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Clinical + Radiographic/Classification" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Clinical/svm_clinical_mild.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Clinical + Radiographic/Classification/svm_all_var_3_group.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -128,27 +123,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="svm_dbsi_roi_all_mild" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Pre_op" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Radiographic/SVM_ROI/DBSI/Classification" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Radiographic/SVM_ROI/DBSI/Classification/svm_dbsi_roi_all_mild.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="svm_dbsi_roi_vox" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Pre_op" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -170,20 +144,41 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="svm_dti_roi_all" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Pre_op" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Radiographic/SVM_ROI/DTI" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Radiographic/SVM_ROI/DTI/svm_dti_roi_all.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
-      <item itemvalue="Python.svm_clinical_mild" />
+      <item itemvalue="Python.feature_elimination_all" />
+      <item itemvalue="Python.svm_all_var_3_group" />
       <item itemvalue="Python.svm_dbsi_roi_all" />
-      <item itemvalue="Python.svm_dbsi_roi_all_mild" />
-      <item itemvalue="Python.feature_elimination" />
       <item itemvalue="Python.svm_dbsi_roi_vox" />
+      <item itemvalue="Python.svm_dti_roi_all" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.svm_dbsi_roi_vox" />
-        <item itemvalue="Python.feature_elimination" />
-        <item itemvalue="Python.svm_clinical_mild" />
-        <item itemvalue="Python.svm_dbsi_roi_all_mild" />
+        <item itemvalue="Python.svm_all_var_3_group" />
+        <item itemvalue="Python.feature_elimination_all" />
+        <item itemvalue="Python.svm_dti_roi_all" />
         <item itemvalue="Python.svm_dbsi_roi_all" />
+        <item itemvalue="Python.svm_dbsi_roi_vox" />
       </list>
     </recent_temporary>
   </component>
@@ -217,26 +212,26 @@
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
     <state x="456" y="197" key="#com.intellij.execution.impl.EditConfigurationsDialog/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1626908953719" />
-    <state x="780" y="297" width="424" height="482" key="FileChooserDialogImpl" timestamp="1632863917892">
+    <state x="780" y="297" width="424" height="482" key="FileChooserDialogImpl" timestamp="1634002146999">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state x="780" y="297" width="424" height="482" key="FileChooserDialogImpl/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1632863917892" />
-    <state width="1832" height="305" key="GridCell.Tab.0.bottom" timestamp="1633099856693">
+    <state x="780" y="297" width="424" height="482" key="FileChooserDialogImpl/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1634002146999" />
+    <state width="1832" height="305" key="GridCell.Tab.0.bottom" timestamp="1633996664190">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="305" key="GridCell.Tab.0.bottom/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1633099856693" />
-    <state width="1832" height="305" key="GridCell.Tab.0.center" timestamp="1633099856692">
+    <state width="1832" height="305" key="GridCell.Tab.0.bottom/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1633996664190" />
+    <state width="1832" height="305" key="GridCell.Tab.0.center" timestamp="1633996664190">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="305" key="GridCell.Tab.0.center/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1633099856692" />
-    <state width="1832" height="305" key="GridCell.Tab.0.left" timestamp="1633099856692">
+    <state width="1832" height="305" key="GridCell.Tab.0.center/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1633996664190" />
+    <state width="1832" height="305" key="GridCell.Tab.0.left" timestamp="1633996664190">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="305" key="GridCell.Tab.0.left/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1633099856692" />
-    <state width="1832" height="305" key="GridCell.Tab.0.right" timestamp="1633099856693">
+    <state width="1832" height="305" key="GridCell.Tab.0.left/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1633996664190" />
+    <state width="1832" height="305" key="GridCell.Tab.0.right" timestamp="1633996664190">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="305" key="GridCell.Tab.0.right/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1633099856693" />
+    <state width="1832" height="305" key="GridCell.Tab.0.right/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1633996664190" />
     <state width="1832" height="365" key="GridCell.Tab.1.bottom" timestamp="1631311714010">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
@@ -253,10 +248,6 @@
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
     <state width="1832" height="365" key="GridCell.Tab.1.right/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1631311714010" />
-    <state x="486" y="174" key="SettingsEditor" timestamp="1625292852351">
-      <screen x="65" y="24" width="1855" height="1056" />
-    </state>
-    <state x="486" y="174" key="SettingsEditor/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1625292852351" />
     <state width="928" height="542" key="XDebugger.FullValuePopup" timestamp="1625417803249">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>

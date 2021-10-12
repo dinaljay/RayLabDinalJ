@@ -5,18 +5,40 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import sys
 
+## Initialize features
+
+
+radiographic_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radial_map", "fiber1_axial_map", "fiber1_fa_map",
+                         "fiber1_radial_map", "fiber_fraction_map", "hindered_adc_map", "hindered_fraction_map",
+                         "iso_adc_map", "model_v_map", "restricted_adc_map", "restricted_fraction_map", "water_adc_map",
+                         "water_fraction_map", "fiber1_extra_axial_map", "fiber1_extra_fraction_map", "fiber1_extra_radial_map",
+                         "fiber1_intra_axial_map", "fiber1_intra_fraction_map", "fiber1_intra_radial_map"]
+""""
+clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_left_result", "ndi_total", "mdi_total", "dash_total",
+                     "mjoa_recovery", "PCS", "MCS", "post_ndi_total", "post_mdi_total", "post_mjoa_total", "post_PCS", "post_MCS",
+                     "change_ndi", "change_mdi", "change_dash", "change_mjoa", "change_PCS", "change_MCS"]
+"""
+clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_left_result", "ndi_total", "mdi_total", "dash_total",
+                     "PCS", "MCS"]
+
+improv_features = ["ndi_improve", "dash_improve", "mjoa_improve", "MCS_improve", "PCS_improve"]
+
+rfe_features = ["MCS", "ndi_total", "hindered_adc_map", "water_fraction_map", "fiber1_radial_map", "fiber1_extra_radial_map",
+                "mdi_total", "avg_right_result", "hindered_fraction_map", "fiber1_extra_fraction_map"]
 ## Load Data
 
-url_dhi = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DHI/Pycharm_Data_improv_vs_nonimprov/DBSI_CSV_Data/Pre_op/all_patients_all_features_data.csv'
-all_data = pd.read_csv(url_dhi, header=0)
+url = '/home/functionalspinelab/Desktop/Dinal/DBSI_data/dbsi_clinical_radiographic_data.csv'
+all_data_raw = pd.read_csv(url, header=0)
 
-#Set NaN data to 0
+# Filter Data
+all_features = radiographic_features + clinical_features
+all_data = all_data_raw[all_features]
+all_data = all_data[rfe_features]
 
-for col in all_data.columns:
-    all_data[col] = all_data[col].fillna(0)
-
-X = all_data[['dti_adc_map', 'dti_axial_map', 'dti_fa_map', 'dti_radial_map']]
-y = all_data_dhi['Group_ID']
+#Set data to variables
+X = all_data
+#X = all_data.drop(['dti_adc_map', 'dti_axial_map', 'dti_fa_map', 'dti_radial_map'], axis=1)
+y = all_data_raw['MCS_improve']
 
 # Scale data
 
@@ -128,34 +150,40 @@ plt.bar([x for x in range(len(importance))], importance)
 plt.show()
 
 sys.exit()
+
 #Plot ROC curve
 
-lw=2
-plt.title('Receiver Operating Characteristic')
-plt.plot(fpr, tpr, color='darkorange', lw=lw, label='SVM (area = %0.2f)' %roc_auc)
-plt.plot([0, 1], [0, 1],color='navy', lw=lw, linestyle='--', label='No Skill')
-plt.legend(loc='lower right')
-plt.xlim([-0.1, 1])
-plt.ylim([0, 1.05])
-plt.ylabel('True Positive Rate')
-plt.xlabel('False Positive Rate')
-#plt.show()
+#plt.title('Receiver Operating Characteristic')
+plt.plot(fpr, tpr, color='darkorange', linewidth=2, label='Area = %0.2f' %roc_auc)
+#plt.plot([0, 1], [0, 1],color='navy', linewidth=2, linestyle='-', label='No Skill')
+plt.legend(loc='lower right', fontsize=10)
+plt.xlim([-0.05, 1.05])
+plt.ylim([-0.05, 1.05])
+plt.xlabel('1-Specificity', fontsize=13)
+plt.ylabel('Sensitivity', fontsize=13)
+plt.xticks(fontsize=10)
+plt.yticks(fontsize=10)
+plt.grid()
+plt.show()
 
 #sys.exit()
 
 # Plot precision recall curve
 
 lr_precision, lr_recall, _ = metrics.precision_recall_curve(y, y_conf)
+prc_auc = metrics.auc(metrics.recall_score(y, y_pred), metrics.precision_score(y, y_pred)))
 
 plt.figure()
-plt.title('Precision-Recall Curve')
-plt.plot([0, 1], [0, 0], color='navy', lw=lw, linestyle='--', label='No Skill')
-plt.plot(lr_recall, lr_precision, color='darkorange', label='SVM')
-plt.legend(loc='lower right')
-plt.xlim([-0.1, 1])
-plt.ylim([-0.1, 1.05])
-plt.xlabel('Recall')
-plt.ylabel('Precision')
-
+#plt.title('Precision-Recall Curve')
+#plt.plot([0, 1], [0, 0], color='navy', linewidth=2, linestyle='-', label='No Skill')
+plt.plot(lr_recall, lr_precision, color='darkorange', linestyle='-', linewidth=2, label='Area = %0.2f' %prc_auc)
+plt.xlabel("Recall", fontsize=13)
+plt.ylabel("Precision", fontsize=13)
+plt.xlim([-0.05, 1.05])
+plt.ylim([-0.05, 1.05])
+plt.legend(loc="lower right", fontsize=10)
+plt.xticks(fontsize=10)
+plt.yticks(fontsize=10)
+plt.grid()
 plt.show()
 

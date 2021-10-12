@@ -30,6 +30,9 @@ filter_dhi_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radial
 filter_dbsi_ia_features = ["fiber1_extra_axial_map", "fiber1_extra_fraction_map", "fiber1_extra_radial_map", "fiber1_intra_axial_map", "fiber1_intra_fraction_map",
                            "fiber1_intra_radial_map"]
 
+rfe_features = ["fiber1_extra_axial_map", "restricted_adc_map", "dash_total", "fiber1_extra_fraction_map", "PCS",
+                "fiber1_extra_radial_map", "fiber_fraction_map", "iso_adc_map", "water_fraction_map", "bmi"]
+
 ## Load Data
 #DHI Data
 url_dhi = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DHI/Pycharm_Data_ROI/DBSI_CSV_Data/Pre_op/all_patients_all_features_by_CSM_group_data.csv'
@@ -40,7 +43,7 @@ url_dbsi_ia = '/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matt
 all_data_dbsi_ia = pd.read_csv(url_dbsi_ia, header=0)
 
 #Clinical Data
-url_clinical = '/home/functionalspinelab/Desktop/Dinal/DBSI_data/Clinical_data/csm_clinical_pre.csv'
+url_clinical = '/home/functionalspinelab/Desktop/Dinal/DBSI_data/Clinical_data/csm_clinical_pre_all.csv'
 all_data_clinical = pd.read_csv(url_clinical, header=0)
 
 all_data_clinical = all_data_clinical.drop(['record_id', 'Group_ID', 'mJOA_ID'], axis=1)
@@ -50,8 +53,12 @@ filter_dhi = all_data_dhi[filter_dhi_features]
 filter_dbsi_ia = all_data_dbsi_ia[filter_dbsi_ia_features]
 
 all_data = pd.concat([filter_dhi, filter_dbsi_ia, all_data_clinical], axis=1)
+all_data = all_data[rfe_features]
 
-X = all_data.drop(['dti_adc_map', 'dti_axial_map', 'dti_fa_map', 'dti_radial_map'], axis=1)
+#Set variables to data
+
+X = all_data
+#X = all_data.drop(['dti_adc_map', 'dti_axial_map', 'dti_fa_map', 'dti_radial_map'], axis=1)
 y = all_data_dhi['Group_ID']
 patient_count = X.shape[0]
 
@@ -124,18 +131,33 @@ f1 = metrics.f1_score(y_true, y_pred, average='weighted')
 print("F1 Score:", f1)
 
 #Calculate AUC
-
-#fpr, tpr, threshold = metrics.roc_curve(y_true, y_conf)
-#roc_auc = metrics.auc(fpr, tpr)
-#y_prob = clf.predict_proba(X_scaled)
-#roc_auc_val = metrics.roc_auc_score(y_true, y_prob, multi_class='ovr')
-#print("AUC:", roc_auc_val)
 fpr = dict()
 tpr = dict()
 roc_auc = dict()
 
+for i in range(n_classes):
+    fpr[i], tpr[i], _ = metrics.roc_curve(y_true[:, i], y_conf[:, i])
+    roc_auc[i] = metrics.auc(fpr[i], tpr[i])
+
 fpr["micro"], tpr["micro"], _ = metrics.roc_curve(y_true.ravel(), y_conf.ravel())
 roc_auc["micro"] = metrics.auc(fpr["micro"], tpr["micro"])
+
+# Aggregate all false positive rates
+all_fpr = np.unique(np.concatenate([fpr[i] for i in range(n_classes)]))
+
+# Then interpolate all ROC curves at this points
+mean_tpr = np.zeros_like(all_fpr)
+for i in range(n_classes):
+    mean_tpr += np.interp(all_fpr, fpr[i], tpr[i])
+
+# Finally average it and compute AUC
+mean_tpr /= n_classes
+
+fpr["macro"] = all_fpr
+tpr["macro"] = mean_tpr
+
+roc_auc["micro"] = metrics.auc(fpr["micro"], tpr["micro"])
+roc_auc["macro"] = metrics.auc(fpr["macro"], tpr["macro"])
 
 micro_roc_auc = metrics.roc_auc_score(y_true, y_conf, multi_class="ovr", average="micro")
 macro_roc_auc = metrics.roc_auc_score(y_true, y_conf, multi_class="ovr", average="macro")
@@ -143,22 +165,56 @@ macro_roc_auc = metrics.roc_auc_score(y_true, y_conf, multi_class="ovr", average
 print("Micro average ROC curve area:", micro_roc_auc)
 print("Macro average ROC curve area:", macro_roc_auc)
 
-sys.exit()
+#sys.exit()
 
-fpr = dict()
-tpr = dict()
-roc_auc = dict()
-for i in range(n_classes):
-    fpr[i], tpr[i], _ = metrics.roc_curve(y_true[:, i], y_conf[:, i])
-    roc_auc[i] = metrics.auc(fpr[i], tpr[i])
+# ROC curve
+
+plt.plot(fpr["micro"], tpr["micro"],
+         label='Micro-average ROC curve (area = {0:0.2f})'
+               ''.format(roc_auc["micro"]),
+         color='purple', linestyle='-', linewidth=2)
+
+plt.plot(fpr["macro"], tpr["macro"],
+         label='Macro-average ROC curve (area = {0:0.2f})'
+               ''.format(roc_auc["macro"]),
+         color='brown', linestyle='-', linewidth=2)
+
 colors = cycle(['darkorange', 'red', 'green'])
 for i, color in zip(range(n_classes), colors):
-    plt.plot(fpr[i], tpr[i], color=color, lw=2, label='ROC curve of class {0} (area = {1:0.2f})' ''.format(i+1, roc_auc[i]))
-plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+    plt.plot(fpr[i], tpr[i], color=color, lw=2, label='ROC curve of class {0} (area = {1:0.2f})' ''.format(i, roc_auc[i]))
+plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='-')
 plt.xlim([0, 1])
 plt.ylim([0.0, 1.05])
 plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
 plt.title('ROC curve for all patient groups')
 plt.legend(loc="lower right")
+plt.show()
+
+#Precision Recall curve
+plt.figure()
+precision = dict()
+recall = dict()
+prc_auc = dict()
+
+precision["micro"], recall["micro"], _ = metrics.precision_recall_curve(y_true.ravel(), y_conf.ravel())
+#prc_auc["micro"] = metrics.average_precision_score(y_true.ravel(), y_conf.ravel())
+prc_auc["micro"] = metrics.auc(recall["micro"], precision["micro"])
+
+
+colors = cycle(['darkorange', 'red', 'green'])
+for i, color in zip(range(n_classes), colors):
+    precision[i], recall[i], _ = metrics.precision_recall_curve(y_true[:, i], y_conf[:, i])
+    #prc_auc[i] = metrics.average_precision_score(y_true[:, i], y_conf[:, i])
+    prc_auc[i] = metrics.auc(recall[i], precision[i])
+    plt.plot(recall[i], precision[i], lw=2, color=color, linestyle='-',
+             label='Precision-recall curve for class {0}(area = {1:0.2f})' ''.format(i, prc_auc[i]))
+
+plt.plot(precision["micro"], recall["micro"], label='Micro-average precision-recall curve(area = {0:0.2f})'''.format(prc_auc["micro"]),
+         color='purple', linestyle='-', linewidth=2)
+
+plt.xlabel("Recall")
+plt.ylabel("Precision")
+plt.legend(loc="lower right")
+plt.title("Precision-Recall curve")
 plt.show()
