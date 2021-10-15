@@ -8,15 +8,15 @@ import sys
 ## Initialize features
 
 
-radiographic_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radial_map", "fiber1_axial_map", "fiber1_fa_map",
-                         "fiber1_radial_map", "fiber_fraction_map", "hindered_adc_map", "hindered_fraction_map",
-                         "iso_adc_map", "model_v_map", "restricted_adc_map", "restricted_fraction_map", "water_adc_map",
-                         "water_fraction_map", "fiber1_extra_axial_map", "fiber1_extra_fraction_map", "fiber1_extra_radial_map",
-                         "fiber1_intra_axial_map", "fiber1_intra_fraction_map", "fiber1_intra_radial_map"]
+radiographic_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radial_map"]
 
-rfe_features = ["fiber1_intra_axial_map", "fiber1_axial_map", "fiber1_intra_radial_map", "hindered_adc_map", "fiber_fraction_map",
-                "restricted_fraction_map", "restricted_adc_map", "hindered_fraction_map", "fiber1_intra_fraction_map",
-                "fiber1_extra_fraction_map"]
+""""
+clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_left_result", "ndi_total", "mdi_total", "dash_total",
+                     "mjoa_total", "mjoa_recovery", "PCS", "MCS", "post_ndi_total", "post_mdi_total", "post_mjoa_total", "post_PCS", "post_MCS",
+                     "change_ndi", "change_mdi", "change_dash", "change_mjoa", "change_PCS", "change_MCS"]
+"""
+clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_left_result", "ndi_total", "mdi_total", "dash_total",
+                     "PCS", "MCS", "mjoa_total"]
 
 improv_features = ["ndi_improve", "dash_improve", "mjoa_improve", "MCS_improve", "PCS_improve"]
 
@@ -26,13 +26,11 @@ url = '/home/functionalspinelab/Desktop/Dinal/DBSI_data/dbsi_clinical_radiograph
 all_data_raw = pd.read_csv(url, header=0)
 
 # Filter Data
-
-all_data = all_data_raw[radiographic_features]
-all_data = all_data[rfe_features]
+all_features = radiographic_features + clinical_features
+all_data = all_data_raw[all_features]
 
 #Set data to variables
 X = all_data
-#X = all_data.drop(['dti_adc_map', 'dti_axial_map', 'dti_fa_map', 'dti_radial_map'], axis=1)
 y = all_data_raw['MCS_improve']
 
 # Scale data
@@ -166,7 +164,7 @@ plt.show()
 # Plot precision recall curve
 
 lr_precision, lr_recall, _ = metrics.precision_recall_curve(y, y_conf)
-prc_auc = metrics.auc(metrics.recall_score(y, y_pred), metrics.precision_score(y, y_pred)))
+prc_auc = metrics.auc(metrics.recall_score(y, y_pred), metrics.precision_score(y, y_pred))
 
 plt.figure()
 #plt.title('Precision-Recall Curve')

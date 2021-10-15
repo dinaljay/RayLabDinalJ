@@ -15,11 +15,11 @@ radiographic_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radi
                          "fiber1_intra_axial_map", "fiber1_intra_fraction_map", "fiber1_intra_radial_map"]
 """"
 clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_left_result", "ndi_total", "mdi_total", "dash_total",
-                     "mjoa_recovery", "PCS", "MCS", "post_ndi_total", "post_mdi_total", "post_mjoa_total", "post_PCS", "post_MCS",
+                     "mjoa_total", "mjoa_recovery", "PCS", "MCS", "post_ndi_total", "post_mdi_total", "post_mjoa_total", "post_PCS", "post_MCS",
                      "change_ndi", "change_mdi", "change_dash", "change_mjoa", "change_PCS", "change_MCS"]
 """
 clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_left_result", "ndi_total", "mdi_total", "dash_total",
-                     "PCS", "MCS"]
+                     "PCS", "MCS", "mjoa_total"]
 
 improv_features = ["ndi_improve", "dash_improve", "mjoa_improve", "MCS_improve", "PCS_improve"]
 
