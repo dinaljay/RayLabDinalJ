@@ -51,7 +51,6 @@ for n in range(len(improv_features)):
     X_scaled = preprocessing.scale(X)
 
     print(improv_features[n])
-    print("\n")
 
     #Implement leave one out cross validation
     y_pred = []
@@ -99,27 +98,43 @@ for n in range(len(improv_features)):
     y_pred = np.asarray(y_pred)
     y_conf = np.asarray(y_conf)
 
+    # Model Accuracy
+    print("Accuracy:", metrics.accuracy_score(y, y_pred))
+
+    # Model Precision
+    print("Precision:", metrics.precision_score(y, y_pred))
+
+    # Model Recall
+    print("Recall:", metrics.recall_score(y, y_pred))
+
+    # Model F1 score
+    print("F1 Score:", metrics.f1_score(y, y_pred))
+
     #Calculate AUC
     fpr[n], tpr[n], _ = metrics.roc_curve(y, y_conf)
     roc_auc[n] = metrics.auc(fpr[n], tpr[n])
     #roc_auc[n] = metrics.roc_auc_score(y, y_conf)
+    print("AUC:", roc_auc[n])
+    print("\n")
 
     precision[n], recall[n], _ = metrics.precision_recall_curve(y.ravel(), y_conf.ravel())
     prc_auc[n] = metrics.auc(recall[n], precision[n])
 
 colors = cycle(['darkorange', 'red', 'green', 'navy', 'purple'])
 
+#sys.exit()
 #Plot ROC curve
 
 for i, color in zip(range(len(improv_features)), colors):
     plt.plot(fpr[i], tpr[i], color=color, lw=2, label='Area = {1:0.2f}' ''.format(i, roc_auc[i]))
-plt.legend(loc='lower right', fontsize=10)
+plt.title("Clinical+DTI-SVM", fontsize=14)
+plt.legend(loc='lower right', fontsize=12)
 plt.xlim([-0.05, 1.05])
 plt.ylim([-0.05, 1.05])
 plt.xlabel('1-Specificity', fontsize=13)
 plt.ylabel('Sensitivity', fontsize=13)
-plt.xticks(fontsize=10)
-plt.yticks(fontsize=10)
+plt.xticks(fontsize=12)
+plt.yticks(fontsize=12)
 plt.grid()
 plt.show()
 
@@ -129,13 +144,14 @@ for i, color in zip(range(len(improv_features)), colors):
     plt.plot(recall[i], precision[i], lw=2, color=color, linestyle='-',
              label='Area = {1:0.2f}' ''.format(i, prc_auc[i]))
 
+plt.title("Clinical+DTI-SVM", fontsize=14)
 plt.xlabel("Recall", fontsize=13)
 plt.ylabel("Precision", fontsize=13)
 plt.xlim([-0.05, 1.05])
 plt.ylim([-0.05, 1.05])
-plt.legend(loc="lower right", fontsize=10)
-plt.xticks(fontsize=10)
-plt.yticks(fontsize=10)
+plt.legend(loc="lower right", fontsize=12)
+plt.xticks(fontsize=12)
+plt.yticks(fontsize=12)
 plt.grid()
 plt.show()
 

@@ -129,10 +129,10 @@ for i, color in zip(range(n_classes), colors):
     #plt.plot(fpr[i], tpr[i], color=color, lw=2, label='ROC curve of class {0} (area = {1:0.2f})' ''.format(i, roc_auc[i]))
     plt.plot(fpr[i], tpr[i], color=color, lw=2, label='Area = {1:0.2f}' ''.format(i, roc_auc[i]))
 
-#plt.plot(fpr["micro"], tpr["micro"], label='Micro-average ROC curve (area = {0:0.2f})' ''.format(roc_auc["micro"]), color='purple', linestyle='-', linewidth=2)
-plt.plot(fpr["micro"], tpr["micro"], label='Area = {0:0.2f}' ''.format(roc_auc["micro"]), color='purple', linestyle='-', linewidth=2)
-
 """
+plt.plot(fpr["micro"], tpr["micro"], label='Micro-average ROC curve (area = {0:0.2f})' ''.format(roc_auc["micro"]), color='purple', linestyle='-', linewidth=2)
+
+
 plt.plot(fpr["macro"], tpr["macro"],
          label='Macro-average ROC curve (area = {0:0.2f})'
                ''.format(roc_auc["macro"]),
@@ -140,14 +140,14 @@ plt.plot(fpr["macro"], tpr["macro"],
 """
 
 #plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='-')
-plt.xlim([0.05, 1.05])
-plt.ylim([0.05, 1.05])
+plt.xlim([-0.05, 1.05])
+plt.ylim([-0.05, 1.05])
 plt.xlabel('1-Specificity', fontsize=13)
 plt.ylabel('Sensitivity', fontsize=13)
-plt.xticks(fontsize=10)
-plt.yticks(fontsize=10)
-#plt.title('ROC curve for all patient groups')
-plt.legend(loc="lower right", fontsize=10)
+plt.xticks(fontsize=12)
+plt.yticks(fontsize=12)
+plt.title('DTI', fontsize=14)
+plt.legend(loc="lower right", fontsize=12)
 plt.grid()
 plt.show()
 
@@ -173,18 +173,19 @@ for i, color in zip(range(n_classes), colors):
 """
 plt.plot(precision["micro"], recall["micro"], label='Micro-average precision-recall curve(area = {0:0.2f})'''.format(prc_auc["micro"]),
          color='purple', linestyle='-', linewidth=2)
-"""
+
 plt.plot(precision["micro"], recall["micro"], label='Area = {0:0.2f}'''.format(prc_auc["micro"]),
          color='purple', linestyle='-', linewidth=2)
+"""
 
 plt.xlabel("Recall", fontsize=13)
 plt.ylabel("Precision", fontsize=13)
-plt.xlim([0.05, 1.05])
-plt.ylim([0.05, 1.05])
-plt.xticks(fontsize=10)
-plt.yticks(fontsize=10)
-plt.legend(loc="lower right", fontsize=10)
-#plt.title("Precision-Recall curve")
+plt.xlim([-0.05, 1.05])
+plt.ylim([-0.05, 1.05])
+plt.xticks(fontsize=12)
+plt.yticks(fontsize=12)
+plt.legend(loc="lower right", fontsize=12)
+plt.title("DTI", fontsize=14)
 plt.grid()
 plt.show()
 

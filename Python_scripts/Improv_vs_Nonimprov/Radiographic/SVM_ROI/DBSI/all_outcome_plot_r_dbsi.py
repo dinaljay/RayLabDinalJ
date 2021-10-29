@@ -18,13 +18,6 @@ radiographic_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radi
                          "iso_adc_map", "model_v_map", "restricted_adc_map", "restricted_fraction_map", "water_adc_map",
                          "water_fraction_map", "fiber1_extra_axial_map", "fiber1_extra_fraction_map", "fiber1_extra_radial_map",
                          "fiber1_intra_axial_map", "fiber1_intra_fraction_map", "fiber1_intra_radial_map"]
-"""
-clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_left_result", "ndi_total", "mdi_total", "dash_total",
-                     "mjoa_total", "mjoa_recovery", "PCS", "MCS", "post_ndi_total", "post_mdi_total", "post_mjoa_total", "post_PCS", "post_MCS",
-                     "change_ndi", "change_mdi", "change_dash", "change_mjoa", "change_PCS", "change_MCS"]
-"""
-clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_left_result", "ndi_total", "mdi_total", "dash_total",
-                     "PCS", "MCS", "mjoa_total"]
 
 improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve', 'MCS_improve', 'PCS_improve']
 
@@ -34,7 +27,7 @@ url = '/home/functionalspinelab/Desktop/Dinal/DBSI_data/dbsi_clinical_radiograph
 all_data_raw = pd.read_csv(url, header=0)
 
 # Filter Data
-all_features = radiographic_features + clinical_features
+all_features = radiographic_features
 all_data = all_data_raw[all_features]
 
 #Variables for ROC and PRC curves
@@ -160,14 +153,13 @@ colors = cycle(['darkorange', 'red', 'green', 'navy', 'purple'])
 
 for i, color in zip(range(len(improv_features)), colors):
     plt.plot(fpr[i], tpr[i], color=color, lw=2, label='Area = {1:0.2f}' ''.format(i, roc_auc[i]))
-plt.legend(loc='lower right', fontsize=12)
-plt.title("Clinical+DBSI-SVM", fontsize=14)
+plt.legend(loc='lower right', fontsize=10)
 plt.xlim([-0.05, 1.05])
 plt.ylim([-0.05, 1.05])
 plt.xlabel('1-Specificity', fontsize=13)
 plt.ylabel('Sensitivity', fontsize=13)
-plt.xticks(fontsize=12)
-plt.yticks(fontsize=12)
+plt.xticks(fontsize=10)
+plt.yticks(fontsize=10)
 plt.grid()
 plt.show()
 
@@ -177,14 +169,13 @@ for i, color in zip(range(len(improv_features)), colors):
     plt.plot(recall[i], precision[i], lw=2, color=color, linestyle='-',
              label='Area = {1:0.2f}' ''.format(i, prc_auc[i]))
 
-plt.title("Clinical+DBSI-SVM", fontsize=14)
 plt.xlabel("Recall", fontsize=13)
 plt.ylabel("Precision", fontsize=13)
 plt.xlim([-0.05, 1.05])
 plt.ylim([-0.05, 1.05])
-plt.legend(loc="lower right", fontsize=12)
-plt.xticks(fontsize=12)
-plt.yticks(fontsize=12)
+plt.legend(loc="lower right", fontsize=10)
+plt.xticks(fontsize=10)
+plt.yticks(fontsize=10)
 plt.grid()
 plt.show()
 
