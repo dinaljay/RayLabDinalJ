@@ -34,26 +34,52 @@ all_data_raw = pd.read_csv(url, header=0)
 all_features = radiographic_features + clinical_features
 all_data = all_data_raw[all_features]
 
+r_final = []
+p_val_final = []
+
 for n in range(len(improv_features)):
 
     # Set data to variables
     X = all_data.drop(['dti_adc_map', 'dti_axial_map', 'dti_fa_map', 'dti_radial_map'], axis=1)
     y = all_data_raw[improv_features[n]]
+    col_names = list(X.columns)
 
     r = []
     p_val = []
+    test = range(len(X.columns))
 
-    for i in range(len(X)):
+    for i in range(len(X.columns)):
 
         #Pearsons_correlation
-        coeff, p = pearsonr(X[i], y)
+        col = col_names[i]
+        col_data = X[col]
+        coeff, p = pearsonr(col_data, y)
 
         r.append(coeff)
         p_val.append(p)
 
     r = [round(num, 3) for num in r]
     p_val = [round(val, 3) for val in p_val]
-    
+
     print(improv_features[n])
-    print('Correlation coefficients:', r)
-    print('p_values:', p_val)
+    #print('Correlation coefficients:', r)
+    #print('p_values:', p_val)
+    print("\n")
+
+    r = np.asarray(r)
+    p_val = np.asarray(p_val)
+
+    r_final.append(r)
+    p_val_final.append(p_val)
+
+#print(r_final)
+
+r_df = pd.DataFrame(data = r_final)
+r_df.columns = list(X.columns)
+r_df.index = improv_features
+
+p_val_df = pd.DataFrame(data=p_val_final)
+p_val_df.columns = list(X.columns)
+p_val_df.index = improv_features
+
+print("Done")

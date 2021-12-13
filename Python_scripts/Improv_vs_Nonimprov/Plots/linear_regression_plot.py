@@ -25,7 +25,9 @@ clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_l
 clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_left_result", "ndi_total", "mdi_total", "dash_total",
                      "PCS", "MCS", "mjoa_total"]
 
-improv_features_lr = ['change_ndi', 'change_dash', 'change_mjoa', 'change_MCS', 'change_PCS']
+#improv_features_lr = ['change_ndi', 'change_dash', 'change_mjoa', 'change_MCS', 'change_PCS']
+
+improv_features_lr = ['change_mjoa']
 
 ## Load Data
 
@@ -58,7 +60,7 @@ for n in range(len(improv_features_lr)):
 
     #Create list of rfe_features
     rfe_features = rankings["Feature"].tolist()
-    rfe_features = rfe_features[0:10]
+    rfe_features = rfe_features[0:5]
 
     print(improv_features_lr[n])
     print(rfe_features)
@@ -66,7 +68,7 @@ for n in range(len(improv_features_lr)):
     #Set data to variables
     X = all_data[rfe_features]
     y = all_data_raw[improv_features_lr[n]]
-    del rfe_features
+
     # Scale data
     X_scaled = preprocessing.scale(X)
 
@@ -79,44 +81,14 @@ for n in range(len(improv_features_lr)):
     y_pred = []
     y_conf = []
 
-    for i in range(len(X_scaled)):
-        # Splitting Data for tuning hyerparameters
-        X_train = np.delete(X_scaled, [i], axis=0)
-        y_train = y.drop([i], axis=0)
-
-        # Splitting Data for model
-        X_train = np.delete(X_scaled, [i], axis=0)
-        y_train = y.drop([i], axis=0)
-
-        X_test = X_scaled[i]
-        X_test = X_test.reshape(1, -1)
-        y_test = y[i]
-
-        # Generating linear regression model
-        clf = LinearRegression()
-
-        # Train the model using the training sets
-        clf.fit(X_train, y_train)
-
-        # Predict the response for test dataset
-        temp = clf.predict(X_test)
-        y_pred.append(temp[0])
-
-
-    y = np.asarray(y)
-    y_pred = np.asarray(y_pred)
-
-    # Model R2 score
-    print("Accuracy:", metrics.r2_score(y, y_pred))
-
-    # Model Mean Squared Error
-    print("Mean squared error:", metrics.mean_squared_error(y, y_pred))
-
-    #Model Root Mean Squared Array
-    print("Root mean squared error:", np.sqrt(metrics.mean_squared_error(y, y_pred)))
-
-    print("\n")
-
-
-
-
+    for i in range(len(rfe_features)):
+        plt.figure()
+        x_plot = all_data[rfe_features[i]]
+        y_plot = all_data_raw[improv_features_lr[n]]
+        plt.scatter(x_plot, y_plot, color='blue')
+        m, b = np.polyfit(x_plot, y_plot, 1)
+        plt.plot(x_plot, m*x_plot + b)
+        plt.title(rfe_features[i])
+        plt.xlabel("")
+        plt.ylabel("")
+        plt.show()
