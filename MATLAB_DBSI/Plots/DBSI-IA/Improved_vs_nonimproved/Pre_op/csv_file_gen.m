@@ -35,19 +35,6 @@ for n=1:numel(dhi_features)
     
     clear data_improv; clear data_non_improv; clear temp;
     
-    %Post-op data
-    file_name = strcat('improv_',dhi_features(n),'_data.mat');
-    temp = fullfile(in_dir,'Improved_vs_Nonimproved/Post_op/ROI/Improved/',file_name);
-    load(temp);
-    all_improv_post{n,1} = data_improv;
-    
-    file_name = strcat('non_improv_',dhi_features(n),'_data.mat');
-    temp = fullfile(in_dir,'Improved_vs_Nonimproved/Post_op/ROI/Nonimproved/',file_name);
-    load(temp);
-    all_non_improv_post{n,1} = data_non_improv;
-    
-    clear data_improv; clear data_non_improv; clear temp;
-    
 end
 
 %% Generate csv files
@@ -71,25 +58,6 @@ end
 t_improv_pre = table(feature_col, operation, group, data);
 clear group; clear operation; clear feature_col; clear data;
 
-% Improved post_op
-improv_post = length(all_improv_post{1,1})*numel(dhi_features);
-group = categorical([repmat({'Improved'},improv_post,1)]);
-operation = categorical([repmat({'Post_op'},improv_post,1)]);
-feature_col = [];
-data = [];
-for i=1:length(dhi_features)
-    
-    feature = repmat(dhi_features(i),length(all_improv_post{1,1}),1);
-    feature_col = [feature_col;feature];
-    
-    temp = [(all_improv_post{i,1})];
-    data = [data;temp];
-    
-end
-
-t_improv_post = table(feature_col, operation, group, data);
-clear group; clear operation; clear feature_col; clear data;
-
 %Non Improved pre_op
 
 non_improv_pre = length(all_non_improv_pre{1,1})*numel(dhi_features);
@@ -110,29 +78,9 @@ end
 t_non_improv_pre = table(feature_col, operation, group, data);
 clear group; clear operation; clear feature_col; clear data;
 
-%Non-improved post_op
-
-non_improv_post = length(all_non_improv_post{1,1})*numel(dhi_features);
-group = categorical([repmat({'Non-Improved'},non_improv_post,1)]);
-operation = categorical([repmat({'Post_op'},non_improv_post,1)]);
-feature_col = [];
-data = [];
-for i=1:length(dhi_features)
-    
-    feature = repmat(dhi_features(i),length(all_non_improv_post{1,1}),1);
-    feature_col = [feature_col;feature];
-    
-    temp = [(all_non_improv_post{i,1})];
-    data = [data;temp];
-    
-end
-
-t_non_improv_post = table(feature_col, operation, group, data);
-clear group; clear operation; clear feature_col; clear data;
-
 %Final table
 
-t_fin = [t_improv_pre;t_improv_post;t_non_improv_pre;t_non_improv_post];
+t_fin = [t_improv_pre;t_non_improv_pre];
 
 %% Save table 
 

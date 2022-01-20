@@ -15,11 +15,13 @@ csm_roi = '/media/functionalspinelab/RAID/Data/Dinal/DBSI_Manual_ROIs/Patient';
 
 %% Declare necessary variables
 
-% improv_subjects = [2,5,9,24,26,30,36,40,41,46]; %mJOA
-improv_subjects = [2,3,5,9,15,19,21,23,26,27,28,29,30,36,41,45,46];  %SF-36 PF
+improv_subjects = [2,4,5,9,10,13,14,20,19,21,22,26,30,34,36,40,41,42,43,44,46,49]; %mJOA
+% improv_subjects = [2,3,5,9,15,19,21,23,26,27,28,29,30,36,41,45,46];  %SF-36 PF
+% improv_subjects = [2,3,5,9,15,19,21,23,26,27,28,29,30,36,41,45,46]; %NASS
 
-% non_improv_subjects = [3,12,15,18,20,21,23,27,28,29,45,];  %mJOA
-non_improv_subjects = [12,18,20,24,40]; %SF-36 PF
+non_improv_subjects = [3,6,11,12,15,16,18,23,24,25,27,28,29,31,32,37,38,45,48,50];  %mJOA
+% non_improv_subjects = [12,18,20,24,40]; %SF-36 PF
+% non_improv_subjects = [12,18,20,24,40]; %NASS
 
 slices = (1:1:4);
 
