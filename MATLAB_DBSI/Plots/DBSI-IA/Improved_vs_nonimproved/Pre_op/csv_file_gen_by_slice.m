@@ -93,7 +93,7 @@ for j = 1:numel(slices)
     
     %% Save table
     
-    out_dir = "/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DHI/Pycharm_Data_improv_vs_nonimprov";
+    out_dir = "/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DBSI-IA/Pycharm_Data_improv_vs_nonimprov";
     terminal = strcat('all_ROI_by_slice_by_',slice_num,'_data.csv');
     writetable(t_fin,fullfile(out_dir,terminal));
     

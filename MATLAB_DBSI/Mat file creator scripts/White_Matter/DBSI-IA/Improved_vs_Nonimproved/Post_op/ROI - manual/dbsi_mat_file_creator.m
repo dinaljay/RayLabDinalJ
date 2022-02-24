@@ -9,8 +9,8 @@ addpath (genpath('/home/functionalspinelab/Desktop/Dinal/Scripts/MATLAB_DBSI'));
 %% File paths
 
 csm_path = '/media/functionalspinelab/RAID/Data/Dinal/DBSI_Data/CSM_New/Patient';
-out_dir_improv = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DBSI-IA/Improved_vs_Nonimproved/Pre_op/ROI_by_slice/Improved';
-out_dir_non_improv = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DBSI-IA/Improved_vs_Nonimproved/Pre_op/ROI_by_slice/Nonimproved';
+out_dir_improv = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DBSI-IA/Improved_vs_Nonimproved/Post_op/ROI/Improved';
+out_dir_non_improv = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DBSI-IA/Improved_vs_Nonimproved/Post_op/ROI/Nonimproved';
 
 csm_roi = '/media/functionalspinelab/RAID/Data/Dinal/DBSI_Manual_ROIs/Patient';
 
@@ -24,7 +24,8 @@ non_improv_subjects = [3,6,11,12,15,16,18,23,24,25,27,28,29,31,32,37,38,45,48,50
 % non_improv_subjects = [12,18,20,24,40]; %SF-36 PF
 % non_improv_subjects = [12,18,20,24,40]; %NASS
 
-slices = (1:1:4);
+%slices = (1:1:4);
+slices = [4];
 
 dhi_features = ["b0_map";"dti_adc_map";"dti_axial_map";"dti_b_map";"dti_dirx_map";"dti_diry_map";"dti_fa_map";"dti_g_map";...
     "dti_radial_map";"dti_rgba_map";"dti_rgba_map_itk";"dti_r_map";"fiber1_dirx_map";"fiber1_diry_map";"fiber1_dirz_map";...
@@ -53,7 +54,7 @@ for i = 1:numel(dhi_features)
             disp(num2str(slice_num));
             
             param_file = strcat(dhi_features(i),'.nii');
-            file_name = strcat('JB_CSM_P_S',int2str(slices(j)),'roi_wm.nii.gz');
+            file_name = strcat('JB_CSM_P_PostS_S',int2str(slices(j)),'roi_wm.nii.gz');
             mask_file = fullfile(csm_roi,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3/',file_name);
             dwi_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/dense/DHI_IA_results_0.3_0.3_3_3',param_file);
             
@@ -63,8 +64,9 @@ for i = 1:numel(dhi_features)
             expert_rois = double(mask);
             dwi_data = double(dwi_data);
             data = dwi_data(expert_rois>=1);
-            data_improv{k,j} = median(data, 'omitnan');
+            temp = [temp;data];
         end
+        data_improv{k,1} = median(temp,'omitnan');
         
     end
     terminal = strcat('improv_',dhi_features(i),'_data.mat');
@@ -92,7 +94,7 @@ for i = 1:numel(dhi_features)
             disp(num2str(slice_num));
             
             param_file = strcat(dhi_features(i),'.nii');
-            file_name = strcat('JB_CSM_P_S',int2str(slices(j)),'roi_wm.nii.gz');
+            file_name = strcat('JB_CSM_P_PostS_S',int2str(slices(j)),'roi_wm.nii.gz');
             mask_file = fullfile(csm_roi,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3/',file_name);
             dwi_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/dense/DHI_IA_results_0.3_0.3_3_3',param_file);
             
@@ -102,8 +104,9 @@ for i = 1:numel(dhi_features)
             expert_rois = double(mask);
             dwi_data = double(dwi_data);
             data = dwi_data(expert_rois>=1);
-            data_non_improv{k,j} = median(data, 'omitnan');
+            temp = [temp;data];
         end
+        data_non_improv{k,1} = median(temp,'omitnan');
         
     end
     terminal = strcat('non_improv_',dhi_features(i),'_data.mat');

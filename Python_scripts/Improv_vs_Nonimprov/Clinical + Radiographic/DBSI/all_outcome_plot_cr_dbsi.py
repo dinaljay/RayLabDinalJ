@@ -54,7 +54,9 @@ for n in range(len(improv_features)):
     y = all_data_raw[improv_features[n]]
 
     #Scale data
-    X_scaled = preprocessing.scale(X)
+    #X_scaled = preprocessing.scale(X)
+    scaler = preprocessing.StandardScaler()
+    X_scaled = scaler.fit_transform(X)
 
     # Tuning hyperparameters
     tuned_parameters = [{'kernel': ['linear'], 'C': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}]

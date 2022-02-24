@@ -26,8 +26,13 @@ non_improv_subjects = [3,6,11,12,15,16,18,23,24,25,27,28,29,31,32,37,38,45,48,50
 
 slices = (1:1:4);
 
-dhi_features = ["b0_map";"dti_adc_map";"dti_axial_map";"dti_fa_map";"dti_radial_map";"fiber1_axial_map";"fiber1_fa_map";...
-    "fiber1_radial_map";"fiber_fraction_map";"hindered_fraction_map";"restricted_fraction_map";"water_fraction_map"];
+dhi_features = ["b0_map";"dti_adc_map";"dti_axial_map";"dti_b_map";"dti_dirx_map";"dti_diry_map";"dti_dirz_map";"dti_fa_map";"dti_g_map";...
+    "dti_radial_map";"dti_rgba_map";"dti_rgba_map_itk";"dti_r_map";"fiber1_axial_map";"fiber1_dirx_map";"fiber1_diry_map";"fiber1_dirz_map";...    
+    "fiber1_fa_map";"fiber1_fiber_fraction_map";"fiber1_radial_map";"fiber1_rgba_map";"fiber1_rgba_map_itk";...
+    "fiber2_axial_map";"fiber2_dirx_map";"fiber2_diry_map";"fiber2_dirz_map";"fiber2_fa_map";...
+    "fiber2_fiber_fraction_map";"fiber2_radial_map";"fiber_fraction_map";...
+    "fraction_rgba_map";"hindered_adc_map";"hindered_fraction_map";"iso_adc_map";"model_v_map";"restricted_adc_map";"restricted_fraction_map";...
+    "water_adc_map";"water_fraction_map"];
 
 %% Load patient data for each condition
 
@@ -48,9 +53,9 @@ for i = 1:numel(dhi_features)
             disp(num2str(slice_num));
             
             param_file = strcat(dhi_features(i),'.nii');
-            file_name = strcat('JB_CSM_P_S',int2str(j),'roi_wm.nii.gz');
+            file_name = strcat('JB_CSM_P_S',int2str(slices(j)),'roi_wm.nii.gz');
             mask_file = fullfile(csm_roi,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3/',file_name);
-            dwi_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3',param_file);
+            dwi_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/dense/DHI_results_0.3_0.3_3_3',param_file);
             
             mask = niftiread(mask_file);
             dwi_data = niftiread(dwi_file);
@@ -87,9 +92,9 @@ for i = 1:numel(dhi_features)
             disp(num2str(slice_num));
             
             param_file = strcat(dhi_features(i),'.nii');
-            file_name = strcat('JB_CSM_P_S',int2str(j),'roi_wm.nii.gz');
+            file_name = strcat('JB_CSM_P_S',int2str(slices(j)),'roi_wm.nii.gz');
             mask_file = fullfile(csm_roi,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3/',file_name);
-            dwi_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3',param_file);
+            dwi_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/dense/DHI_results_0.3_0.3_3_3',param_file);
             
             mask = niftiread(mask_file);
             dwi_data = niftiread(dwi_file);

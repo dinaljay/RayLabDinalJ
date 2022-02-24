@@ -8,115 +8,39 @@ addpath (genpath('/home/functionalspinelab/Desktop/Dinal/Scripts/MATLAB_DBSI'));
 
 %% Declare necessary variables
 
-dhi_features = ["DTI ADC";"DTI Axial";"DTI FA";"DTI Radial";"Fiber Axial";"Fiber FA ";...
-    "Fiber Radial";"Fiber Fraction";"Hindered Fraction";"Restricted Fraction";"Water Fraction"];
+dhi_features = ["b0_map";"dti_adc_map";"dti_axial_map";"dti_b_map";"dti_dirx_map";"dti_diry_map";"dti_dirz_map";"dti_fa_map";"dti_g_map";...
+    "dti_radial_map";"dti_rgba_map";"dti_rgba_map_itk";"dti_r_map";"fiber1_axial_map";"fiber1_dirx_map";"fiber1_diry_map";"fiber1_dirz_map";...    
+    "fiber1_fa_map";"fiber1_fiber_fraction_map";"fiber1_radial_map";"fiber1_rgba_map";"fiber1_rgba_map_itk";...
+    "fiber2_axial_map";"fiber2_dirx_map";"fiber2_diry_map";"fiber2_dirz_map";"fiber2_fa_map";...
+    "fiber2_fiber_fraction_map";"fiber2_radial_map";"fiber_fraction_map";...
+    "fraction_rgba_map";"hindered_adc_map";"hindered_fraction_map";"iso_adc_map";"model_v_map";"restricted_adc_map";"restricted_fraction_map";...
+    "water_adc_map";"water_fraction_map"];
 
-%% Create variable stores for Pre-op
+in_dir = '/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI';
 
-%B0 map
-% load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI/Improved/improv_b0_map_data.mat');
-% load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI/Nonimproved/non_improv_b0_map_data.mat');
-% b0 = [cell2mat(data_improv);cell2mat(data_non_improv)];
-% clear data_improv; clear data_non_improv;
-
-% DTI_ADC Map
 load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI/Improved/improv_dti_adc_map_data.mat');
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI/Nonimproved/non_improv_dti_adc_map_data.mat');
 
-all_improv_pre{1,1} = data_improv;
-all_non_improv_pre{1,1} = data_non_improv;
 
-clear data_improv; clear data_non_improv;
+%% Create variable stores
 
-% DTI Axial Map
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI/Improved/improv_dti_axial_map_data.mat');
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI/Nonimproved/non_improv_dti_axial_map_data.mat');
+for n=1:numel(dhi_features)
+    
+    %Pre-op data
+    file_name = strcat('improv_',dhi_features(n),'_data.mat');
+    temp = fullfile(in_dir,'Improved_vs_Nonimproved/Pre_op/ROI/Improved/',file_name);
+    load(temp);
+    all_improv_pre{n,1} = data_improv(:,1);
+    
+    file_name = strcat('non_improv_',dhi_features(n),'_data.mat');
+    temp = fullfile(in_dir,'Improved_vs_Nonimproved/Pre_op/ROI/Nonimproved/',file_name);
+    load(temp);
+    all_non_improv_pre{n,1} = data_non_improv(:,1);
+    
+    clear data_improv; clear data_non_improv; clear temp;
+    
+    
+end
 
-all_improv_pre{2,1} = data_improv;
-all_non_improv_pre{2,1} = data_non_improv;
-
-clear data_improv; clear data_non_improv;
-
-% DTI FA Map
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI/Improved/improv_dti_fa_map_data.mat');
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI/Nonimproved/non_improv_dti_fa_map_data.mat');
-
-all_improv_pre{3,1} = data_improv;
-all_non_improv_pre{3,1} = data_non_improv;
-
-clear data_improv; clear data_non_improv;
-
-% DTI Radial Map
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI/Improved/improv_dti_radial_map_data.mat');
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI/Nonimproved/non_improv_dti_radial_map_data.mat');
-
-all_improv_pre{4,1} = data_improv;
-all_non_improv_pre{4,1} = data_non_improv;
-
-clear data_improv; clear data_non_improv;
-
-% Fiber Axial Map
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI/Improved/improv_fiber1_axial_map_data.mat');
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI/Nonimproved/non_improv_fiber1_axial_map_data.mat');
-
-all_improv_pre{5,1} = data_improv;
-all_non_improv_pre{5,1} = data_non_improv;
-
-clear data_improv; clear data_non_improv;
-
-% Fiber FA Map
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI/Improved/improv_fiber1_fa_map_data.mat');
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI/Nonimproved/non_improv_fiber1_fa_map_data.mat');
-
-all_improv_pre{6,1} = data_improv;
-all_non_improv_pre{6,1} = data_non_improv;
-
-clear data_improv; clear data_non_improv;
-
-% Fiber Radial Map
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI/Improved/improv_fiber1_radial_map_data.mat');
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI/Nonimproved/non_improv_fiber1_radial_map_data.mat');
-
-all_improv_pre{7,1} = data_improv;
-all_non_improv_pre{7,1} = data_non_improv;
-
-clear data_improv; clear data_non_improv;
-
-% Fiber Fraction Map
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI/Improved/improv_fiber_fraction_map_data.mat');
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI/Nonimproved/non_improv_fiber_fraction_map_data.mat');
-
-all_improv_pre{8,1} = data_improv;
-all_non_improv_pre{8,1} = data_non_improv;
-
-clear data_improv; clear data_non_improv;
-
-% Hindered Fraction Map
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI/Improved/improv_hindered_fraction_map_data.mat');
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI/Nonimproved/non_improv_hindered_fraction_map_data.mat');
-
-all_improv_pre{9,1} = data_improv;
-all_non_improv_pre{9,1} = data_non_improv;
-
-clear data_improv; clear data_non_improv;
-
-% Restricted Fraction Map
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI/Improved/improv_restricted_fraction_map_data.mat');
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI/Nonimproved/non_improv_restricted_fraction_map_data.mat');
-
-all_improv_pre{10,1} = data_improv;
-all_non_improv_pre{10,1} = data_non_improv;
-
-clear data_improv; clear data_non_improv;
-
-% Water Fraction Map
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI/Improved/improv_water_fraction_map_data.mat');
-load('/media/functionalspinelab/RAID/Data/Dinal/MATLAB_Data/DBSI/White_Matter/DHI/Improved_vs_Nonimproved/Pre_op/ROI/Nonimproved/non_improv_water_fraction_map_data.mat');
-
-all_improv_pre{11,1} = data_improv;
-all_non_improv_pre{11,1} = data_non_improv;
-
-clear data_improv; clear data_non_improv;
 
 %% Generate csv files
 
@@ -163,7 +87,7 @@ clear group; clear operation; clear feature_col; clear data;
 
 t_fin = [t_improv_pre;t_non_improv_pre];
 
-%% Save table 
+%% Save table
 
 out_dir = "/media/functionalspinelab/RAID/Data/Dinal/Pycharm_Data/White_Matter/DHI/Pycharm_Data_improv_vs_nonimprov";
 terminal = strcat('all_ROI','_data.csv');

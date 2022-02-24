@@ -65,7 +65,7 @@ for i = 1:numel(dhi_features)
             disp(num2str(slice_num));
             
             param_file = strcat(dhi_features(i),'.nii');
-            file_name = strcat('JB_CSM_C_S',int2str(j),'roi_wm.nii.gz');
+            file_name = strcat('JB_CSM_C_S',int2str(slices(j)),'roi_wm.nii.gz');
             mask_file = fullfile(control_roi,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3/',file_name);            
             dwi_file = fullfile(control_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/dense/DHI_results_0.3_0.3_3_3',param_file);
             
@@ -106,7 +106,7 @@ for i = 1:numel(dhi_features)
             disp(num2str(slice_num));
             
             param_file = strcat(dhi_features(i),'.nii');
-            file_name = strcat('JB_CSM_P_S',int2str(j),'roi_wm.nii.gz');
+            file_name = strcat('JB_CSM_P_S',int2str(slices(j)),'roi_wm.nii.gz');
             mask_file = fullfile(csm_roi,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3/',file_name);            
             dwi_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/dense/DHI_results_0.3_0.3_3_3',param_file);
             
@@ -146,7 +146,7 @@ for i = 1:numel(dhi_features)
             disp(num2str(slice_num));
             
             param_file = strcat(dhi_features(i),'.nii');
-            file_name = strcat('JB_CSM_P_S',int2str(j),'roi_wm.nii.gz');
+            file_name = strcat('JB_CSM_P_S',int2str(slices(j)),'roi_wm.nii.gz');
             mask_file = fullfile(csm_roi,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/DHI_results_0.3_0.3_3_3/',file_name);            
             dwi_file = fullfile(csm_path,subjectID,'/scan_1/dMRI_ZOOMit/',slice_num,'/all_volumes/dense/DHI_results_0.3_0.3_3_3',param_file);
             
