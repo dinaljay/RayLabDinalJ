@@ -8,6 +8,8 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.svm import SVC
 from sklearn.feature_selection import RFE
 from sklearn import metrics
+import scipy.stats as ss
+from sklearn.utils import resample
 from itertools import cycle
 
 ## Initialize features
@@ -36,13 +38,80 @@ all_data_raw = pd.read_csv(url, header=0)
 all_features = radiographic_features + clinical_features
 all_data = all_data_raw[all_features]
 
+def mean_CI(data):
+    mean = np.mean(np.array(data))
+    CI = ss.t.interval(
+        alpha=0.95,
+        df=len(data) - 1,
+        loc=np.mean(data),
+        scale=ss.sem(data)
+    )
+    lower = CI[0]
+    upper = CI[1]
+
+    return mean, lower, upper
+
+def roc_bootstrap(bootstrap, y_true, y_pred, y_conf):
+    sample_accuracy = []
+    sample_precision = []
+    sample_recall = []
+    sample_f1_Score = []
+    sample_auc = []
+    obs_vals = []
+
+    obs_vals.append(metrics.accuracy_score(y_true, y_pred))
+    obs_vals.append(metrics.precision_score(y_true, y_pred))
+    obs_vals.append(metrics.recall_score(y_true, y_pred))
+    obs_vals.append(metrics.f1_score(y_true, y_pred))
+    obs_vals.append(metrics.roc_auc_score(y_true, y_conf))
+
+    for j in range(bootstrap):
+
+        index = range(len(y_pred))
+        indices = resample(index, replace=True, n_samples=int(len(y_pred)))
+
+        sample_accuracy.append(metrics.accuracy_score(y_true[indices], y_pred[indices]))
+        sample_precision.append(metrics.precision_score(y_true[indices], y_pred[indices]))
+        sample_recall.append(metrics.recall_score(y_true[indices], y_pred[indices]))
+        sample_f1_Score.append(metrics.f1_score(y_true[indices], y_pred[indices]))
+        sample_auc.append(metrics.roc_auc_score(y_true[indices], y_conf[indices]))
+
+    ### Calculate mean and 95% CI
+    accuracies = mean_CI(sample_accuracy)
+    precisions = mean_CI(sample_precision)
+    recalls = mean_CI(sample_recall)
+    f1_scores = mean_CI(sample_f1_Score)
+    aucs = mean_CI(sample_auc)
+
+    obs_vals = np.around(obs_vals, 3)
+    accuracies = np.around(accuracies, 3)
+    precisions = np.around(precisions, 3)
+    recalls = np.around(recalls, 3)
+    f1_scores = np.around(f1_scores, 3)
+    aucs = np.around(aucs, 3)
+
+    # save results into dataframe
+    stat_roc_1 = pd.DataFrame(
+        [accuracies, precisions, recalls, f1_scores, aucs],
+        columns=['mean', '95% CI -', '95% CI +'],
+        index=['Accuracy', 'Precision', 'Recall', 'F1-Score', 'AUC']
+    )
+
+    stat_roc_2 = pd.DataFrame([obs_vals],
+                              index=['Observed Value'],
+                              columns=['Accuracy', 'Precision', 'Recall', 'F1-Score', 'AUC']
+                              )
+    stat_roc_fin = pd.concat([stat_roc_2.transpose(), stat_roc_1], axis=1)
+    # print(stat_roc)
+
+    return stat_roc_fin
+
 #Variables for ROC and PRC curves
 fpr = dict()
 tpr = dict()
 roc_auc = dict()
 precision = dict()
 recall = dict()
-prc_auc = dict()
 
 for n in range(len(improv_features)):
 
@@ -94,65 +163,9 @@ for n in range(len(improv_features)):
     y_pred = np.asarray(y_pred)
     y_conf = np.asarray(y_conf)
 
-    # Model Accuracy
-    print("Accuracy:", metrics.accuracy_score(y, y_pred))
+final_result = roc_bootstrap(1000, y, y_pred, y_conf)
+print(final_result)
 
-    # Model Precision
-    print("Precision:", metrics.precision_score(y, y_pred))
-
-    # Model Recall
-    print("Recall:", metrics.recall_score(y, y_pred))
-
-    # Model F1 score
-    print("F1 Score:", metrics.f1_score(y, y_pred))
-
-    #Calculate AUC
-    fpr[n], tpr[n], _ = metrics.roc_curve(y, y_conf)
-    roc_auc[n] = metrics.auc(fpr[n], tpr[n])
-    #roc_auc[n] = metrics.roc_auc_score(y, y_conf)
-    print("AUC:", roc_auc[n])
-    print("\n")
-
-    precision[n], recall[n], _ = metrics.precision_recall_curve(y.ravel(), y_conf.ravel())
-    prc_auc[n] = metrics.auc(recall[n], precision[n])
-
-#colors = cycle(['darkorange', 'red', 'green', 'navy', 'purple'])
-
-colors = cycle(['green'])
-
-
-#sys.exit()
-#Plot ROC curve
-
-for i, color in zip(range(len(improv_features)), colors):
-    plt.plot(fpr[i], tpr[i], color=color, lw=2, label='Area = {1:0.2f}' ''.format(i, roc_auc[i]))
-plt.title("Clinical+DTI-SVM", fontsize=14)
-plt.legend(loc='lower right', fontsize=12)
-plt.xlim([-0.05, 1.05])
-plt.ylim([-0.05, 1.05])
-plt.xlabel('1-Specificity', fontsize=13)
-plt.ylabel('Sensitivity', fontsize=13)
-plt.xticks(fontsize=12)
-plt.yticks(fontsize=12)
-plt.grid()
-plt.show()
-
-# Plot precision recall curve
-
-for i, color in zip(range(len(improv_features)), colors):
-    plt.plot(recall[i], precision[i], lw=2, color=color, linestyle='-',
-             label='Area = {1:0.2f}' ''.format(i, prc_auc[i]))
-
-plt.title("Clinical+DTI-SVM", fontsize=14)
-plt.xlabel("Recall", fontsize=13)
-plt.ylabel("Precision", fontsize=13)
-plt.xlim([-0.05, 1.05])
-plt.ylim([-0.05, 1.05])
-plt.legend(loc="lower right", fontsize=12)
-plt.xticks(fontsize=12)
-plt.yticks(fontsize=12)
-plt.grid()
-plt.show()
 
 
 

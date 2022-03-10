@@ -8,25 +8,30 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.svm import SVC
 from sklearn.feature_selection import RFE
 from sklearn import metrics
+import math
+import scipy.stats as ss
+from sklearn.utils import resample
 from itertools import cycle
+from sklearn.metrics import roc_auc_score
+from sklearn.metrics import roc_curve
 
 ## Initialize features
 
 
-radiographic_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radial_map", "fiber1_axial_map", "fiber1_fa_map",
+radiographic_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radial_map", "fiber1_axial_map",
+                         "fiber1_fa_map",
                          "fiber1_radial_map", "fiber_fraction_map", "hindered_adc_map", "hindered_fraction_map",
                          "iso_adc_map", "model_v_map", "restricted_adc_map", "restricted_fraction_map", "water_adc_map",
-                         "water_fraction_map", "fiber1_extra_axial_map", "fiber1_extra_fraction_map", "fiber1_extra_radial_map",
+                         "water_fraction_map", "fiber1_extra_axial_map", "fiber1_extra_fraction_map",
+                         "fiber1_extra_radial_map",
                          "fiber1_intra_axial_map", "fiber1_intra_fraction_map", "fiber1_intra_radial_map"]
 """
 clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_left_result", "ndi_total", "mdi_total", "dash_total",
                      "mjoa_total", "mjoa_recovery", "PCS", "MCS", "post_ndi_total", "post_mdi_total", "post_mjoa_total", "post_PCS", "post_MCS",
                      "change_ndi", "change_mdi", "change_dash", "change_mjoa", "change_PCS", "change_MCS"]
 """
-clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_left_result", "ndi_total", "mdi_total", "dash_total",
-                     "PCS", "MCS", "mjoa_total"]
-
-#improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve', 'MCS_improve', 'PCS_improve']
+clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_left_result", "ndi_total", "mdi_total",
+                     "dash_total", "PCS", "MCS", "mjoa_total"]
 
 improv_features = ['mjoa_improve']
 
@@ -34,13 +39,82 @@ improv_features = ['mjoa_improve']
 
 url = '/home/functionalspinelab/Desktop/Dinal/DBSI_data/dbsi_clinical_radiographic_data.csv'
 all_data_raw = pd.read_csv(url, header=0)
-#all_data_raw = all_data_raw.loc[all_data_raw['Group_ID'] == 1]
 
 # Filter Data
 all_features = radiographic_features + clinical_features
 all_data = all_data_raw[all_features]
 
-#Variables for ROC and PRC curves
+
+def mean_CI(data):
+    mean = np.mean(np.array(data))
+    CI = ss.t.interval(
+        alpha=0.95,
+        df=len(data) - 1,
+        loc=np.mean(data),
+        scale=ss.sem(data)
+    )
+    lower = CI[0]
+    upper = CI[1]
+
+    return mean, lower, upper
+
+
+def roc_bootstrap(bootstrap, y_true, y_pred, y_conf):
+    sample_accuracy = []
+    sample_precision = []
+    sample_recall = []
+    sample_f1_Score = []
+    sample_auc = []
+    obs_vals = []
+
+    obs_vals.append(metrics.accuracy_score(y_true, y_pred))
+    obs_vals.append(metrics.precision_score(y_true, y_pred))
+    obs_vals.append(metrics.recall_score(y_true, y_pred))
+    obs_vals.append(metrics.f1_score(y_true, y_pred))
+    obs_vals.append(metrics.roc_auc_score(y_true, y_conf))
+
+    for j in range(bootstrap):
+
+        index = range(len(y_pred))
+        indices = resample(index, replace=True, n_samples=int(len(y_pred)))
+
+        sample_accuracy.append(metrics.accuracy_score(y_true[indices], y_pred[indices]))
+        sample_precision.append(metrics.precision_score(y_true[indices], y_pred[indices]))
+        sample_recall.append(metrics.recall_score(y_true[indices], y_pred[indices]))
+        sample_f1_Score.append(metrics.f1_score(y_true[indices], y_pred[indices]))
+        sample_auc.append(metrics.roc_auc_score(y_true[indices], y_conf[indices]))
+
+    ### Calculate mean and 95% CI
+    accuracies = mean_CI(sample_accuracy)
+    precisions = mean_CI(sample_precision)
+    recalls = mean_CI(sample_recall)
+    f1_scores = mean_CI(sample_f1_Score)
+    aucs = mean_CI(sample_auc)
+
+    obs_vals = np.around(obs_vals, 3)
+    accuracies = np.around(accuracies, 3)
+    precisions = np.around(precisions, 3)
+    recalls = np.around(recalls, 3)
+    f1_scores = np.around(f1_scores, 3)
+    aucs = np.around(aucs, 3)
+
+    # save results into dataframe
+    stat_roc_1 = pd.DataFrame(
+        [accuracies, precisions, recalls, f1_scores, aucs],
+        columns=['mean', '95% CI -', '95% CI +'],
+        index=['Accuracy', 'Precision', 'Recall', 'F1-Score', 'AUC']
+    )
+
+    stat_roc_2 = pd.DataFrame([obs_vals],
+                              index=['Observed Value'],
+                              columns=['Accuracy', 'Precision', 'Recall', 'F1-Score', 'AUC']
+                              )
+    stat_roc_fin = pd.concat([stat_roc_2.transpose(), stat_roc_1], axis=1)
+    # print(stat_roc)
+
+    return stat_roc_fin
+
+# Variables for ROC and PRC curves
 fpr = dict()
 tpr = dict()
 roc_auc = dict()
@@ -54,8 +128,8 @@ for n in range(len(improv_features)):
     X = all_data.drop(['dti_adc_map', 'dti_axial_map', 'dti_fa_map', 'dti_radial_map'], axis=1)
     y = all_data_raw[improv_features[n]]
 
-    #Scale data
-    #X_scaled = preprocessing.scale(X)
+    # Scale data
+    # X_scaled = preprocessing.scale(X)
     scaler = preprocessing.StandardScaler()
     X_scaled = scaler.fit_transform(X)
 
@@ -66,7 +140,7 @@ for n in range(len(improv_features)):
     params = clf.best_params_
     cost = params['C']
 
-    #RFE
+    # RFE
     svc = SVC(kernel="linear", C=cost)
     selector = RFE(estimator=svc, step=1, n_features_to_select=10)
     final = selector.fit(X_scaled, y)
@@ -77,21 +151,21 @@ for n in range(len(improv_features)):
     rankings = pd.DataFrame(data=d)
     rankings = rankings.sort_values(by=['Ranking'])
 
-    #Create list of rfe_features
+    # Create list of rfe_features
     rfe_features = rankings["Feature"].tolist()
     rfe_features = rfe_features[0:10]
 
     print(improv_features[n])
     print(rfe_features)
 
-    #Set data to variables
+    # Set data to variables
     X = all_data[rfe_features]
     del rfe_features
     # Scale data
     X_scaled = preprocessing.scale(X)
     y = np.asarray(y)
 
-    #Implement leave one out cross validation
+    # Implement leave one out cross validation
     y_pred = []
     y_conf = []
 
@@ -129,66 +203,5 @@ for n in range(len(improv_features)):
     y_pred = np.asarray(y_pred)
     y_conf = np.asarray(y_conf)
 
-    # Model Accuracy
-    print("Accuracy:", metrics.accuracy_score(y, y_pred))
-
-    # Model Precision
-    print("Precision:", metrics.precision_score(y, y_pred))
-
-    # Model Recall
-    print("Recall:", metrics.recall_score(y, y_pred))
-
-    # Model F1 score
-    print("F1 Score:", metrics.f1_score(y, y_pred))
-
-    #Calculate AUC
-    fpr[n], tpr[n], _ = metrics.roc_curve(y, y_conf)
-    #roc_auc[n] = metrics.auc(fpr[n], tpr[n])
-    roc_auc[n] = metrics.roc_auc_score(y, y_conf)
-    print("AUC:", roc_auc[n])
-    print("\n")
-
-    precision[n], recall[n], _ = metrics.precision_recall_curve(y.ravel(), y_conf.ravel())
-    prc_auc[n] = metrics.auc(recall[n], precision[n])
-
-#colors = cycle(['darkorange', 'red', 'green', 'navy', 'purple'])
-
-colors = cycle(['green'])
-
-
-#sys.exit()
-#Plot ROC curve
-
-for i, color in zip(range(len(improv_features)), colors):
-    plt.plot(fpr[i], tpr[i], color=color, lw=2, label='Area = {1:0.2f}' ''.format(i, roc_auc[i]))
-plt.legend(loc='lower right', fontsize=12)
-plt.title("Clinical+DBSI-SVM", fontsize=14)
-plt.xlim([-0.05, 1.05])
-plt.ylim([-0.05, 1.05])
-plt.xlabel('1-Specificity', fontsize=13)
-plt.ylabel('Sensitivity', fontsize=13)
-plt.xticks(fontsize=12)
-plt.yticks(fontsize=12)
-plt.grid()
-plt.show()
-
-# Plot precision recall curve
-
-for i, color in zip(range(len(improv_features)), colors):
-    plt.plot(recall[i], precision[i], lw=2, color=color, linestyle='-',
-             label='Area = {1:0.2f}' ''.format(i, prc_auc[i]))
-
-plt.title("Clinical+DBSI-SVM", fontsize=14)
-plt.xlabel("Recall", fontsize=13)
-plt.ylabel("Precision", fontsize=13)
-plt.xlim([-0.05, 1.05])
-plt.ylim([-0.05, 1.05])
-plt.legend(loc="lower right", fontsize=12)
-plt.xticks(fontsize=12)
-plt.yticks(fontsize=12)
-plt.grid()
-plt.show()
-
-
-
-
+final_result = roc_bootstrap(1000, y, y_pred, y_conf)
+print(final_result)

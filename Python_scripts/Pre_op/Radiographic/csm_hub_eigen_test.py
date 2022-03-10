@@ -4,6 +4,14 @@ import os.path as path
 import matplotlib.pyplot as plt
 import pandas as pd
 import sys
+from sklearn import preprocessing
+from sklearn.model_selection import GridSearchCV
+from sklearn.svm import SVC
+from sklearn.feature_selection import RFE
+from sklearn import metrics
+from itertools import cycle
+
+hold = ["test"]
 
 ## Load Data
 
@@ -23,47 +31,86 @@ X_scaled = preprocessing.scale(X)
 y_pred = []
 y_conf = []
 
-for i in range(len(X_scaled)):
+for n in range(len(hold)):
 
-    # Splitting Data for tuning hyerparameters
-    X_train = np.delete(X_scaled, [i], axis=0)
-    y_train = y.drop([i], axis=0)
-
-    X_test = X_scaled[i]
-    X_test = X_test.reshape(1, -1)
-    y_test = y[i]
+    #Scale data
+    #X_scaled = preprocessing.scale(X)
+    scaler = preprocessing.StandardScaler()
+    X_scaled = scaler.fit_transform(X)
 
     # Tuning hyperparameters
-    from sklearn.model_selection import GridSearchCV
-    from sklearn.svm import SVC
-
     tuned_parameters = [{'kernel': ['linear'], 'C': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}]
     clf = GridSearchCV(SVC(), tuned_parameters, scoring='accuracy')
-    clf.fit(X_train, y_train)
+    clf.fit(X_scaled, y)
     params = clf.best_params_
     cost = params['C']
 
-    # Splitting Data for model
-    X_train = np.delete(X_scaled, [i], axis=0)
-    y_train = y.drop([i], axis=0)
+    #RFE
+    svc = SVC(kernel="linear", C=cost)
+    selector = RFE(estimator=svc, step=1, n_features_to_select=10)
+    final = selector.fit(X_scaled, y)
 
-    X_test = X_scaled[i]
-    X_test = X_test.reshape(1, -1)
-    y_test = y[i]
+    features = list(X.columns)
 
-    # Generating SVM model
-    clf = SVC(C=cost, kernel="linear")
+    d = {'Feature': features, 'Ranking': selector.ranking_}
+    rankings = pd.DataFrame(data=d)
+    rankings = rankings.sort_values(by=['Ranking'])
 
-    #Train the model using the training sets
-    clf.fit(X_train, y_train)
+    #Create list of rfe_features
+    rfe_features = rankings["Feature"].tolist()
+    rfe_features = rfe_features[0:10]
 
-    #Predict the response for test dataset
-    temp = clf.predict(X_test)
-    y_pred.append(temp[0])
+    print(hold[n])
+    print(rfe_features)
 
-    #Get confidence scores
-    temp = clf.decision_function(X_test)
-    y_conf.append(temp[0])
+    #Set data to variables
+    X = all_data[rfe_features]
+    del rfe_features
+    # Scale data
+    X_scaled = preprocessing.scale(X)
+
+    #Implement leave one out cross validation
+    y_pred = []
+    y_conf = []
+
+    for i in range(len(X_scaled)):
+        # Splitting Data for tuning hyerparameters
+        X_train = np.delete(X_scaled, [i], axis=0)
+        y_train = y.drop([i], axis=0)
+
+        X_test = X_scaled[i]
+        X_test = X_test.reshape(1, -1)
+        y_test = y[i]
+
+        # Tuning hyperparameters
+        tuned_parameters = [{'kernel': ['linear'], 'C': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}]
+        clf = GridSearchCV(SVC(), tuned_parameters, scoring='accuracy')
+        clf.fit(X_train, y_train)
+        params = clf.best_params_
+        cost = params['C']
+
+        # Splitting Data for model
+        X_train = np.delete(X_scaled, [i], axis=0)
+        y_train = y.drop([i], axis=0)
+
+        X_test = X_scaled[i]
+        X_test = X_test.reshape(1, -1)
+        y_test = y[i]
+
+        # Generating SVM model
+        clf = SVC(C=cost, kernel="linear")
+
+        # Train the model using the training sets
+        clf.fit(X_train, y_train)
+
+        # Predict the response for test dataset
+        temp = clf.predict(X_test)
+        y_pred.append(temp[0])
+
+        # Get confidence scores
+        temp = clf.decision_function(X_test)
+        y_conf.append(temp[0])
+
 
 y = np.asarray(y)
 y_pred = np.asarray(y_pred)
