@@ -19,9 +19,10 @@ radiographic_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radi
                          "water_fraction_map", "fiber1_extra_axial_map", "fiber1_extra_fraction_map", "fiber1_extra_radial_map",
                          "fiber1_intra_axial_map", "fiber1_intra_fraction_map", "fiber1_intra_radial_map"]
 
-#improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve', 'MCS_improve', 'PCS_improve']
 
-improv_features = ['mjoa_improve']
+#improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve', 'MCS_improve', 'PCS_improve', 'new_mjoa_improve']
+
+improv_features = ['new_mjoa_improve']
 
 
 ## Load Data

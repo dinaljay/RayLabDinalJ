@@ -8,35 +8,19 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.svm import SVC
 from sklearn.feature_selection import RFE
 from sklearn import metrics
-import math
+from itertools import cycle
 import scipy.stats as ss
 from sklearn.utils import resample
-from itertools import cycle
-from sklearn.metrics import roc_auc_score
-from sklearn.metrics import roc_curve
 
 ## Initialize features
 
-
-radiographic_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radial_map", "fiber1_axial_map",
-                         "fiber1_fa_map",
-                         "fiber1_radial_map", "fiber_fraction_map", "hindered_adc_map", "hindered_fraction_map",
-                         "iso_adc_map", "model_v_map", "restricted_adc_map", "restricted_fraction_map", "water_adc_map",
-                         "water_fraction_map", "fiber1_extra_axial_map", "fiber1_extra_fraction_map",
-                         "fiber1_extra_radial_map",
-                         "fiber1_intra_axial_map", "fiber1_intra_fraction_map", "fiber1_intra_radial_map"]
-"""
-clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_left_result", "ndi_total", "mdi_total", "dash_total",
-                     "mjoa_total", "mjoa_recovery", "PCS", "MCS", "post_ndi_total", "post_mdi_total", "post_mjoa_total", "post_PCS", "post_MCS",
-                     "change_ndi", "change_mdi", "change_dash", "change_mjoa", "change_PCS", "change_MCS"]
-"""
 
 clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_left_result", "ndi_total", "mdi_total", "dash_total",
                      "PCS", "MCS", "mjoa_total", "Elix_1", "Elix_2", "Elix_3", "Elix_4", "Elix_5", "smoking"]
 
 #improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve', 'MCS_improve', 'PCS_improve', 'mdi_improve', 'new_mjoa_improve']
 
-improv_features = ['PCS_improve']
+improv_features = ['new_mjoa_improve']
 
 ## Load Data
 
@@ -44,9 +28,8 @@ url = '/home/functionalspinelab/Desktop/Dinal/DBSI_data/dbsi_clinical_radiograph
 all_data_raw = pd.read_csv(url, header=0)
 
 # Filter Data
-all_features = radiographic_features + clinical_features
+all_features = clinical_features
 all_data = all_data_raw[all_features]
-
 
 def mean_CI(data):
     mean = np.mean(np.array(data))
@@ -117,7 +100,7 @@ def roc_bootstrap(bootstrap, y_true, y_pred, y_conf):
 
     return stat_roc_fin
 
-# Variables for ROC and PRC curves
+#Variables for ROC and PRC curves
 fpr = dict()
 tpr = dict()
 roc_auc = dict()
@@ -128,54 +111,22 @@ prc_auc = dict()
 for n in range(len(improv_features)):
 
     # Set data to variables
-    X = all_data.drop(['dti_adc_map', 'dti_axial_map', 'dti_fa_map', 'dti_radial_map'], axis=1)
+    X = all_data
     y = all_data_raw[improv_features[n]]
 
-    # Scale data
-    # X_scaled = preprocessing.scale(X)
-    scaler = preprocessing.StandardScaler()
-    X_scaled = scaler.fit_transform(X)
-
-    # Tuning hyperparameters
-    tuned_parameters = [{'kernel': ['linear'], 'C': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}]
-    clf = GridSearchCV(SVC(), tuned_parameters, scoring='accuracy')
-    clf.fit(X_scaled, y)
-    params = clf.best_params_
-    cost = params['C']
-
-    # RFE
-    svc = SVC(kernel="linear", C=cost)
-    selector = RFE(estimator=svc, step=1, n_features_to_select=1)
-    final = selector.fit(X_scaled, y)
-
-    features = list(X.columns)
-
-    d = {'Feature': features, 'Ranking': selector.ranking_}
-    rankings = pd.DataFrame(data=d)
-    rankings = rankings.sort_values(by=['Ranking'])
-
-    # Create list of rfe_features
-    rfe_features = rankings["Feature"].tolist()
-    rfe_features = rfe_features[0:10]
+    #Scale data
+    X_scaled = preprocessing.scale(X)
 
     print(improv_features[n])
-    print(rfe_features)
 
-    # Set data to variables
-    X = all_data[rfe_features]
-    del rfe_features
-    # Scale data
-    X_scaled = preprocessing.scale(X)
-    y = np.asarray(y)
-
-    # Implement leave one out cross validation
+    #Implement leave one out cross validation
     y_pred = []
     y_conf = []
 
     for i in range(len(X_scaled)):
         # Splitting Data for tuning hyerparameters
         X_train = np.delete(X_scaled, [i], axis=0)
-        y_train = np.delete(y, [i])
+        y_train = y.drop([i], axis=0)
 
         X_test = X_scaled[i]
         X_test = X_test.reshape(1, -1)
@@ -187,6 +138,14 @@ for n in range(len(improv_features)):
         clf.fit(X_train, y_train)
         params = clf.best_params_
         cost = params['C']
+
+        # Splitting Data for model
+        X_train = np.delete(X_scaled, [i], axis=0)
+        y_train = y.drop([i], axis=0)
+
+        X_test = X_scaled[i]
+        X_test = X_test.reshape(1, -1)
+        y_test = y[i]
 
         # Generating SVM model
         clf = SVC(C=cost, kernel="linear")

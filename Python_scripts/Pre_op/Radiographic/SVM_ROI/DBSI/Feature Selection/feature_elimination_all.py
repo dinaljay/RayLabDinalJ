@@ -44,7 +44,8 @@ filter_dbsi_ia = all_data_dbsi_ia[filter_dbsi_ia_features]
 
 all_data = pd.concat([filter_dhi, filter_dbsi_ia], axis=1)
 
-X = all_data
+#X = all_data
+X = all_data.drop(['dti_adc_map', 'dti_axial_map', 'dti_fa_map', 'dti_radial_map'], axis=1)
 y = all_data_dhi['Group_ID']
 
 # Scale data

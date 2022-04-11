@@ -13,9 +13,14 @@ from itertools import cycle
 ## Initialize features
 
 
-radiographic_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radial_map"]
+radiographic_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radial_map", "fiber1_axial_map", "fiber1_fa_map",
+                         "fiber1_radial_map", "fiber_fraction_map", "hindered_adc_map", "hindered_fraction_map",
+                         "iso_adc_map", "model_v_map", "restricted_adc_map", "restricted_fraction_map", "water_adc_map",
+                         "water_fraction_map", "fiber1_extra_axial_map", "fiber1_extra_fraction_map", "fiber1_extra_radial_map",
+                         "fiber1_intra_axial_map", "fiber1_intra_fraction_map", "fiber1_intra_radial_map"]
 
-#improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve', 'MCS_improve', 'PCS_improve', 'new_mjoa_improve']
+
+#improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve', 'MCS_improve', 'PCS_improve']
 
 improv_features = ['mjoa_improve']
 
@@ -40,14 +45,11 @@ prc_auc = dict()
 for n in range(len(improv_features)):
 
     # Set data to variables
-    X = all_data
+    X = all_data.drop(['dti_adc_map', 'dti_axial_map', 'dti_fa_map', 'dti_radial_map'], axis=1)
     y = all_data_raw[improv_features[n]]
 
     #Scale data
     X_scaled = preprocessing.scale(X)
-
-    print(improv_features[n])
-
 
     #Implement leave one out cross validation
     y_pred = []
@@ -63,11 +65,13 @@ for n in range(len(improv_features)):
         y_test = y[i]
 
         # Tuning hyperparameters
-        tuned_parameters = [{'kernel': ['linear'], 'C': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}]
+        tuned_parameters = [{'kernel': ['rbf'], 'C': [1e-3, 1e-2, 1e-1, 1, 10],
+                             'gamma':[1e-3, 1e-2, 1e-1, 1]}]
         clf = GridSearchCV(SVC(), tuned_parameters, scoring='accuracy')
         clf.fit(X_train, y_train)
         params = clf.best_params_
         cost = params['C']
+        gamma = params['gamma']
 
         # Splitting Data for model
         X_train = np.delete(X_scaled, [i], axis=0)
@@ -78,7 +82,7 @@ for n in range(len(improv_features)):
         y_test = y[i]
 
         # Generating SVM model
-        clf = SVC(C=cost, kernel="linear")
+        clf = SVC(C=cost, kernel="rbf", gamma=gamma)
 
         # Train the model using the training sets
         clf.fit(X_train, y_train)
@@ -116,40 +120,3 @@ for n in range(len(improv_features)):
 
     precision[n], recall[n], _ = metrics.precision_recall_curve(y.ravel(), y_conf.ravel())
     prc_auc[n] = metrics.auc(recall[n], precision[n])
-
-colors = cycle(['darkorange', 'red', 'green', 'navy', 'purple'])
-
-sys.exit()
-#Plot ROC curve
-
-for i, color in zip(range(len(improv_features)), colors):
-    plt.plot(fpr[i], tpr[i], color=color, lw=2, label='Area = {1:0.2f}' ''.format(i, roc_auc[i]))
-plt.legend(loc='lower right', fontsize=10)
-plt.xlim([-0.05, 1.05])
-plt.ylim([-0.05, 1.05])
-plt.xlabel('1-Specificity', fontsize=13)
-plt.ylabel('Sensitivity', fontsize=13)
-plt.xticks(fontsize=10)
-plt.yticks(fontsize=10)
-plt.grid()
-plt.show()
-
-# Plot precision recall curve
-
-for i, color in zip(range(len(improv_features)), colors):
-    plt.plot(recall[i], precision[i], lw=2, color=color, linestyle='-',
-             label='Area = {1:0.2f}' ''.format(i, prc_auc[i]))
-
-plt.xlabel("Recall", fontsize=13)
-plt.ylabel("Precision", fontsize=13)
-plt.xlim([-0.05, 1.05])
-plt.ylim([-0.05, 1.05])
-plt.legend(loc="lower right", fontsize=10)
-plt.xticks(fontsize=10)
-plt.yticks(fontsize=10)
-plt.grid()
-plt.show()
-
-
-
-
