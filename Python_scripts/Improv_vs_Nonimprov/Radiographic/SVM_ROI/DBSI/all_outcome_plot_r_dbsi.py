@@ -20,10 +20,9 @@ radiographic_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radi
                          "fiber1_intra_axial_map", "fiber1_intra_fraction_map", "fiber1_intra_radial_map"]
 
 
-#improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve', 'MCS_improve', 'PCS_improve', 'new_mjoa_improve']
+#improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve_1', 'MCS_improve', 'PCS_improve', 'mdi_improve', 'mjoa_improve_2']
 
-improv_features = ['new_mjoa_improve']
-
+improv_features = ['mjoa_improve_2']
 
 ## Load Data
 
@@ -71,7 +70,7 @@ for n in range(len(improv_features)):
 
     #Create list of rfe_features
     rfe_features = rankings["Feature"].tolist()
-    rfe_features = rfe_features[0:10]
+    rfe_features = rfe_features[0:5]
 
     print(improv_features[n])
     print(rfe_features)

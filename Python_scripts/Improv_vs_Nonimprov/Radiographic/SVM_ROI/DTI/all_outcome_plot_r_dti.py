@@ -15,10 +15,9 @@ from itertools import cycle
 
 radiographic_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radial_map"]
 
-#improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve', 'MCS_improve', 'PCS_improve', 'new_mjoa_improve']
+#improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve_1', 'MCS_improve', 'PCS_improve', 'mdi_improve', 'mjoa_improve_2']
 
-improv_features = ['mjoa_improve']
-
+improv_features = ['mjoa_improve_2']
 
 ## Load Data
 

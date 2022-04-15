@@ -18,17 +18,21 @@ radiographic_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radi
                          "iso_adc_map", "model_v_map", "restricted_adc_map", "restricted_fraction_map", "water_adc_map",
                          "water_fraction_map", "fiber1_extra_axial_map", "fiber1_extra_fraction_map", "fiber1_extra_radial_map",
                          "fiber1_intra_axial_map", "fiber1_intra_fraction_map", "fiber1_intra_radial_map"]
+
+
 """
 clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_left_result", "ndi_total", "mdi_total", "dash_total",
                      "mjoa_total", "mjoa_recovery", "PCS", "MCS", "post_ndi_total", "post_mdi_total", "post_mjoa_total", "post_PCS", "post_MCS",
                      "change_ndi", "change_mdi", "change_dash", "change_mjoa", "change_PCS", "change_MCS"]
 """
+
 clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_left_result", "ndi_total", "mdi_total", "dash_total",
-                     "PCS", "MCS", "mjoa_total"]
+                     "PCS", "MCS", "mjoa_total", "Elix_1", "Elix_2", "Elix_3", "Elix_4", "Elix_5", "smoking"]
 
-#improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve', 'MCS_improve', 'PCS_improve']
 
-improv_features = ['mjoa_improve']
+#improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve_1', 'MCS_improve', 'PCS_improve', 'mdi_improve', 'mjoa_improve_2']
+
+improv_features = ['mjoa_improve_2']
 
 ## Load Data
 
@@ -73,7 +77,7 @@ for n in range(len(improv_features)):
 
     #RFE
     svc = SVC(kernel="linear", C=cost)
-    selector = RFE(estimator=svc, step=1, n_features_to_select=10)
+    selector = RFE(estimator=svc, step=1, n_features_to_select=1)
     final = selector.fit(X_scaled, y)
 
     features = list(X.columns)
@@ -84,7 +88,7 @@ for n in range(len(improv_features)):
 
     #Create list of rfe_features
     rfe_features = rankings["Feature"].tolist()
-    rfe_features = rfe_features[0:10]
+    rfe_features = rfe_features[0:15]
 
     print(improv_features[n])
     print(rfe_features)
@@ -157,11 +161,12 @@ print("Beginning DTI classification")
 radiographic_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radial_map"]
 
 clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_left_result", "ndi_total", "mdi_total", "dash_total",
-                     "PCS", "MCS", "mjoa_total"]
+                     "PCS", "MCS", "mjoa_total", "Elix_1", "Elix_2", "Elix_3", "Elix_4", "Elix_5", "smoking"]
 
-#improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve', 'MCS_improve', 'PCS_improve']
 
-improv_features = ['mjoa_improve']
+#improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve_1', 'MCS_improve', 'PCS_improve', 'mdi_improve', 'mjoa_improve_2']
+
+improv_features = ['mjoa_improve_2']
 
 ## Load Data
 

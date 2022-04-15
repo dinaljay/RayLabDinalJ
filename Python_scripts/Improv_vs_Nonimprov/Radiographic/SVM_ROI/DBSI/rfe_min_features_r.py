@@ -32,9 +32,9 @@ clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_l
                      "dash_total",
                      "PCS", "MCS", "mjoa_total", "Elix_1", "Elix_2", "Elix_3", "Elix_4", "Elix_5", "smoking"]
 
-# improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve', 'MCS_improve', 'PCS_improve', 'mdi_improve', 'new_mjoa_improve']
+#improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve_1', 'MCS_improve', 'PCS_improve', 'mdi_improve', 'mjoa_improve_2']
 
-improv_features = ['PCS_improve']
+improv_features = ['mjoa_improve_2']
 
 ## Load Data
 
@@ -43,7 +43,7 @@ all_data_raw = pd.read_csv(url, header=0)
 # all_data_raw = all_data_raw.loc[all_data_raw['Group_ID'] == 1]
 
 # Filter Data
-all_features = radiographic_features + clinical_features
+all_features = radiographic_features
 all_data = all_data_raw[all_features]
 
 # Variables for ROC and PRC curves
@@ -55,7 +55,7 @@ recall = dict()
 prc_auc = dict()
 
 accuracies = []
-iterations = [4, 5, 6, 8]
+iterations = [3, 4, 5, 6]
 
 for n in range(len(improv_features)):
 

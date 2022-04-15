@@ -24,11 +24,11 @@ clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_l
                      "change_ndi", "change_mdi", "change_dash", "change_mjoa", "change_PCS", "change_MCS"]
 """
 clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_left_result", "ndi_total", "mdi_total", "dash_total",
-                     "PCS", "MCS", "mjoa_total"]
+                     "PCS", "MCS", "mjoa_total", "Elix_1", "Elix_2", "Elix_3", "Elix_4", "Elix_5", "smoking"]
 
-#improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve', 'MCS_improve', 'PCS_improve']
+improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve_1', 'MCS_improve', 'PCS_improve', 'mdi_improve', 'mjoa_improve_2']
 
-improv_features = ['mjoa_improve']
+#improv_features = ['mjoa_improve_2']
 
 ## Load Data
 
@@ -55,34 +55,10 @@ for n in range(len(improv_features)):
     y = all_data_raw[improv_features[n]]
 
     #Scale data
-    #X_scaled = preprocessing.scale(X)
-    scaler = preprocessing.StandardScaler()
-    X_scaled = scaler.fit_transform(X)
-
-    # Tuning hyperparameters
-    tuned_parameters = [{'kernel': ['linear'], 'C': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}]
-    clf = GridSearchCV(SVC(), tuned_parameters, scoring='accuracy')
-    clf.fit(X_scaled, y)
-    params = clf.best_params_
-    cost = params['C']
-
-    #RFE
-    svc = SVC(kernel="linear", C=cost)
-    selector = RFE(estimator=svc, step=1, n_features_to_select=1)
-    final = selector.fit(X_scaled, y)
-
-    features = list(X.columns)
-
-    d = {'Feature': features, 'Ranking': selector.ranking_}
-    rankings = pd.DataFrame(data=d)
-    rankings = rankings.sort_values(by=['Ranking'])
-
-    #Create list of rfe_features
-    rfe_features = rankings["Feature"].tolist()
-    rfe_features = rfe_features[0:10]
+    X_scaled = preprocessing.scale(X)
+    y = np.asarray(y)
 
     print(improv_features[n])
-    print(rfe_features)
 
     #Implement leave one out cross validation
     y_pred = []

@@ -22,11 +22,11 @@ clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_l
                      "change_ndi", "change_mdi", "change_dash", "change_mjoa", "change_PCS", "change_MCS"]
 """
 clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_left_result", "ndi_total", "mdi_total", "dash_total",
-                     "PCS", "MCS", "mjoa_total"]
+                     "PCS", "MCS", "mjoa_total", "Elix_1", "Elix_2", "Elix_3", "Elix_4", "Elix_5", "smoking"]
 
-#improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve', 'MCS_improve', 'PCS_improve']
+#improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve_1', 'MCS_improve', 'PCS_improve', 'mdi_improve', 'mjoa_improve_2']
 
-improv_features = ['mjoa_improve']
+improv_features = ['mjoa_improve_2']
 
 ## Load Data
 
