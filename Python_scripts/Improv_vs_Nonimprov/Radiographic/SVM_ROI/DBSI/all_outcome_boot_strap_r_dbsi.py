@@ -23,7 +23,7 @@ radiographic_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radi
 
 #improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve_1', 'MCS_improve', 'PCS_improve', 'mdi_improve', 'mjoa_improve_2']
 
-improv_features = ['mjoa_improve_2']
+improv_features = ['MCS_improve']
 
 ## Load Data
 
@@ -198,5 +198,6 @@ for n in range(len(improv_features)):
     y_pred = np.asarray(y_pred)
     y_conf = np.asarray(y_conf)
 
-final_result = roc_bootstrap(1000, y, y_pred, y_conf)
-print(final_result)
+    final_result = roc_bootstrap(1000, y, y_pred, y_conf)
+    print(final_result)
+    print("\n")

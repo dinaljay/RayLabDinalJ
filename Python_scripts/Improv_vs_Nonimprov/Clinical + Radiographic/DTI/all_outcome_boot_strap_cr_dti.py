@@ -163,8 +163,8 @@ for n in range(len(improv_features)):
     y_pred = np.asarray(y_pred)
     y_conf = np.asarray(y_conf)
 
-final_result = roc_bootstrap(1000, y, y_pred, y_conf)
-print(final_result)
+    final_result = roc_bootstrap(1000, y, y_pred, y_conf)
+    print(final_result)
 
 
 

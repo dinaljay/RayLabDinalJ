@@ -1,5 +1,5 @@
 % This script does a rank sum test to see if there is a significant
-% difference in mJOA scores between mild and moderate CSM patients
+% difference in age between controls and CSM patients
 
 close all;
 clear all;

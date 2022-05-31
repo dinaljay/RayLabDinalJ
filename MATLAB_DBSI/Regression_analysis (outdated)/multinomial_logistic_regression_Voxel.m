@@ -1,5 +1,5 @@
 % This script does a multinomial logistic regression using each DBSI feature to predict
-% for patient group
+% for patient group with each voxel being modeled as a patient
 
 close all;
 clear all;
