@@ -36,7 +36,7 @@ clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_l
 
 #improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve_1', 'MCS_improve', 'PCS_improve', 'mdi_improve', 'mjoa_improve_2']
 
-improv_features = ['mdi_improve']
+improv_features = ['mdi_improve_2']
 
 ## Load Data
 
@@ -156,7 +156,7 @@ for n in range(len(improv_features)):
 
     # Create list of rfe_features
     rfe_features = rankings["Feature"].tolist()
-    rfe_features = rfe_features[0:15]
+    rfe_features = rfe_features[0:5]
 
     print(improv_features[n])
     print(rfe_features)

@@ -34,7 +34,7 @@ clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_l
 
 #improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve_1', 'MCS_improve', 'PCS_improve', 'mdi_improve', 'mjoa_improve_2']
 
-improv_features = ['dash_improve']
+improv_features = ['mdi_improve_2']
 
 ## Load Data
 
