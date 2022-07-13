@@ -9,41 +9,31 @@ from sklearn.svm import SVC
 from sklearn.feature_selection import RFE
 from sklearn import metrics
 from itertools import cycle
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import confusion_matrix
 
 ## Initialize features
 
 
-radiographic_features = ["dti_adc_map", "dti_axial_map", "dti_fa_map", "dti_radial_map", "fiber1_axial_map", "fiber1_fa_map",
-                         "fiber1_radial_map", "fiber_fraction_map", "hindered_adc_map", "hindered_fraction_map",
-                         "iso_adc_map", "model_v_map", "restricted_adc_map", "restricted_fraction_map", "water_adc_map",
-                         "water_fraction_map", "fiber1_extra_axial_map", "fiber1_extra_fraction_map", "fiber1_extra_radial_map",
-                         "fiber1_intra_axial_map", "fiber1_intra_fraction_map", "fiber1_intra_radial_map"]
+radiographic_features = ["change_dti_adc", "change_dti_axial", "change_dti_fa", "change_dti_radial", "change_fiber1_axial", "change_fiber1_fa",
+                         "change_fiber1_radial", "change_fiber_fraction", "change_hindered_fraction",
+                         "change_nonrestricted_fraction", "change_restricted_fraction",
+                         "change_water_fraction", "change_fiber1_extra_axial", "change_fiber1_extra_fraction", "change_fiber1_extra_radial",
+                         "change_fiber1_intra_axial", "change_fiber1_intra_fraction", "change_fiber1_intra_radial"]
 
 
-"""
-clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_left_result", "ndi_total", "mdi_total", "dash_total",
-                     "mjoa_total", "mjoa_recovery", "PCS", "MCS", "post_ndi_total", "post_mdi_total", "post_mjoa_total", "post_PCS", "post_MCS",
-                     "change_ndi", "change_mdi", "change_dash", "change_mjoa", "change_PCS", "change_MCS"]
-"""
+improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve', 'MCS_improve', 'PCS_improve', 'mdi_improve', 'nass_improve']
 
-clinical_features = ["babinski_test", "hoffman_test", "avg_right_result", "avg_left_result", "ndi_total", "mdi_total", "dash_total",
-                     "PCS", "MCS", "mjoa_total", "Elix_1", "Elix_2", "Elix_3", "Elix_4", "Elix_5", "smoking"]
-
-
-#improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve_1', 'MCS_improve', 'PCS_improve', 'mdi_improve', 'mjoa_improve_2']
-
-improv_features = ['mjoa_improve_2']
+#improv_features = ['mjoa_improve']
 
 ## Load Data
 
-url = '/home/functionalspinelab/Desktop/Dinal/DBSI_data/dbsi_clinical_radiographic_data.csv'
+url = '/home/functionalspinelab/Desktop/Dinal/DBSI_data/csm_complete.csv'
 all_data_raw = pd.read_csv(url, header=0)
-#all_data_raw = all_data_raw.loc[all_data_raw['Group_ID'] == 1]
 
 # Filter Data
-all_features = radiographic_features + clinical_features
-all_data = all_data_raw[all_features]
+all_features = radiographic_features
+all_data = all_data_raw[all_features + improv_features]
+all_data = all_data.dropna()
 
 #Variables for ROC and PRC curves
 fpr = dict()
@@ -56,17 +46,16 @@ prc_auc = dict()
 for n in range(len(improv_features)):
 
     # Set data to variables
-    X = all_data.drop(['dti_adc_map', 'dti_axial_map', 'dti_fa_map', 'dti_radial_map'], axis=1)
-    y = all_data_raw[improv_features[n]]
+    X = all_data.drop(['change_dti_adc', 'change_dti_axial', 'change_dti_fa', 'change_dti_radial'], axis=1)
+    X = X.drop(improv_features, axis=1)
+    y = all_data[improv_features[n]]
+    y = y.reset_index(drop=True)
 
     #Scale data
-    #X_scaled = preprocessing.scale(X)
-    scaler = preprocessing.StandardScaler()
-    X_scaled = scaler.fit_transform(X)
+    X_scaled = preprocessing.scale(X)
 
     # Tuning hyperparameters
     tuned_parameters = [{'kernel': ['linear'], 'C': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}]
-
     clf = GridSearchCV(SVC(), tuned_parameters, scoring='accuracy')
     clf.fit(X_scaled, y)
     params = clf.best_params_
@@ -94,8 +83,7 @@ for n in range(len(improv_features)):
     X = all_data[rfe_features]
     del rfe_features
     # Scale data
-    X_scaled = scaler.fit_transform(X)
-    y = np.asarray(y)
+    X_scaled = preprocessing.scale(X)
 
     #Implement leave one out cross validation
     y_pred = []
@@ -104,7 +92,7 @@ for n in range(len(improv_features)):
     for i in range(len(X_scaled)):
         # Splitting Data for tuning hyerparameters
         X_train = np.delete(X_scaled, [i], axis=0)
-        y_train = np.delete(y, [i])
+        y_train = y.drop([i], axis=0)
 
         X_test = X_scaled[i]
         X_test = X_test.reshape(1, -1)
@@ -116,6 +104,14 @@ for n in range(len(improv_features)):
         clf.fit(X_train, y_train)
         params = clf.best_params_
         cost = params['C']
+
+        # Splitting Data for model
+        X_train = np.delete(X_scaled, [i], axis=0)
+        y_train = y.drop([i], axis=0)
+
+        X_test = X_scaled[i]
+        X_test = X_test.reshape(1, -1)
+        y_test = y[i]
 
         # Generating SVM model
         clf = SVC(C=cost, kernel="linear")
@@ -149,17 +145,31 @@ for n in range(len(improv_features)):
 
     #Calculate AUC
     fpr[n], tpr[n], _ = metrics.roc_curve(y, y_conf)
-    #roc_auc[n] = metrics.auc(fpr[n], tpr[n])
-    roc_auc[n] = metrics.roc_auc_score(y, y_conf)
+    roc_auc[n] = metrics.auc(fpr[n], tpr[n])
+    #roc_auc[n] = metrics.roc_auc_score(y, y_conf)
     print("AUC:", roc_auc[n])
-    print("\n")
 
     precision[n], recall[n], _ = metrics.precision_recall_curve(y.ravel(), y_conf.ravel())
     prc_auc[n] = metrics.auc(recall[n], precision[n])
 
-colors = cycle(['darkorange', 'red', 'green', 'navy', 'purple'])
+    #Confusion matrix
+    cm1 = confusion_matrix(y, y_pred)
 
-#colors = cycle(['green'])
+    ## Caclulate number of true positives, true negatives, false negatives and false positives
+    total1 = sum(sum(cm1))
+
+    # Specificity or true negative rate
+    specificity1 = cm1[0, 0] / (cm1[0, 0] + cm1[0, 1])
+    print('Specificity:', specificity1)
+
+    # Sensitivity or true positive rate
+    sensitivity1 = cm1[1, 1] / (cm1[1, 0] + cm1[1, 1])
+    print('Sensitivity:', sensitivity1)
+    print('\n')
+
+#colors = cycle(['darkorange', 'red', 'green', 'navy', 'purple'])
+
+colors = cycle(['green'])
 
 
 #sys.exit()
@@ -167,14 +177,13 @@ colors = cycle(['darkorange', 'red', 'green', 'navy', 'purple'])
 
 for i, color in zip(range(len(improv_features)), colors):
     plt.plot(fpr[i], tpr[i], color=color, lw=2, label='Area = {1:0.2f}' ''.format(i, roc_auc[i]))
-plt.legend(loc='lower right', fontsize=12)
-plt.title("Clinical+DBSI-SVM", fontsize=14)
+plt.legend(loc='lower right', fontsize=10)
 plt.xlim([-0.05, 1.05])
 plt.ylim([-0.05, 1.05])
 plt.xlabel('1-Specificity', fontsize=13)
 plt.ylabel('Sensitivity', fontsize=13)
-plt.xticks(fontsize=12)
-plt.yticks(fontsize=12)
+plt.xticks(fontsize=10)
+plt.yticks(fontsize=10)
 plt.grid()
 plt.show()
 
@@ -184,14 +193,13 @@ for i, color in zip(range(len(improv_features)), colors):
     plt.plot(recall[i], precision[i], lw=2, color=color, linestyle='-',
              label='Area = {1:0.2f}' ''.format(i, prc_auc[i]))
 
-plt.title("Clinical+DBSI-SVM", fontsize=14)
 plt.xlabel("Recall", fontsize=13)
 plt.ylabel("Precision", fontsize=13)
 plt.xlim([-0.05, 1.05])
 plt.ylim([-0.05, 1.05])
-plt.legend(loc="lower right", fontsize=12)
-plt.xticks(fontsize=12)
-plt.yticks(fontsize=12)
+plt.legend(loc="lower right", fontsize=10)
+plt.xticks(fontsize=10)
+plt.yticks(fontsize=10)
 plt.grid()
 plt.show()
 
