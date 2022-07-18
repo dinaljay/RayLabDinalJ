@@ -21,6 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="e05acb7d-33db-4e74-9eca-95a8aff48afc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Factor analysis/All patients/factor_all_patients.py" beforeDir="false" afterPath="$PROJECT_DIR$/Factor analysis/All patients/factor_all_patients.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Factor analysis/CSM only/factor_csm_only.py" beforeDir="false" afterPath="$PROJECT_DIR$/Factor analysis/CSM only/factor_csm_only.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +59,7 @@
       <recent name="$PROJECT_DIR$/Radiographic/SVM_ROI/DBSI/Classification" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.factor_all_patients">
+  <component name="RunManager" selected="Python.factor_csm_only (1)">
     <configuration name="eigen_vector_all" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Pre_op" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -121,6 +123,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="factor_csm_only (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Pre_op" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Factor analysis/CSM only" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Factor analysis/CSM only/factor_csm_only.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="factor_csm_only" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Pre_op" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -142,41 +165,20 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="tets" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Pre_op" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Factor analysis" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Factor analysis/tets.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
-      <item itemvalue="Python.tets" />
       <item itemvalue="Python.eigen_vector_count" />
       <item itemvalue="Python.factor_csm_only" />
       <item itemvalue="Python.eigen_vector_all" />
       <item itemvalue="Python.factor_all_patients" />
+      <item itemvalue="Python.factor_csm_only (1)" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.factor_csm_only (1)" />
+        <item itemvalue="Python.eigen_vector_count" />
+        <item itemvalue="Python.factor_csm_only" />
         <item itemvalue="Python.factor_all_patients" />
         <item itemvalue="Python.eigen_vector_all" />
-        <item itemvalue="Python.factor_csm_only" />
-        <item itemvalue="Python.eigen_vector_count" />
-        <item itemvalue="Python.tets" />
       </list>
     </recent_temporary>
   </component>
@@ -210,22 +212,22 @@
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
     <state x="780" y="297" width="424" height="482" key="FileChooserDialogImpl/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1654102371607" />
-    <state width="1832" height="305" key="GridCell.Tab.0.bottom" timestamp="1658156382673">
+    <state width="1832" height="305" key="GridCell.Tab.0.bottom" timestamp="1658158786246">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="305" key="GridCell.Tab.0.bottom/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1658156382673" />
-    <state width="1832" height="305" key="GridCell.Tab.0.center" timestamp="1658156382673">
+    <state width="1832" height="305" key="GridCell.Tab.0.bottom/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1658158786246" />
+    <state width="1832" height="305" key="GridCell.Tab.0.center" timestamp="1658158786245">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="305" key="GridCell.Tab.0.center/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1658156382673" />
-    <state width="1832" height="305" key="GridCell.Tab.0.left" timestamp="1658156382672">
+    <state width="1832" height="305" key="GridCell.Tab.0.center/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1658158786245" />
+    <state width="1832" height="305" key="GridCell.Tab.0.left" timestamp="1658158786245">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="305" key="GridCell.Tab.0.left/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1658156382672" />
-    <state width="1832" height="305" key="GridCell.Tab.0.right" timestamp="1658156382673">
+    <state width="1832" height="305" key="GridCell.Tab.0.left/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1658158786245" />
+    <state width="1832" height="305" key="GridCell.Tab.0.right" timestamp="1658158786245">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="305" key="GridCell.Tab.0.right/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1658156382673" />
+    <state width="1832" height="305" key="GridCell.Tab.0.right/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1658158786245" />
     <state width="1832" height="365" key="GridCell.Tab.1.bottom" timestamp="1658155837593">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>

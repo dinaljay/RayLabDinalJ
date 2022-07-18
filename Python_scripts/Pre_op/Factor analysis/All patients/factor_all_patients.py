@@ -43,7 +43,8 @@ fa.fit(X_scaled)
 
 ## Print loadings
 # print(fa.loadings_)
-print(pd.DataFrame(fa.loadings_, index=X.columns))
+loadings = pd.DataFrame(fa.loadings_, index=X.columns, columns=['Factor 1', 'Factor 2', 'Factor 3', 'Factor 4', 'Factor 5'])
+print(loadings)
 print("\n")
 
 ## Rotation matrix
@@ -51,8 +52,16 @@ print("\n")
 #print("\n")
 
 ## Variance explained by each factor
-print(pd.DataFrame(fa.get_factor_variance(), index=['Variance', 'Proportional Var', 'Cumulative Var']))
+variance = pd.DataFrame(fa.get_factor_variance(), index=['Variance', 'Proportional Var', 'Cumulative Var'], columns=['Factor 1', 'Factor 2', 'Factor 3', 'Factor 4', 'Factor 5'])
+print(variance)
 print("\n")
 
 ## Communalities
-print(pd.DataFrame(fa.get_communalities(), index=X.columns, columns=['Communalities']))
+communality = pd.DataFrame(fa.get_communalities(), index=X.columns, columns=['Communalities'])
+print((communality))
+
+with pd.ExcelWriter(r'/home/functionalspinelab/Desktop/Factor_analysis/factor_analysis_all.xlsx') as writer:
+    loadings.to_excel(writer, sheet_name='Factor Loadings', index=True, header=True)
+    variance.to_excel(writer, sheet_name='Variance', index=True, header=True)
+    communality.to_excel(writer, sheet_name='Communalities', index=True, header=True)
+
