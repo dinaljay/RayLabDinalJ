@@ -48,16 +48,17 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Radiographic/SVM_ROI/DBSI/Classification" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Factor analysis" />
     <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Factor analysis" />
       <recent name="$PROJECT_DIR$/Radiographic/SVM_ROI/DBSI/Classification" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test">
-    <configuration name="cluster_dbsi" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.factor_all_patients">
+    <configuration name="eigen_vector_all" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Pre_op" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -65,11 +66,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Radiographic/Clustering/DBSI" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Factor analysis/All patients" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Radiographic/Clustering/DBSI/cluster_dbsi.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Factor analysis/All patients/eigen_vector_all.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -78,7 +79,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="csm_hub_eigen_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="eigen_vector_count" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Pre_op" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -86,11 +87,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Radiographic" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Factor analysis" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Radiographic/csm_hub_eigen_test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Factor analysis/eigen_vector_count.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -99,7 +100,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="feature_elimination_all" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="factor_all_patients" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Pre_op" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -107,11 +108,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Radiographic/SVM_ROI/DBSI/Feature Selection" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Factor analysis/All patients" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Radiographic/SVM_ROI/DBSI/Feature Selection/feature_elimination_all.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Factor analysis/All patients/factor_all_patients.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -120,7 +121,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="silhouette" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="factor_csm_only" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Pre_op" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -128,11 +129,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Radiographic/Clustering/DBSI" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Factor analysis" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Radiographic/Clustering/DBSI/silhouette.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Factor analysis/factor_csm_only.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -141,7 +142,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="tets" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Pre_op" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -149,11 +150,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Radiographic/SVM_ROI/DBSI/Classification" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Factor analysis" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Radiographic/SVM_ROI/DBSI/Classification/test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Factor analysis/tets.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -163,19 +164,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.cluster_dbsi" />
-      <item itemvalue="Python.csm_hub_eigen_test" />
-      <item itemvalue="Python.feature_elimination_all" />
-      <item itemvalue="Python.silhouette" />
-      <item itemvalue="Python.test" />
+      <item itemvalue="Python.tets" />
+      <item itemvalue="Python.eigen_vector_count" />
+      <item itemvalue="Python.factor_csm_only" />
+      <item itemvalue="Python.eigen_vector_all" />
+      <item itemvalue="Python.factor_all_patients" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test" />
-        <item itemvalue="Python.csm_hub_eigen_test" />
-        <item itemvalue="Python.feature_elimination_all" />
-        <item itemvalue="Python.cluster_dbsi" />
-        <item itemvalue="Python.silhouette" />
+        <item itemvalue="Python.factor_all_patients" />
+        <item itemvalue="Python.eigen_vector_all" />
+        <item itemvalue="Python.factor_csm_only" />
+        <item itemvalue="Python.eigen_vector_count" />
+        <item itemvalue="Python.tets" />
       </list>
     </recent_temporary>
   </component>
@@ -209,38 +210,42 @@
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
     <state x="780" y="297" width="424" height="482" key="FileChooserDialogImpl/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1654102371607" />
-    <state width="1832" height="305" key="GridCell.Tab.0.bottom" timestamp="1651258145563">
+    <state width="1832" height="305" key="GridCell.Tab.0.bottom" timestamp="1658156382673">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="305" key="GridCell.Tab.0.bottom/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1651258145563" />
-    <state width="1832" height="305" key="GridCell.Tab.0.center" timestamp="1651258145562">
+    <state width="1832" height="305" key="GridCell.Tab.0.bottom/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1658156382673" />
+    <state width="1832" height="305" key="GridCell.Tab.0.center" timestamp="1658156382673">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="305" key="GridCell.Tab.0.center/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1651258145562" />
-    <state width="1832" height="305" key="GridCell.Tab.0.left" timestamp="1651258145562">
+    <state width="1832" height="305" key="GridCell.Tab.0.center/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1658156382673" />
+    <state width="1832" height="305" key="GridCell.Tab.0.left" timestamp="1658156382672">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="305" key="GridCell.Tab.0.left/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1651258145562" />
-    <state width="1832" height="305" key="GridCell.Tab.0.right" timestamp="1651258145562">
+    <state width="1832" height="305" key="GridCell.Tab.0.left/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1658156382672" />
+    <state width="1832" height="305" key="GridCell.Tab.0.right" timestamp="1658156382673">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="305" key="GridCell.Tab.0.right/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1651258145562" />
-    <state width="1832" height="365" key="GridCell.Tab.1.bottom" timestamp="1646949833428">
+    <state width="1832" height="305" key="GridCell.Tab.0.right/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1658156382673" />
+    <state width="1832" height="365" key="GridCell.Tab.1.bottom" timestamp="1658155837593">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="365" key="GridCell.Tab.1.bottom/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1646949833428" />
-    <state width="1832" height="365" key="GridCell.Tab.1.center" timestamp="1646949833428">
+    <state width="1832" height="365" key="GridCell.Tab.1.bottom/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1658155837593" />
+    <state width="1832" height="365" key="GridCell.Tab.1.center" timestamp="1658155837592">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="365" key="GridCell.Tab.1.center/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1646949833428" />
-    <state width="1832" height="365" key="GridCell.Tab.1.left" timestamp="1646949833428">
+    <state width="1832" height="365" key="GridCell.Tab.1.center/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1658155837592" />
+    <state width="1832" height="365" key="GridCell.Tab.1.left" timestamp="1658155837592">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="365" key="GridCell.Tab.1.left/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1646949833428" />
-    <state width="1832" height="365" key="GridCell.Tab.1.right" timestamp="1646949833428">
+    <state width="1832" height="365" key="GridCell.Tab.1.left/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1658155837592" />
+    <state width="1832" height="365" key="GridCell.Tab.1.right" timestamp="1658155837592">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1832" height="365" key="GridCell.Tab.1.right/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1646949833428" />
+    <state width="1832" height="365" key="GridCell.Tab.1.right/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1658155837592" />
+    <state x="611" y="210" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1657807439731">
+      <screen x="65" y="24" width="1855" height="1056" />
+    </state>
+    <state x="611" y="210" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/65.24.1855.1056/1920.0.1920.1080@65.24.1855.1056" timestamp="1657807439731" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
