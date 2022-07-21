@@ -37,6 +37,7 @@ cm_subjects = [mild_cm_subjects,moderate_cm_subjects];
 cm_subjects = sort(cm_subjects,2);
 
 slices = (1:1:4);
+% slices = (4);
 
 dhi_features = ["b0_map";"dti_adc_map";"dti_axial_map";"dti_b_map";"dti_dirx_map";"dti_diry_map";"dti_fa_map";"dti_g_map";...
     "dti_radial_map";"dti_rgba_map";"dti_rgba_map_itk";"dti_r_map";"fiber1_dirx_map";"fiber1_diry_map";"fiber1_dirz_map";...
