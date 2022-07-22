@@ -23,10 +23,9 @@ radiographic_features = ["change_dti_adc", "change_dti_axial", "change_dti_fa", 
                          "change_fiber1_extra_radial",
                          "change_fiber1_intra_axial", "change_fiber1_intra_fraction", "change_fiber1_intra_radial"]
 
-improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve', 'MCS_improve', 'PCS_improve', 'mdi_improve',
-                   'nass_improve']
+# improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve', 'MCS_improve', 'PCS_improve', 'mdi_improve', 'nass_improve']
 
-# improv_features = ['mjoa_improve']
+improv_features = ['mjoa_improve', 'MCS_improve']
 
 ## Load Data
 

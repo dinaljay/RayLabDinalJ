@@ -22,9 +22,9 @@ radiographic_features = ["post_dti_adc", "post_dti_axial", "post_dti_fa", "post_
                          "post_fiber1_intra_axial", "post_fiber1_intra_fraction", "post_fiber1_intra_radial"]
 
 
-improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve', 'MCS_improve', 'PCS_improve', 'mdi_improve','nass_improve']
+#improv_features = ['ndi_improve', 'dash_improve', 'mjoa_improve', 'MCS_improve', 'PCS_improve', 'mdi_improve','nass_improve']
 
-#improv_features = ['mjoa_improve']
+improv_features = ['mjoa_improve', 'MCS_improve']
 
 ## Load Data
 

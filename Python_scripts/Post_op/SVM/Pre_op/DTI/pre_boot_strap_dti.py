@@ -73,7 +73,6 @@ def roc_bootstrap(bootstrap, y_true, y_pred, y_conf):
     obs_vals.append(metrics.roc_auc_score(y_true, y_conf))
 
     for j in range(bootstrap):
-
         index = range(len(y_pred))
         indices = resample(index, replace=True, n_samples=int(len(y_pred)))
 

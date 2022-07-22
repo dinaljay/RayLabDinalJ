@@ -8,15 +8,15 @@ library(readxl)
 
 setwd("/home/functionalspinelab/Desktop/JNS_paper")
 rm(list = ls())
-colors = c("red2", "forestgreen", "blue3")
+colors = c("indianred1", "lightgreen", "lightskyblue1")
 
 postop <- read_xlsx("/home/functionalspinelab/Downloads/Post_op_data.xlsx", col_names = TRUE, 
-                   sheet = "Accuracy")
+                   sheet = "F1-Score")
 
 post_plot <- ggplot(data=postop, aes(x=Feature_set, y = Performance, fill = Metric))+
-  geom_bar(stat = "identity", color = "black", width = 0.85, position = position_dodge2(reverse = TRUE, preserve = "single"))+
+  geom_bar(stat = "identity", color = "black", width = 0.7, position = position_dodge2(reverse = TRUE, preserve = "single"))+
   guides(fill = guide_legend(reverse = TRUE))+
-  geom_errorbar(aes(ymin = Lower, ymax = Upper), stat = "identity", colour = "black", size = 0.6, width = 0.85, position = position_dodge2(preserve = "single", reverse = TRUE))
+  geom_errorbar(aes(ymin = Lower, ymax = Upper), stat = "identity", colour = "black", width = 0.7, position = position_dodge2(preserve = "single", reverse = TRUE))
 
 mytheme3 <- theme(legend.text = element_text(family = "Helvetica", size = rel(1.5), color="black"), 
                   axis.title = element_text(family = "Helvetica", size = rel(1.5), color="black"), 
@@ -31,11 +31,11 @@ mytheme3 <- theme(legend.text = element_text(family = "Helvetica", size = rel(1.
                   legend.title = element_blank(), 
                   plot.title = element_text(face = "bold", size = rel(1.7),family = "Helvetica", hjust = 0.5))
 
-plot_fin <- print(post_plot + mytheme3+ ggtitle("Accuracy")
+plot_fin <- print(post_plot + mytheme3+ ggtitle("")
                   + scale_x_discrete(limits=c("DTI", "DBSI"))
-                  + labs(y="Performance (%)", x = "", colour = "Feature_set")
+                  + labs(y="F1-Score (%)", x = "", colour = "Feature_set")
                   + scale_fill_manual(values = colors)
                   + scale_y_continuous(expand = c(0,0), limits = c(0,100)))
 
-ggsave("Accuracy.tiff", plot_fin, width = 7, height = 5.5, units = 'in', dpi=300)
+ggsave("F1-Score.pdf", plot_fin, width = 7, height = 5.5, units = 'in', dpi=300)
 

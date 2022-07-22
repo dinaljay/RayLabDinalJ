@@ -14,7 +14,7 @@ from sklearn.metrics import confusion_matrix
 ## Initialize features
 
 
-radiographic_features = ["change_dti_adc", "change_dti_axial", "change_dti_fa", "change_dti_radial", "change_fiber1_axial", "change_fiber1_fa",
+radiographic_features = ["record_id", "change_dti_adc", "change_dti_axial", "change_dti_fa", "change_dti_radial", "change_fiber1_axial", "change_fiber1_fa",
                          "change_fiber1_radial", "change_fiber_fraction", "change_hindered_fraction",
                          "change_nonrestricted_fraction", "change_restricted_fraction",
                          "change_water_fraction", "change_fiber1_extra_axial", "change_fiber1_extra_fraction", "change_fiber1_extra_radial",
